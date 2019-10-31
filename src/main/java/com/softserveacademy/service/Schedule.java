@@ -15,64 +15,46 @@ public class Schedule {
         return events;
     }
 
-    public void addEvent(Event event) throws IllegalArgumentException {
+    public void addEvent(Event event) throws IncorrectScheduleExcepttion {
         if (events.contains(event))
-            throw somethingWentWrongException(event);
+            throw new IncorrectScheduleExcepttion(event, events);
         else
             events.add(event);
     }
 
-    public IllegalArgumentException somethingWentWrongException(Event event) {
-        String string = "Busy at this time: ";
-        for (Event e: events) {
-            if (e.equals(event)) {
-                if(e.getTeacher().equals(event.getTeacher())){
-                    string.concat("teacher ");
-                }
-                if (e.getGroup().equals(event.getGroup())){
-                    string.concat("group ");
-                }
-                if(e.getRoom().equals(event.getRoom())){
-                    string.concat("room ");
-                }
-            }
-        }
-        return new IllegalArgumentException(string);
-    }
-
-    public void addEvent(Set<Event> set) throws IllegalArgumentException {
+    public void addEvent(Set<Event> set) throws IncorrectScheduleExcepttion {
         for (Event event: set) {
             this.addEvent(event);
         }
     }
 
-    public Set<Event> getWeeklyEvents (Object o){
-        if(o instanceof Subject)
+    public Set<Event> getWeeklyEvents (Object object){
+        if(object instanceof Subject)
             return events.stream()
-                         .filter(event -> event.getSubject().equals(o))
+                         .filter(event -> event.getSubject().equals(object))
                          .collect(Collectors.toSet());
-        if(o instanceof Group)
+        if(object instanceof Group)
             return events.stream()
-                         .filter(event -> event.getGroup().equals(o))
+                         .filter(event -> event.getGroup().equals(object))
                          .collect(Collectors.toSet());
-        if(o instanceof Room)
+        if(object instanceof Room)
             return events.stream()
-                         .filter(event -> event.getRoom().equals(o))
+                         .filter(event -> event.getRoom().equals(object))
                          .collect(Collectors.toSet());
-        if(o instanceof Teacher)
+        if(object instanceof Teacher)
             return events.stream()
-                         .filter(event -> event.getTeacher().equals(o))
+                         .filter(event -> event.getTeacher().equals(object))
                          .collect(Collectors.toSet());
-        if (o instanceof Student)
+        if (object instanceof Student)
             return events.stream()
-                         .filter(event -> event.getGroup().getStudents().contains(o))
+                         .filter(event -> event.getGroup().getStudents().contains(object))
                          .collect(Collectors.toSet());
         else
             throw new IllegalArgumentException();
     }
 
-    public Set<Event> getDailyEvents (Object o, DayOfWeek dayOfWeek){
-        return getWeeklyEvents(o).stream()
+    public Set<Event> getDailyEvents (Object object, DayOfWeek dayOfWeek){
+        return getWeeklyEvents(object).stream()
                                  .filter(event -> event.getDayOfWeek().equals(dayOfWeek))
                                  .collect(Collectors.toSet());
     }

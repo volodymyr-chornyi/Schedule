@@ -3,7 +3,13 @@
 
 settings.gradle
 gradlew.bat
+output.json
+testFile.json
+emptyTestFile.json
+gradlew
 
 build/
 gradle/
 garbage/
+/src/main/java/com/softserveacademy/objectgenerator/
+/src/main/java/com/softserveacademy/dao/

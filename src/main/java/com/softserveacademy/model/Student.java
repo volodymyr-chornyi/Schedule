@@ -6,11 +6,16 @@ import java.util.Objects;
 
 public class Student {
 
-    @NotNull private int id;
-    @Min(value = 16) private int age;
-    @NotNull private String firstName;
-    @NotNull private String lastName;
-    @Min(value = 1) private int numberGroup;
+    @NotNull
+    private int id;
+    @Min(value = 16)
+    private int age;
+    @NotNull
+    private String firstName;
+    @NotNull
+    private String lastName;
+    @NotNull
+    private Group group;
 
     public Student(String firstName, String lastName) {
         this.firstName = firstName;
@@ -49,12 +54,12 @@ public class Student {
         this.lastName = lastName;
     }
 
-    public int getNumberGroup() {
-        return numberGroup;
+    public Group getGroup() {
+        return group;
     }
 
-    public void setNumberGroup(int numberGroup) {
-        this.numberGroup = numberGroup;
+    public void setGroup(Group group) {
+        this.group = group;
     }
 
     @Override
@@ -79,6 +84,7 @@ public class Student {
                 ", age=" + age +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
+                ", group='" + group.getName() + '\'' +
                 '}';
     }
 }

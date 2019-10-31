@@ -12,31 +12,33 @@ public class GroupTest {
     Student ivan = new Student("Ivan", "Ivanov");
     Student stepan = new Student("Stepan", "Stepanov");
     Student boris = new Student("Boris", "Borisov");
-    Group group = new Group(101);
+    Group group = new Group("101");
 
     @Test
     public void testSetStudent() {
-        group.setStudent(stepan);
-        assertEquals(1, group.getGroupSize());
+        group.addStudent(stepan);
         Set<Student> set = new HashSet<>();
         set.add(ivan);
         set.add(boris);
-        group.setStudent(set);
+        group.addStudent(set);
         assertEquals(3, group.getGroupSize());
-        group.setStudent(ivan);
+    }
+
+    @Test
+    public void testSetStudentUnique() {
+        group.addStudent(stepan);
+        group.addStudent(ivan);
+        group.addStudent(boris);
+        group.addStudent(ivan);
         assertEquals(3, group.getGroupSize());
     }
 
     @Test
     public void testRemoveStudent() {
-        group.setStudent(ivan);
-        group.setStudent(stepan);
-        group.setStudent(boris);
+        group.addStudent(ivan);
+        group.addStudent(stepan);
+        group.addStudent(boris);
         group.removeStudent(ivan);
         assertEquals(2, group.getGroupSize());
-        group.removeStudent(ivan);
-        group.removeStudent(stepan);
-        group.removeStudent(boris);
-        assertTrue(group.getStudents().isEmpty());
     }
 }

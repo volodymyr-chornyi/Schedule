@@ -1,5 +1,7 @@
 package com.softserveacademy.model;
 
+import com.google.gson.annotations.Expose;
+
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.util.HashSet;
@@ -8,10 +10,14 @@ import java.util.Set;
 
 public class Teacher {
 
-    @NotNull private int id;
-    @Min(value = 20) private int age;
-    @NotNull private String firstName;
-    @NotNull private String lastName;
+    @NotNull
+    private int id;
+    @Min(value = 20)
+    private int age;
+    @NotNull
+    private String firstName;
+    @NotNull
+    private String lastName;
     private Set <Subject> subjects = new HashSet<>();
 
     public Teacher(String firstName, String lastName) {
@@ -59,16 +65,16 @@ public class Teacher {
         return subjects;
     }
 
-    public void addSubjects(Set<Subject> subjects) {
-        this.subjects.addAll(subjects);
-    }
-
     public void setSubjects(Set<Subject> subjects) {
         this.subjects = subjects;
     }
 
     public void addSubjects(Subject subject) {
         this.subjects.add(subject);
+    }
+
+    public void addSubjects(Set<Subject> subjects) {
+        this.subjects.addAll(subjects);
     }
 
     @Override

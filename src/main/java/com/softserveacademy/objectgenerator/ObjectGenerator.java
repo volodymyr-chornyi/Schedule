@@ -11,13 +11,12 @@ import java.util.Random;
  */
 public class ObjectGenerator {
 
-    Teacher teacher;
-    Group group;
-    Room room;
-    Subject subject;
-    Student student;
+    private Teacher teacher;
+    private Group group;
+    private Room room;
+    private Subject subject;
+    private Student student;
     Random random = new Random();
-
 
     /**
      * Creates a new random 20 characters long String.
@@ -68,7 +67,7 @@ public class ObjectGenerator {
         this.student = student;
     }
     public void generateGroup(){
-        Group group = new Group(generateInt(9999));
+        Group group = new Group(generateString());
         this.teacher = teacher;
     }
 
@@ -80,7 +79,7 @@ public class ObjectGenerator {
         generateRoom();
         generateStudent();
         generateGroup();
-        group.setStudent(student);
+        group.addStudent(student);
         event = new Event();
         return event;
     }

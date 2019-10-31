@@ -10,13 +10,12 @@ import static org.junit.Assert.*;
 public class TeacherTest {
 
     @Test
-    public void setSkills() {
+    public void testSetSubjects() {
         Teacher teacher = new Teacher("Stepan", "Ivanov");
         Subject subject = new Subject("Phi");
         Subject subject2 = new Subject("Math");
         teacher.addSubjects(subject);
         teacher.addSubjects(subject);
-        assertEquals(1, teacher.getSubjects().size());
         teacher.addSubjects(subject2);
         assertEquals(2, teacher.getSubjects().size());
     }

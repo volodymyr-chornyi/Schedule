@@ -6,12 +6,17 @@ import java.util.Objects;
 
 public class Event {
 
+    @NotNull private int id;
     @NotNull private DayOfWeek dayOfWeek;
     @NotNull private NumberEvent numberEvent;
     @NotNull private Teacher teacher;
     @NotNull private Group group;
     @NotNull private Subject subject;
     @NotNull private Room room;
+
+    public int getId() {
+        return id;
+    }
 
     public DayOfWeek getDayOfWeek() {
         return dayOfWeek;
@@ -35,6 +40,10 @@ public class Event {
 
     public Room getRoom() {
         return room;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public void setDayOfWeek(DayOfWeek dayOfWeek) {

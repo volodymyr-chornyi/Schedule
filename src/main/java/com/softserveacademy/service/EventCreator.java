@@ -1,5 +1,6 @@
 package com.softserveacademy.service;
 
+import com.google.gson.annotations.Expose;
 import com.softserveacademy.model.*;
 import java.time.DayOfWeek;
 

@@ -2,11 +2,12 @@ package com.softserveacademy.jsonService;
 
 import com.google.gson.Gson;
 import com.softserveacademy.model.Event;
+import com.softserveacademy.service.IncorrectScheduleExcepttion;
 import com.softserveacademy.service.Schedule;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -16,15 +17,10 @@ public class GsonService {
 
     public Gson gson = new Gson();
 
-    public void writeEventListToFile (File file, Set<Event> eventList){
-        try {
-            if (!file.exists())
-                file.createNewFile();
-            FileOutputStream fileOutputStream = new FileOutputStream(file);
-            String stringData = gson.toJson(eventList);
-            byte [] dataBytesdata = stringData.getBytes();
-            fileOutputStream.write(dataBytesdata, 0, dataBytesdata.length);
-        }catch (IOException e) {
+    public void writeEventListToFile (File file, Set<Event> eventList) {
+        try(FileWriter fileWriter = new FileWriter(file);) {
+            gson.toJson(eventList, fileWriter);
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -46,7 +42,7 @@ public class GsonService {
         try {
             if (file.exists())
                 schedule.addEvent(readEventsFromFile(file));
-        }catch (IllegalArgumentException e) {
+        }catch (IncorrectScheduleExcepttion e) {
             e.printStackTrace();
         }
     }

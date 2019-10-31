@@ -8,6 +8,8 @@ import java.util.Objects;
 
 public class Room {
 
+    @NotNull
+    private int id;
     @Min(value = 1)
     @Max(value = 9999)
     private int buildingNumber;
@@ -17,6 +19,14 @@ public class Room {
     public Room(int buildingNumber, String name) {
         this.buildingNumber = buildingNumber;
         this.name = name;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getBuildingNumber() {

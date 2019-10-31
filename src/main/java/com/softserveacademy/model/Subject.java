@@ -5,11 +5,19 @@ import java.util.Objects;
 
 public class Subject {
 
-    @NotNull
-    private String name;
+    @NotNull private int id;
+    @NotNull private String name;
 
     public Subject(String name) {
         this.name = name;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {

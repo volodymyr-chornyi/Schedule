@@ -2,27 +2,38 @@ package com.softserveacademy.model;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
 public class Group {
 
+    @NotNull
+    private int id;
     @Min(value = 1)
     @Max(value = 999)
-    private int number;
-    private Set<Student> students = new HashSet<>();
+    private String name;
+    private transient Set<Student> students = new HashSet<>();
 
-    public Group(int number) {
-        this.number = number;
+    public Group(String name) {
+        this.name = name;
     }
 
-    public int getNumber() {
-        return number;
+    public int getId() {
+        return id;
     }
 
-    public void setNumber(int number) {
-        this.number = number;
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Set<Student> getStudents() {
@@ -37,16 +48,20 @@ public class Group {
         this.students = students;
     }
 
-    public void setStudent(Set<Student> students) {
+    public void addStudent(Set<Student> students) {
         this.students.addAll(students);
         for (Student student: students) {
-            student.setNumberGroup(this.number);
+            student.setGroup(this);
         }
     }
 
-    public void setStudent(Student student) {
+    public void addStudent(Student student) {
         this.students.add(student);
-        student.setNumberGroup(this.number);
+        student.setGroup(this);
+    }
+
+    public void removeStudent (Student student){
+        students.remove(student);
     }
 
     @Override
@@ -54,22 +69,19 @@ public class Group {
         if (this == o) return true;
         if (!(o instanceof Group)) return false;
         Group group = (Group) o;
-        return number == group.number;
+        return name.equals(group.name) &&
+                students.equals(group.students);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(number);
+        return Objects.hash(name, students);
     }
 
     @Override
     public String toString() {
         return "Group{" +
-                "number=" + number +
+                "name='" + name + '\'' +
                 '}';
-    }
-
-    public void removeStudent (Student student){
-        students.remove(student);
     }
 }

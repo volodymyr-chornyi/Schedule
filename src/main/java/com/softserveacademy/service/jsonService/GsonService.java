@@ -1,7 +1,7 @@
-package com.softserveacademy.jsonService;
+package com.softserveacademy.service.jsonService;
 
 import com.google.gson.Gson;
-import com.softserveacademy.model.Event;
+import com.softserveacademy.model.entities.Event;
 import com.softserveacademy.service.IncorrectScheduleExcepttion;
 import com.softserveacademy.service.Schedule;
 

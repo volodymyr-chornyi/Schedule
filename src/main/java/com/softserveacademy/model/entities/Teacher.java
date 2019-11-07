@@ -1,6 +1,4 @@
-package com.softserveacademy.model;
-
-import com.google.gson.annotations.Expose;
+package com.softserveacademy.model.entities;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -82,24 +80,21 @@ public class Teacher {
         if (this == o) return true;
         if (!(o instanceof Teacher)) return false;
         Teacher teacher = (Teacher) o;
-        return id == teacher.id &&
-                firstName.equals(teacher.firstName) &&
-                lastName.equals(teacher.lastName);
+        return firstName.equals(teacher.firstName) &&
+               lastName.equals(teacher.lastName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstName, lastName);
+        return Objects.hash(firstName, lastName);
     }
 
     @Override
     public String toString() {
         return "Teacher{" +
-                "id=" + id +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
                 ", age=" + age +
-                ", firstName='" + firstName + '\'' +
-                ", lasttName='" + lastName + '\'' +
-                ", subjects=" + subjects +
                 '}';
     }
 }

@@ -1,6 +1,6 @@
 package com.softserveacademy.service;
 
-import com.softserveacademy.model.*;
+import com.softserveacademy.model.entities.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import java.time.DayOfWeek;

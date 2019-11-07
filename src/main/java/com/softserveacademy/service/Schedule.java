@@ -1,6 +1,6 @@
 package com.softserveacademy.service;
 
-import com.softserveacademy.model.*;
+import com.softserveacademy.model.entities.*;
 
 import java.time.DayOfWeek;
 import java.util.HashSet;

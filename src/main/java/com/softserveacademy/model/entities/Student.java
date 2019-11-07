@@ -1,4 +1,4 @@
-package com.softserveacademy.model;
+package com.softserveacademy.model.entities;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -38,6 +38,10 @@ public class Student {
         this.age = age;
     }
 
+    public String getName() {
+        return firstName + " " + lastName;
+    }
+
     public String getFirstName() {
         return firstName;
     }
@@ -67,23 +71,21 @@ public class Student {
         if (this == o) return true;
         if (!(o instanceof Student)) return false;
         Student student = (Student) o;
-        return id == student.id &&
-                firstName.equals(student.firstName) &&
-                lastName.equals(student.lastName);
+        return firstName.equals(student.firstName) &&
+               lastName.equals(student.lastName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstName, lastName);
+        return Objects.hash(firstName, lastName);
     }
 
     @Override
     public String toString() {
         return "Student{" +
-                "id=" + id +
-                ", age=" + age +
-                ", firstName='" + firstName + '\'' +
+                "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
+                ", age=" + age +
                 ", group='" + group.getName() + '\'' +
                 '}';
     }

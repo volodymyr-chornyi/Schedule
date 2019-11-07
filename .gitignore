@@ -12,4 +12,5 @@ build/
 gradle/
 garbage/
 /src/main/java/com/softserveacademy/objectgenerator/
-/src/main/java/com/softserveacademy/dao/
+objectgenerator/
+

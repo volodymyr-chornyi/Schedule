@@ -1,7 +1,7 @@
 package com.softserveacademy.service;
 
-import com.google.gson.annotations.Expose;
-import com.softserveacademy.model.*;
+import com.softserveacademy.model.entities.*;
+
 import java.time.DayOfWeek;
 
 public class EventCreator {
@@ -56,9 +56,6 @@ public class EventCreator {
         event.setGroup(group);
         event.setSubject(subject);
         event.setRoom(room);
-        if (!(teacher.getSubjects().contains(subject))){
-            throw new IllegalArgumentException("Current teacher doesn`t teach this subject");
-        }
         return event;
     }
 

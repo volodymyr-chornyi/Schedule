@@ -1,6 +1,6 @@
-package com.softserveacademy.jsonService;
+package com.softserveacademy.service.jsonService;
 
-import com.softserveacademy.model.*;
+import com.softserveacademy.model.entities.*;
 import com.softserveacademy.service.EventCreator;
 import com.softserveacademy.service.IncorrectScheduleExcepttion;
 import com.softserveacademy.service.Schedule;

@@ -1,6 +1,6 @@
 package com.softserveacademy.service;
 
-import com.softserveacademy.model.Event;
+import com.softserveacademy.model.entities.Event;
 
 import java.util.Set;
 

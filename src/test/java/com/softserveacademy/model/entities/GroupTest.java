@@ -1,4 +1,4 @@
-package com.softserveacademy.model;
+package com.softserveacademy.model.entities;
 
 import org.junit.Test;
 

@@ -15,6 +15,12 @@ import java.util.Set;
 
 public class GroupDAO {
 
+    private final String CONTAINS = "SELECT * FROM groups";
+    private final String ADD = "INSERT INTO groups (name) VALUES (?)";
+    private final String UPDATE = "UPDATE groups SET name = ? WHERE Id = ?";
+    private final String REMOVE_BY_ID = "DELETE FROM groups WHERE Id = ?";
+    private final String FIND_BY_ID = "SELECT * FROM groups WHERE Id = ?";
+    private final String SHOW_STUDENTS = "SELECT * FROM students WHERE group_id = ?";
     private Connection connection;
 
     public GroupDAO() {
@@ -25,7 +31,7 @@ public class GroupDAO {
         boolean result = false;
         PreparedStatement preparedStatement;
         try {
-            preparedStatement = connection.prepareStatement("SELECT * FROM groups");
+            preparedStatement = connection.prepareStatement(CONTAINS);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()){
                 Group currentGroup = new Group(resultSet.getString("name"));
@@ -49,10 +55,7 @@ public class GroupDAO {
             throw new IncorrectAddingException(group);
         } else {
             try {
-                preparedStatement = connection.prepareStatement("INSERT INTO groups " +
-                        "(name) " +
-                        "VALUES " +
-                        "(?)", PreparedStatement.RETURN_GENERATED_KEYS);
+                preparedStatement = connection.prepareStatement(ADD, PreparedStatement.RETURN_GENERATED_KEYS);
                 preparedStatement.setString(1, group.getName());
                 preparedStatement.executeUpdate();
                 ResultSet resultSet = preparedStatement.getGeneratedKeys();
@@ -76,9 +79,7 @@ public class GroupDAO {
             throw new NoMatchesException();
         } else {
             try {
-                preparedStatement = connection.prepareStatement("UPDATE groups " +
-                        "SET name = ? " +
-                        "WHERE Id = ?");
+                preparedStatement = connection.prepareStatement(UPDATE);
                 preparedStatement.setString(1, group.getName());
                 preparedStatement.executeUpdate();
             } catch (SQLException e) {
@@ -94,7 +95,7 @@ public class GroupDAO {
     public boolean removeById(int id) {
         boolean result = false;
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM groups WHERE Id = ?");
+            PreparedStatement preparedStatement = connection.prepareStatement(REMOVE_BY_ID);
             preparedStatement.setInt(1, id);
             preparedStatement.executeUpdate();
             result = true;
@@ -106,9 +107,27 @@ public class GroupDAO {
         return result;
     }
 
+    public Set<Group> findAll() {
+        Set<Group> groups = new HashSet<>();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(CONTAINS);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                Group group = new Group(resultSet.getString("name"));
+                group.setId(resultSet.getInt("id"));
+                groups.add(group);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            JdbcService.closeConnection();
+        }
+        return groups;
+    }
+
     public Group findById(int id) {
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM groups WHERE Id = ?");
+            PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_ID);
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
@@ -124,11 +143,11 @@ public class GroupDAO {
         return null;
     }
 
-    public Set<Student> showStudent(Group group){
+    public Set<Student> showStudents(Group group){
         PreparedStatement preparedStatement;
         try {
             Set<Student> students = new HashSet<>();
-            preparedStatement = connection.prepareStatement("SELECT * FROM students WHERE group_id = ?");
+            preparedStatement = connection.prepareStatement(SHOW_STUDENTS);
             preparedStatement.setInt(1, group.getId());
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()){

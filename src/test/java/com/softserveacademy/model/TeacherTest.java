@@ -1,7 +1,5 @@
-package com.softserveacademy.model.entities;
+package com.softserveacademy.model;
 
-import com.softserveacademy.model.Subject;
-import com.softserveacademy.model.Teacher;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;

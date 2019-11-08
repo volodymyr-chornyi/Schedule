@@ -10,9 +10,16 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashSet;
+import java.util.Set;
 
 public class StudentDAO {
 
+    private final String CONTAINS = "SELECT * FROM students";
+    private final String ADD = "INSERT INTO students (age, first_name, last_name, group_id) VALUES (?, ?, ?, ?)";
+    private final String UPDATE = "UPDATE students SET age = ?, first_name = ?, last_name = ?, group_id = ? WHERE Id = ?";
+    private final String REMOVE_BY_ID = "DELETE FROM students WHERE Id = ?";
+    private final String FIND_BY_ID = "SELECT * FROM students WHERE Id = ?";
     private Connection connection;
 
     public StudentDAO() {
@@ -23,7 +30,7 @@ public class StudentDAO {
         boolean result = false;
         PreparedStatement preparedStatement;
         try {
-            preparedStatement = connection.prepareStatement("SELECT * FROM students");
+            preparedStatement = connection.prepareStatement(CONTAINS);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()){
                 Student currentStudent = new Student(resultSet.getString("first_name"),
@@ -48,10 +55,7 @@ public class StudentDAO {
             throw new IncorrectAddingException(student);
         } else {
             try {
-                preparedStatement = connection.prepareStatement("INSERT INTO students " +
-                        "(age, first_name, last_name, group_id) " +
-                        "VALUES " +
-                        "(?, ?, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
+                preparedStatement = connection.prepareStatement(ADD, PreparedStatement.RETURN_GENERATED_KEYS);
                 preparedStatement.setInt(1, student.getAge());
                 preparedStatement.setString(2, student.getFirstName());
                 preparedStatement.setString(3, student.getFirstName());
@@ -78,9 +82,7 @@ public class StudentDAO {
             throw new NoMatchesException();
         } else {
             try {
-                preparedStatement = connection.prepareStatement("UPDATE students " +
-                        "SET age = ?, first_name = ?, last_name = ?, group_id = ? " +
-                        "WHERE Id = ?");
+                preparedStatement = connection.prepareStatement(UPDATE);
                 preparedStatement.setInt(1, student.getAge());
                 preparedStatement.setString(2, student.getFirstName());
                 preparedStatement.setString(3, student.getLastName());
@@ -99,7 +101,7 @@ public class StudentDAO {
     public boolean removeById(int id){
         boolean result = false;
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM students WHERE Id = ?");
+            PreparedStatement preparedStatement = connection.prepareStatement(REMOVE_BY_ID);
             preparedStatement.setInt(1, id);
             preparedStatement.executeUpdate();
             result = true;
@@ -111,9 +113,30 @@ public class StudentDAO {
         return result;
     }
 
+    public Set<Student> findALL(){
+        Set<Student> students = new HashSet<>();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(CONTAINS);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                Student student = new Student(resultSet.getString("first_name"),
+                                              resultSet.getString("last_name"));
+                student.setId(resultSet.getInt("id"));
+                student.setAge(resultSet.getInt("age"));
+                student.setGroup((Group)resultSet.getObject("group_id"));
+                students.add(student);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            JdbcService.closeConnection();
+        }
+        return students;
+    }
+
     public Student findById(int id){
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM students WHERE Id = ?");
+            PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_ID);
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             if(resultSet.next()) {

@@ -6,9 +6,16 @@ import com.softserveacademy.service.util.JdbcService;
 import com.softserveacademy.model.Teacher;
 
 import java.sql.*;
+import java.util.HashSet;
+import java.util.Set;
 
 public class TeacherDAO {
 
+    private final String CONTAINS = "SELECT * FROM teachers";
+    private final String ADD = "INSERT INTO teachers (age, first_name, last_name) VALUES (?, ?, ?)";
+    private final String UPDATE = "UPDATE teachers SET age = ?, first_name = ?, last_name = ? WHERE Id = ?";
+    private final String REMOVE_BY_ID = "DELETE FROM teachers WHERE Id = ?";
+    private final String FIND_BY_ID = "SELECT * FROM teachers WHERE Id = ?";
     private Connection connection;
 
     public TeacherDAO() {
@@ -19,7 +26,7 @@ public class TeacherDAO {
         boolean result = false;
         PreparedStatement preparedStatement;
         try {
-            preparedStatement = connection.prepareStatement("SELECT * FROM teachers");
+            preparedStatement = connection.prepareStatement(CONTAINS);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()){
                 Teacher currentTeacher = new Teacher(resultSet.getString("first_name"),
@@ -44,10 +51,7 @@ public class TeacherDAO {
             throw new IncorrectAddingException(teacher);
         } else {
             try {
-                preparedStatement = connection.prepareStatement("INSERT INTO teachers " +
-                                                                    "(age, first_name, last_name) " +
-                                                                    "VALUES " +
-                                                                    "(?, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
+                preparedStatement = connection.prepareStatement(ADD, PreparedStatement.RETURN_GENERATED_KEYS);
                 preparedStatement.setInt(1, teacher.getAge());
                 preparedStatement.setString(2, teacher.getFirstName());
                 preparedStatement.setString(3, teacher.getLastName());
@@ -73,9 +77,7 @@ public class TeacherDAO {
             throw new NoMatchesException();
         } else {
             try {
-                preparedStatement = connection.prepareStatement("UPDATE teachers " +
-                                                                    "SET age = ?, first_name = ?, last_name = ? " +
-                                                                    "WHERE Id = ?");
+                preparedStatement = connection.prepareStatement(UPDATE);
                 preparedStatement.setInt(1, teacher.getAge());
                 preparedStatement.setString(2, teacher.getFirstName());
                 preparedStatement.setString(3, teacher.getLastName());
@@ -93,7 +95,7 @@ public class TeacherDAO {
     public boolean removeById(int id){
         boolean result = false;
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM teachers WHERE Id = ?");
+            PreparedStatement preparedStatement = connection.prepareStatement(REMOVE_BY_ID);
             preparedStatement.setInt(1, id);
             preparedStatement.executeUpdate();
             result = true;
@@ -105,9 +107,29 @@ public class TeacherDAO {
         return result;
     }
 
+    public Set<Teacher> findAll(){
+        Set<Teacher> teachers = new HashSet<>();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(CONTAINS);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                Teacher teacher = new Teacher(resultSet.getString("first_name"),
+                                              resultSet.getString("last_name"));
+                teacher.setId(resultSet.getInt("id"));
+                teacher.setAge(resultSet.getInt("age"));
+                teachers.add(teacher);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            JdbcService.closeConnection();
+        }
+        return teachers;
+    }
+
     public Teacher findById(int id){
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM teachers WHERE Id = ?");
+            PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_ID);
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             if(resultSet.next()) {

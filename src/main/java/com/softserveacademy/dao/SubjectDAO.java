@@ -12,6 +12,13 @@ import java.util.Set;
 
 public class SubjectDAO {
 
+    private final String CONTAINS = "SELECT * FROM subjects";
+    private final String ADD = "INSERT INTO subjects (name) VALUES (?)";
+    private final String UPDATE = "UPDATE subjects SET name = ? WHERE Id = ?";
+    private final String REMOVE_BY_ID = "DELETE FROM subjects WHERE Id = ?";
+    private final String FIND_BY_ID = "SELECT * FROM subjects WHERE Id = ?";
+    private final String SHOW_TEACHERS = "SELECT teacher_id FROM teachers_subjects WHERE subject_id = ?";
+    private final String ADD_SUBJECT_TEACHER = "INSERT INTO teachers_subjects (subject_id, teacher_id) VALUES (?, ?)";
     private Connection connection;
 
     public SubjectDAO() {
@@ -22,7 +29,7 @@ public class SubjectDAO {
         boolean result = false;
         PreparedStatement preparedStatement;
         try {
-            preparedStatement = connection.prepareStatement("SELECT * FROM subjects");
+            preparedStatement = connection.prepareStatement(CONTAINS);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()){
                 Subject currentSubject = new Subject(resultSet.getString("name"));
@@ -46,10 +53,7 @@ public class SubjectDAO {
             throw new IncorrectAddingException(subject);
         } else {
             try {
-                preparedStatement = connection.prepareStatement("INSERT INTO subjects " +
-                        "(name) " +
-                        "VALUES " +
-                        "(?)", PreparedStatement.RETURN_GENERATED_KEYS);
+                preparedStatement = connection.prepareStatement(ADD, PreparedStatement.RETURN_GENERATED_KEYS);
                 preparedStatement.setString(1, subject.getName());
                 preparedStatement.executeUpdate();
                 ResultSet resultSet = preparedStatement.getGeneratedKeys();
@@ -73,9 +77,7 @@ public class SubjectDAO {
             throw new NoMatchesException();
         } else {
             try {
-                preparedStatement = connection.prepareStatement("UPDATE subjects " +
-                        "SET name = ? " +
-                        "WHERE Id = ?");
+                preparedStatement = connection.prepareStatement(UPDATE);
                 preparedStatement.setString(1, subject.getName());
                 preparedStatement.executeUpdate();
             } catch (SQLException e) {
@@ -91,7 +93,7 @@ public class SubjectDAO {
     public boolean removeById(int id){
         boolean result = false;
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM subjects WHERE Id = ?");
+            PreparedStatement preparedStatement = connection.prepareStatement(REMOVE_BY_ID);
             preparedStatement.setInt(1, id);
             preparedStatement.executeUpdate();
             result = true;
@@ -103,9 +105,27 @@ public class SubjectDAO {
         return result;
     }
 
+    public Set<Subject> findAll(){
+        Set<Subject> subjects = new HashSet<>();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(CONTAINS);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                Subject subject = new Subject(resultSet.getString("name"));
+                subject.setId(resultSet.getInt("id"));
+                subjects.add(subject);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            JdbcService.closeConnection();
+        }
+        return subjects;
+    }
+
     public Subject findById(int id){
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM subjects WHERE Id = ?");
+            PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_ID);
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             if(resultSet.next()) {
@@ -125,7 +145,7 @@ public class SubjectDAO {
         PreparedStatement preparedStatement;
         try {
             Set<Teacher> teachers = new HashSet<>();
-            preparedStatement = connection.prepareStatement("SELECT teacher_id FROM teachers_subjects WHERE subject_id = ?");
+            preparedStatement = connection.prepareStatement(SHOW_TEACHERS);
             preparedStatement.setInt(1, subject.getId());
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()){
@@ -135,13 +155,6 @@ public class SubjectDAO {
                 teacher.setAge(resultSet.getInt("age"));
                 teachers.add(teacher);
             }
-//            if(resultSet.next()){
-//                Array teacherId = resultSet.getArray("teacher_id");
-//                int [] ids = (int[])teacherId.getArray();
-//                for (int teacher: ids) {
-//                    teachers.add(teacherDAO.findById(teacher));
-//                }
-//            }
             return teachers;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -156,10 +169,7 @@ public class SubjectDAO {
         if(!(showTeachers(subject).contains(teacher))){
             PreparedStatement preparedStatement;
             try {
-                preparedStatement = connection.prepareStatement("INSERT INTO teachers_subjects " +
-                                                                    "(subject_id, teacher_id) " +
-                                                                    "VALUES " +
-                                                                    "(?, ?)");
+                preparedStatement = connection.prepareStatement(ADD_SUBJECT_TEACHER);
                 preparedStatement.setInt(1, subject.getId());
                 preparedStatement.setInt(2, teacher.getId());
                 preparedStatement.executeUpdate();

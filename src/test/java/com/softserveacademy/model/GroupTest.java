@@ -1,7 +1,5 @@
-package com.softserveacademy.model.entities;
+package com.softserveacademy.model;
 
-import com.softserveacademy.model.Group;
-import com.softserveacademy.model.Student;
 import org.junit.Test;
 
 import java.util.HashSet;

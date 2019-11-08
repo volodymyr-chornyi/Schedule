@@ -9,9 +9,16 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashSet;
+import java.util.Set;
 
 public class RoomDAO {
 
+    private final String CONTAINS = "SELECT * FROM rooms";
+    private final String ADD = "INSERT INTO rooms (building_number, name) VALUES (?, ?)";
+    private final String UPDATE = "UPDATE rooms SET building_number = ?, name = ? WHERE Id = ?";
+    private final String REMOVE_BY_ID = "DELETE FROM rooms WHERE Id = ?";
+    private final String FIND_BY_ID = "SELECT * FROM rooms WHERE Id = ?";
     private Connection connection;
 
     public RoomDAO() {
@@ -22,7 +29,7 @@ public class RoomDAO {
         boolean result = false;
         PreparedStatement preparedStatement;
         try {
-            preparedStatement = connection.prepareStatement("SELECT * FROM rooms");
+            preparedStatement = connection.prepareStatement(CONTAINS);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()){
                 Room currentRoom = new Room(resultSet.getInt("building_number"),
@@ -47,10 +54,7 @@ public class RoomDAO {
             throw new IncorrectAddingException(room);
         } else {
             try {
-                preparedStatement = connection.prepareStatement("INSERT INTO rooms " +
-                        "(building_number, name) " +
-                        "VALUES " +
-                        "(?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
+                preparedStatement = connection.prepareStatement(ADD, PreparedStatement.RETURN_GENERATED_KEYS);
                 preparedStatement.setInt(1, room.getBuildingNumber());
                 preparedStatement.setString(2, room.getName());
                 preparedStatement.executeUpdate();
@@ -75,9 +79,7 @@ public class RoomDAO {
             throw new NoMatchesException();
         } else {
             try {
-                preparedStatement = connection.prepareStatement("UPDATE rooms " +
-                        "SET building_number = ?, name = ? " +
-                        "WHERE Id = ?");
+                preparedStatement = connection.prepareStatement(UPDATE);
                 preparedStatement.setInt(1, room.getBuildingNumber());
                 preparedStatement.setString(2, room.getName());
                 preparedStatement.executeUpdate();
@@ -94,7 +96,7 @@ public class RoomDAO {
     public boolean removeById(int id){
         boolean result = false;
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM rooms WHERE Id = ?");
+            PreparedStatement preparedStatement = connection.prepareStatement(REMOVE_BY_ID);
             preparedStatement.setInt(1, id);
             preparedStatement.executeUpdate();
             result = true;
@@ -106,9 +108,28 @@ public class RoomDAO {
         return result;
     }
 
+    public Set<Room> findAll(){
+        Set<Room> rooms = new HashSet<>();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(CONTAINS);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                Room room = new Room(resultSet.getInt("building_number"),
+                                     resultSet.getString("name"));
+                room.setId(resultSet.getInt("id"));
+                rooms.add(room);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            JdbcService.closeConnection();
+        }
+        return rooms;
+    }
+
     public Room findById(int id){
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM rooms WHERE Id = ?");
+            PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_ID);
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             if(resultSet.next()) {

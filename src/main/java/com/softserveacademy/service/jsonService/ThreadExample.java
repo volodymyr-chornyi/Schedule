@@ -1,6 +1,6 @@
 package com.softserveacademy.service.jsonService;
 
-import com.softserveacademy.model.entities.Event;
+import com.softserveacademy.model.Event;
 
 import java.io.File;
 import java.util.Set;

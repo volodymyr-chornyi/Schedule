@@ -7,10 +7,15 @@ output.json
 testFile.json
 emptyTestFile.json
 gradlew
+.gitignore
 
 build/
 gradle/
 garbage/
 /src/main/java/com/softserveacademy/objectgenerator/
-objectgenerator/
+out/
+
+Schedule.iml
+webapp/
+servlet/
 

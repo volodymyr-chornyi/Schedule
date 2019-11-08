@@ -1,4 +1,4 @@
-package com.softserveacademy.model.entities;
+package com.softserveacademy.model;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;

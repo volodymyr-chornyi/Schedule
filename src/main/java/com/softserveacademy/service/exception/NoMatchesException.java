@@ -1,4 +1,4 @@
-package com.softserveacademy.service.dao;
+package com.softserveacademy.service.exception;
 
 public class NoMatchesException extends Exception{
     public NoMatchesException() {

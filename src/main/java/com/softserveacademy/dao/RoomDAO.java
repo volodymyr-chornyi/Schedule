@@ -1,9 +1,9 @@
-package com.softserveacademy.model.dao;
+package com.softserveacademy.dao;
 
-import com.softserveacademy.service.dao.IncorrectAddingException;
-import com.softserveacademy.service.dao.JdbcService;
-import com.softserveacademy.model.entities.Room;
-import com.softserveacademy.service.dao.NoMatchesException;
+import com.softserveacademy.service.exception.IncorrectAddingException;
+import com.softserveacademy.service.exception.NoMatchesException;
+import com.softserveacademy.service.util.JdbcService;
+import com.softserveacademy.model.Room;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,8 +14,8 @@ public class RoomDAO {
 
     private Connection connection;
 
-    public RoomDAO(Connection connection) {
-        this.connection = connection;
+    public RoomDAO() {
+        this.connection = JdbcService.getConnection();
     }
 
     public boolean contains(Room room){

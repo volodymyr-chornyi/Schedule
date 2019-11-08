@@ -1,10 +1,10 @@
-package com.softserveacademy.model.dao;
+package com.softserveacademy.dao;
 
-import com.softserveacademy.service.dao.IncorrectAddingException;
-import com.softserveacademy.service.dao.JdbcService;
-import com.softserveacademy.model.entities.Subject;
-import com.softserveacademy.model.entities.Teacher;
-import com.softserveacademy.service.dao.NoMatchesException;
+import com.softserveacademy.service.exception.IncorrectAddingException;
+import com.softserveacademy.service.exception.NoMatchesException;
+import com.softserveacademy.service.util.JdbcService;
+import com.softserveacademy.model.Subject;
+import com.softserveacademy.model.Teacher;
 
 import java.sql.*;
 import java.util.HashSet;
@@ -14,8 +14,8 @@ public class SubjectDAO {
 
     private Connection connection;
 
-    public SubjectDAO(Connection connection) {
-        this.connection = connection;
+    public SubjectDAO() {
+        this.connection = JdbcService.getConnection();
     }
 
     public boolean contains(Subject subject){

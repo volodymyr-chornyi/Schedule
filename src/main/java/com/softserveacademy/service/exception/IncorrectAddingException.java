@@ -1,6 +1,6 @@
-package com.softserveacademy.service.dao;
+package com.softserveacademy.service.exception;
 
-import com.softserveacademy.model.entities.*;
+import com.softserveacademy.model.*;
 
 public class IncorrectAddingException extends Exception{
 

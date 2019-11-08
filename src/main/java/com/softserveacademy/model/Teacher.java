@@ -1,23 +1,24 @@
-package com.softserveacademy.model.entities;
+package com.softserveacademy.model;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
-public class Student {
+public class Teacher {
 
     @NotNull
     private int id;
-    @Min(value = 16)
+    @Min(value = 20)
     private int age;
     @NotNull
     private String firstName;
     @NotNull
     private String lastName;
-    @NotNull
-    private Group group;
+    private Set <Subject> subjects = new HashSet<>();
 
-    public Student(String firstName, String lastName) {
+    public Teacher(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
     }
@@ -58,21 +59,29 @@ public class Student {
         this.lastName = lastName;
     }
 
-    public Group getGroup() {
-        return group;
+    public Set<Subject> getSubjects() {
+        return subjects;
     }
 
-    public void setGroup(Group group) {
-        this.group = group;
+    public void setSubjects(Set<Subject> subjects) {
+        this.subjects = subjects;
+    }
+
+    public void addSubjects(Subject subject) {
+        this.subjects.add(subject);
+    }
+
+    public void addSubjects(Set<Subject> subjects) {
+        this.subjects.addAll(subjects);
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Student)) return false;
-        Student student = (Student) o;
-        return firstName.equals(student.firstName) &&
-               lastName.equals(student.lastName);
+        if (!(o instanceof Teacher)) return false;
+        Teacher teacher = (Teacher) o;
+        return firstName.equals(teacher.firstName) &&
+               lastName.equals(teacher.lastName);
     }
 
     @Override
@@ -82,11 +91,10 @@ public class Student {
 
     @Override
     public String toString() {
-        return "Student{" +
+        return "Teacher{" +
                 "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", age=" + age +
-                ", group='" + group.getName() + '\'' +
                 '}';
     }
 }

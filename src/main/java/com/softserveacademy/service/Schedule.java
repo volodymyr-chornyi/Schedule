@@ -1,6 +1,7 @@
 package com.softserveacademy.service;
 
-import com.softserveacademy.model.entities.*;
+import com.softserveacademy.model.*;
+import com.softserveacademy.service.exception.IncorrectScheduleExcepttion;
 
 import java.time.DayOfWeek;
 import java.util.HashSet;

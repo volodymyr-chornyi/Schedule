@@ -1,4 +1,4 @@
-package com.softserveacademy.service.dao;
+package com.softserveacademy.service.util;
 
 public class TableModels {
 

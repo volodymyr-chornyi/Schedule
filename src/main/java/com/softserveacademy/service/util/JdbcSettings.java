@@ -1,4 +1,4 @@
-package com.softserveacademy.service.dao;
+package com.softserveacademy.service.util;
 
 import java.io.FileInputStream;
 import java.io.IOException;

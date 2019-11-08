@@ -1,6 +1,6 @@
 package com.softserveacademy.service;
 
-import com.softserveacademy.model.entities.*;
+import com.softserveacademy.model.*;
 
 import java.time.DayOfWeek;
 

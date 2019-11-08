@@ -1,4 +1,4 @@
-package com.softserveacademy.model.entities;
+package com.softserveacademy.model;
 
 import java.time.DateTimeException;
 

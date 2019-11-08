@@ -1,9 +1,9 @@
-package com.softserveacademy.model.dao;
+package com.softserveacademy.dao;
 
-import com.softserveacademy.model.entities.*;
+import com.softserveacademy.model.*;
 import com.softserveacademy.service.EventCreator;
-import com.softserveacademy.service.dao.IncorrectAddingException;
-import com.softserveacademy.service.dao.JdbcService;
+import com.softserveacademy.service.exception.IncorrectAddingException;
+import com.softserveacademy.service.util.JdbcService;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,14 +16,14 @@ import java.util.Set;
 public class EventDAO {
 
     private Connection connection;
-    private TeacherDAO teacherDAO = new TeacherDAO(JdbcService.getConnection());
-    private SubjectDAO subjectDAO = new SubjectDAO(JdbcService.getConnection());
-    private GroupDAO groupDAO = new GroupDAO(JdbcService.getConnection());
-    private RoomDAO roomDAO = new RoomDAO(JdbcService.getConnection());
+    private TeacherDAO teacherDAO = new TeacherDAO();
+    private SubjectDAO subjectDAO = new SubjectDAO();
+    private GroupDAO groupDAO = new GroupDAO();
+    private RoomDAO roomDAO = new RoomDAO();
     private Event matchingEvent;
 
-    public EventDAO(Connection connection) {
-        this.connection = connection;
+    public EventDAO() {
+        this.connection = JdbcService.getConnection();
     }
 
     public boolean contains(Event event){

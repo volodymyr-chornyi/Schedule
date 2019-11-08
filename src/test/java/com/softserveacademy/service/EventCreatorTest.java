@@ -2,7 +2,7 @@ package com.softserveacademy.service;
 
 import java.time.DayOfWeek;
 
-import com.softserveacademy.model.entities.*;
+import com.softserveacademy.model.*;
 import org.junit.Test;
 
 import static org.junit.Assert.*;

@@ -32,4 +32,12 @@ public class IncorrectAddingException extends Exception{
         if (event.getRoom().equals(existingEvent.getRoom()))
             System.err.println("Room is busy at this time ");
     }
+
+    public IncorrectAddingException(Teacher teacher, Subject subject){
+        System.err.println("The teacher know nothing about selected subject");
+    }
+
+    public IncorrectAddingException() {
+        System.err.println(" is busy at this time ");
+    }
 }

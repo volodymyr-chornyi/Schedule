@@ -32,7 +32,7 @@ public class RoomDAO {
             preparedStatement = connection.prepareStatement(CONTAINS);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()){
-                Room currentRoom = new Room(resultSet.getInt("building_number"),
+                Room currentRoom = new Room(resultSet.getString("building_number"),
                                              resultSet.getString("name"));
                 if (room.equals(currentRoom)){
                     result = true;
@@ -41,8 +41,6 @@ public class RoomDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            JdbcService.closeConnection();
         }
         return result;
     }
@@ -55,7 +53,7 @@ public class RoomDAO {
         } else {
             try {
                 preparedStatement = connection.prepareStatement(ADD, PreparedStatement.RETURN_GENERATED_KEYS);
-                preparedStatement.setInt(1, room.getBuildingNumber());
+                preparedStatement.setString(1, room.getBuildingNumber());
                 preparedStatement.setString(2, room.getName());
                 preparedStatement.executeUpdate();
                 ResultSet resultSet = preparedStatement.getGeneratedKeys();
@@ -64,8 +62,6 @@ public class RoomDAO {
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
-            } finally {
-                JdbcService.closeConnection();
             }
             result = true;
         }
@@ -80,13 +76,11 @@ public class RoomDAO {
         } else {
             try {
                 preparedStatement = connection.prepareStatement(UPDATE);
-                preparedStatement.setInt(1, room.getBuildingNumber());
+                preparedStatement.setString(1, room.getBuildingNumber());
                 preparedStatement.setString(2, room.getName());
                 preparedStatement.executeUpdate();
             } catch (SQLException e) {
                 e.printStackTrace();
-            } finally {
-                JdbcService.closeConnection();
             }
             result = true;
         }
@@ -102,8 +96,6 @@ public class RoomDAO {
             result = true;
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            JdbcService.closeConnection();
         }
         return result;
     }
@@ -114,15 +106,13 @@ public class RoomDAO {
             PreparedStatement preparedStatement = connection.prepareStatement(CONTAINS);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                Room room = new Room(resultSet.getInt("building_number"),
+                Room room = new Room(resultSet.getString("building_number"),
                                      resultSet.getString("name"));
                 room.setId(resultSet.getInt("id"));
                 rooms.add(room);
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            JdbcService.closeConnection();
         }
         return rooms;
     }
@@ -133,15 +123,13 @@ public class RoomDAO {
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             if(resultSet.next()) {
-                Room room = new Room(resultSet.getInt("building_number"),
+                Room room = new Room(resultSet.getString("building_number"),
                                      resultSet.getString("name"));
                 room.setId(id);
                 return room;
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            JdbcService.closeConnection();
         }
         return null;
     }

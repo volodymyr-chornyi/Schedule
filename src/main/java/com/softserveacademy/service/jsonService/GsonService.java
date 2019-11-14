@@ -2,8 +2,8 @@ package com.softserveacademy.service.jsonService;
 
 import com.google.gson.Gson;
 import com.softserveacademy.model.Event;
-import com.softserveacademy.service.exception.IncorrectScheduleExcepttion;
 import com.softserveacademy.service.Schedule;
+import com.softserveacademy.service.exception.IncorrectAddingException;
 
 import java.io.File;
 import java.io.FileReader;
@@ -38,12 +38,8 @@ public class GsonService {
         return set;
     }
 
-    public void addEventsFromFileToEventList (File file, Schedule schedule){
-        try {
-            if (file.exists())
-                schedule.addEvent(readEventsFromFile(file));
-        }catch (IncorrectScheduleExcepttion e) {
-            e.printStackTrace();
-        }
+    public void addEventsFromFileToEventList (File file, Schedule schedule) throws IncorrectAddingException {
+        if (file.exists())
+            schedule.addEvent(readEventsFromFile(file));
     }
 }

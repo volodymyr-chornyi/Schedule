@@ -64,8 +64,6 @@ public class EventDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            JdbcService.closeConnection();
         }
         return result;
     }
@@ -92,8 +90,6 @@ public class EventDAO {
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
-            } finally {
-                JdbcService.closeConnection();
             }
             result = true;
         }
@@ -109,8 +105,6 @@ public class EventDAO {
             result = true;
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            JdbcService.closeConnection();
         }
         return result;
     }
@@ -143,8 +137,6 @@ public class EventDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            JdbcService.closeConnection();
         }
         return events;
     }
@@ -168,8 +160,6 @@ public class EventDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            JdbcService.closeConnection();
         }
         return event;
     }
@@ -194,8 +184,6 @@ public class EventDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            JdbcService.closeConnection();
         }
         return events;
     }
@@ -220,8 +208,6 @@ public class EventDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            JdbcService.closeConnection();
         }
         return events;
     }
@@ -248,8 +234,6 @@ public class EventDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            JdbcService.closeConnection();
         }
         return events;
     }
@@ -275,8 +259,6 @@ public class EventDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            JdbcService.closeConnection();
         }
         return events;
     }
@@ -303,8 +285,6 @@ public class EventDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            JdbcService.closeConnection();
         }
         return events;
     }
@@ -330,8 +310,6 @@ public class EventDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            JdbcService.closeConnection();
         }
         return events;
     }
@@ -358,8 +336,6 @@ public class EventDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            JdbcService.closeConnection();
         }
         return events;
     }
@@ -383,9 +359,7 @@ public class EventDAO {
                 events.add(currentEvent);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            JdbcService.closeConnection();
+            e.printStackTrace();;
         }
         return events;
     }
@@ -412,8 +386,6 @@ public class EventDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            JdbcService.closeConnection();
         }
         return events;
     }

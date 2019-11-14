@@ -6,7 +6,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-public class Teacher {
+public class Teacher implements Comparable<Teacher>{
 
     @NotNull
     private int id;
@@ -40,7 +40,7 @@ public class Teacher {
     }
 
     public String getName() {
-        return firstName + " " + lastName;
+        return lastName + " " + firstName;
     }
 
     public String getFirstName() {
@@ -96,5 +96,10 @@ public class Teacher {
                 ", lastName='" + lastName + '\'' +
                 ", age=" + age +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Teacher teacher) {
+        return (this.getName().compareToIgnoreCase(teacher.getName()));
     }
 }

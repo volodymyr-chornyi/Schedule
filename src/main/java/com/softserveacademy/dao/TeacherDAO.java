@@ -1,5 +1,6 @@
 package com.softserveacademy.dao;
 
+import com.softserveacademy.model.Subject;
 import com.softserveacademy.service.exception.IncorrectAddingException;
 import com.softserveacademy.service.exception.NoMatchesException;
 import com.softserveacademy.service.util.JdbcService;
@@ -16,6 +17,7 @@ public class TeacherDAO {
     private final String UPDATE = "UPDATE teachers SET age = ?, first_name = ?, last_name = ? WHERE Id = ?";
     private final String REMOVE_BY_ID = "DELETE FROM teachers WHERE Id = ?";
     private final String FIND_BY_ID = "SELECT * FROM teachers WHERE Id = ?";
+    private final String SHOW_SUBJECTS = "SELECT * FROM subjects LEFT JOIN teachers_subjects ON subjects.id = teachers_subjects.subject_id WHERE teacher_id = ?";
     private Connection connection;
 
     public TeacherDAO() {
@@ -38,8 +40,6 @@ public class TeacherDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            JdbcService.closeConnection();
         }
         return result;
     }
@@ -62,8 +62,6 @@ public class TeacherDAO {
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
-            } finally {
-                JdbcService.closeConnection();
             }
             result = true;
         }
@@ -81,11 +79,10 @@ public class TeacherDAO {
                 preparedStatement.setInt(1, teacher.getAge());
                 preparedStatement.setString(2, teacher.getFirstName());
                 preparedStatement.setString(3, teacher.getLastName());
+                preparedStatement.setInt(4, teacher.getId());
                 preparedStatement.executeUpdate();
             } catch (SQLException e) {
                 e.printStackTrace();
-            } finally {
-                JdbcService.closeConnection();
             }
             result = true;
         }
@@ -95,14 +92,15 @@ public class TeacherDAO {
     public boolean removeById(int id){
         boolean result = false;
         try {
+            PreparedStatement ps = connection.prepareStatement("DELETE FROM teachers_subjects WHERE teacher_id = ?");
+            ps.setInt(1, id);
+            ps.executeUpdate();
             PreparedStatement preparedStatement = connection.prepareStatement(REMOVE_BY_ID);
             preparedStatement.setInt(1, id);
             preparedStatement.executeUpdate();
             result = true;
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            JdbcService.closeConnection();
         }
         return result;
     }
@@ -121,8 +119,6 @@ public class TeacherDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            JdbcService.closeConnection();
         }
         return teachers;
     }
@@ -141,9 +137,25 @@ public class TeacherDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            JdbcService.closeConnection();
         }
         return null;
+    }
+
+    public Set<Subject> showSubjects(Teacher teacher){
+        Set<Subject> subjects = new HashSet<>();
+        PreparedStatement preparedStatement;
+        try {
+            preparedStatement = connection.prepareStatement(SHOW_SUBJECTS);
+            preparedStatement.setInt(1, teacher.getId());
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()){
+                Subject subject = new Subject(resultSet.getString("name"));
+                subject.setId(resultSet.getInt("id"));
+                subjects.add(subject);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return subjects;
     }
 }

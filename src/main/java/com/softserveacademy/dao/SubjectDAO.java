@@ -17,7 +17,8 @@ public class SubjectDAO {
     private final String UPDATE = "UPDATE subjects SET name = ? WHERE Id = ?";
     private final String REMOVE_BY_ID = "DELETE FROM subjects WHERE Id = ?";
     private final String FIND_BY_ID = "SELECT * FROM subjects WHERE Id = ?";
-    private final String SHOW_TEACHERS = "SELECT teacher_id FROM teachers_subjects WHERE subject_id = ?";
+    private final String FIND_BY_NAME = "SELECT * FROM subjects WHERE name = ?";
+    private final String SHOW_TEACHERS = "SELECT * FROM teachers LEFT JOIN teachers_subjects ON teachers.id = teachers_subjects.teacher_id WHERE subject_id = ?";
     private final String ADD_SUBJECT_TEACHER = "INSERT INTO teachers_subjects (subject_id, teacher_id) VALUES (?, ?)";
     private Connection connection;
 
@@ -40,8 +41,6 @@ public class SubjectDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            JdbcService.closeConnection();
         }
         return result;
     }
@@ -62,8 +61,6 @@ public class SubjectDAO {
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
-            } finally {
-                JdbcService.closeConnection();
             }
             result = true;
         }
@@ -82,8 +79,6 @@ public class SubjectDAO {
                 preparedStatement.executeUpdate();
             } catch (SQLException e) {
                 e.printStackTrace();
-            } finally {
-                JdbcService.closeConnection();
             }
             result = true;
         }
@@ -93,14 +88,15 @@ public class SubjectDAO {
     public boolean removeById(int id){
         boolean result = false;
         try {
+            PreparedStatement ps = connection.prepareStatement("DELETE FROM teachers_subjects WHERE subject_id = ?");
+            ps.setInt(1, id);
+            ps.executeUpdate();
             PreparedStatement preparedStatement = connection.prepareStatement(REMOVE_BY_ID);
             preparedStatement.setInt(1, id);
             preparedStatement.executeUpdate();
             result = true;
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            JdbcService.closeConnection();
         }
         return result;
     }
@@ -117,8 +113,6 @@ public class SubjectDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            JdbcService.closeConnection();
         }
         return subjects;
     }
@@ -135,10 +129,24 @@ public class SubjectDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            JdbcService.closeConnection();
         }
         return null;
+    }
+
+    public Subject findByName(String name){
+        Subject subject = null;
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_NAME);
+            preparedStatement.setString(1, name);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if(resultSet.next()) {
+                subject = new Subject(resultSet.getString("name"));
+                subject.setId(resultSet.getInt("id"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return subject;
     }
 
     public Set<Teacher> showTeachers(Subject subject){
@@ -158,8 +166,6 @@ public class SubjectDAO {
             return teachers;
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            JdbcService.closeConnection();
         }
         return null;
     }
@@ -176,8 +182,6 @@ public class SubjectDAO {
                 result = true;
             } catch (SQLException e) {
                 e.printStackTrace();
-            } finally {
-                JdbcService.closeConnection();
             }
         }
         return result;

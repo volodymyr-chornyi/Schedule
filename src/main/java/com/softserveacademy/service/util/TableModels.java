@@ -66,7 +66,7 @@ public class TableModels {
     public static String createRooms(){
         return "CREATE TABLE IF NOT EXISTS rooms " +
                 "(id serial primary key, " +
-                "building_number INTEGER, " +
+                "building_number VARCHAR(20), " +
                 "name VARCHAR(20), " +
                 "UNIQUE (building_number, name))";
     }

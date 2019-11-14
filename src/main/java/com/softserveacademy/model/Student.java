@@ -4,7 +4,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
-public class Student {
+public class Student implements Comparable<Student>{
 
     @NotNull
     private int id;
@@ -14,7 +14,6 @@ public class Student {
     private String firstName;
     @NotNull
     private String lastName;
-    @NotNull
     private Group group;
 
     public Student(String firstName, String lastName) {
@@ -88,5 +87,10 @@ public class Student {
                 ", age=" + age +
                 ", group='" + group.getName() + '\'' +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Student student) {
+        return (this.getName().compareToIgnoreCase(student.getName()));
     }
 }

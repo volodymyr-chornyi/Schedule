@@ -12,7 +12,8 @@ public class JdbcSettings {
 
     private JdbcSettings(){
         try {
-            properties.load(new FileInputStream(this.getClass().getClassLoader().getResource("jdbc.properties").getFile()));
+            properties.load(new FileInputStream("jdbc.properties"));
+//            properties.load(new FileInputStream(this.getClass().getClassLoader().getResource("jdbc.properties").getFile()));
         } catch (IOException e) {
             e.printStackTrace();
         }

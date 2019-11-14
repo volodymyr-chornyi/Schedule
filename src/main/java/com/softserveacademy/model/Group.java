@@ -1,18 +1,15 @@
 package com.softserveacademy.model;
 
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-public class Group {
+public class Group implements Comparable<Group>{
 
     @NotNull
     private int id;
-    @Min(value = 1)
-    @Max(value = 999)
+    @NotNull
     private String name;
     private transient Set<Student> students = new HashSet<>();
 
@@ -83,5 +80,10 @@ public class Group {
         return "Group{" +
                 "name='" + name + '\'' +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Group group) {
+        return (this.getName().compareToIgnoreCase(group.getName()));
     }
 }

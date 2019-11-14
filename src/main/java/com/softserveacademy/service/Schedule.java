@@ -1,8 +1,7 @@
 package com.softserveacademy.service;
 
 import com.softserveacademy.model.*;
-import com.softserveacademy.service.exception.IncorrectScheduleExcepttion;
-
+import com.softserveacademy.service.exception.IncorrectAddingException;
 import java.time.DayOfWeek;
 import java.util.HashSet;
 import java.util.Set;
@@ -16,14 +15,14 @@ public class Schedule {
         return events;
     }
 
-    public void addEvent(Event event) throws IncorrectScheduleExcepttion {
+    public void addEvent(Event event) throws IncorrectAddingException {
         if (events.contains(event))
-            throw new IncorrectScheduleExcepttion(event, events);
+            throw new IncorrectAddingException();
         else
             events.add(event);
     }
 
-    public void addEvent(Set<Event> set) throws IncorrectScheduleExcepttion {
+    public void addEvent(Set<Event> set) throws IncorrectAddingException {
         for (Event event: set) {
             this.addEvent(event);
         }

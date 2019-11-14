@@ -1,22 +1,15 @@
 package com.softserveacademy.model;
 
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-
 import java.util.Objects;
 
-public class Room {
+public class Room implements Comparable<Room>{
 
-    @NotNull
-    private int id;
-    @Min(value = 1)
-    @Max(value = 9999)
-    private int buildingNumber;
-    @NotNull
-    private String name;
+    @NotNull private int id;
+    @NotNull private String buildingNumber;
+    @NotNull private String name;
 
-    public Room(int buildingNumber, String name) {
+    public Room(String buildingNumber, String name) {
         this.buildingNumber = buildingNumber;
         this.name = name;
     }
@@ -29,16 +22,20 @@ public class Room {
         this.id = id;
     }
 
-    public int getBuildingNumber() {
+    public String getBuildingNumber() {
         return buildingNumber;
     }
 
-    public void setBuildingNumber(int buildingNumber) {
+    public void setBuildingNumber(String buildingNumber) {
         this.buildingNumber = buildingNumber;
     }
 
     public String getName() {
         return name;
+    }
+
+    public String getFullName() {
+        return (buildingNumber + ", " + name);
     }
 
     public void setName(String name) {
@@ -50,7 +47,7 @@ public class Room {
         if (this == o) return true;
         if (!(o instanceof Room)) return false;
         Room room = (Room) o;
-        return buildingNumber == room.buildingNumber &&
+        return buildingNumber.equalsIgnoreCase(room.buildingNumber) &&
                 name.equals(room.name);
     }
 
@@ -65,5 +62,13 @@ public class Room {
                 "buildingNumber=" + buildingNumber +
                 ", name='" + name + '\'' +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Room room) {
+        int i = this.getBuildingNumber().compareToIgnoreCase(room.getBuildingNumber());
+        if (i != 0)
+            return i;
+        return (this.getName().compareToIgnoreCase(room.getName()));
     }
 }

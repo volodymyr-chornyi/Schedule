@@ -1,7 +1,6 @@
 package com.softserveacademy.service;
 
 import com.softserveacademy.model.*;
-
 import java.time.DayOfWeek;
 
 public class EventCreator {
@@ -48,7 +47,7 @@ public class EventCreator {
         return this;
     }
 
-    public Event create() throws IllegalArgumentException {
+    public Event create() {
         Event event = new Event();
         event.setDayOfWeek(dayOfWeek);
         event.setNumberEvent(numberEvent);
@@ -58,5 +57,4 @@ public class EventCreator {
         event.setRoom(room);
         return event;
     }
-
 }

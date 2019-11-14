@@ -42,8 +42,6 @@ public class StudentDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            JdbcService.closeConnection();
         }
         return result;
     }
@@ -67,8 +65,6 @@ public class StudentDAO {
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
-            } finally {
-                JdbcService.closeConnection();
             }
             result = true;
         }
@@ -90,8 +86,6 @@ public class StudentDAO {
                 preparedStatement.executeUpdate();
             } catch (SQLException e) {
                 e.printStackTrace();
-            } finally {
-                JdbcService.closeConnection();
             }
             result = true;
         }
@@ -107,13 +101,11 @@ public class StudentDAO {
             result = true;
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            JdbcService.closeConnection();
         }
         return result;
     }
 
-    public Set<Student> findALL(){
+    public Set<Student> findAll(){
         Set<Student> students = new HashSet<>();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(CONTAINS);
@@ -128,8 +120,6 @@ public class StudentDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            JdbcService.closeConnection();
         }
         return students;
     }
@@ -149,8 +139,6 @@ public class StudentDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            JdbcService.closeConnection();
         }
         return null;
     }

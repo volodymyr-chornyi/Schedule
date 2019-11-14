@@ -4,7 +4,7 @@ import javax.validation.constraints.NotNull;
 import java.time.DayOfWeek;
 import java.util.Objects;
 
-public class Event {
+public class Event implements Comparable<Event>{
 
     @NotNull private int id;
     @NotNull private DayOfWeek dayOfWeek;
@@ -98,5 +98,16 @@ public class Event {
                 ", subject=" + subject +
                 ", room=" + room +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Event event) {
+        int i = this.getDayOfWeek().compareTo(event.getDayOfWeek());
+        if(i != 0)
+            return i;
+        i = this.getNumberEvent().compareTo(event.getNumberEvent());
+        if(i != 0)
+            return i;
+        return this.getRoom().compareTo(event.getRoom());
     }
 }

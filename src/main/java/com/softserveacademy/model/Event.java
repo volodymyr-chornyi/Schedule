@@ -100,6 +100,10 @@ public class Event implements Comparable<Event>{
                 '}';
     }
 
+    public String getSchedule() {
+        return (subject.getName() + ", " + group.getName() + ", " + teacher.getName() + ", " + room.getFullName());
+    }
+
     @Override
     public int compareTo(Event event) {
         int i = this.getDayOfWeek().compareTo(event.getDayOfWeek());

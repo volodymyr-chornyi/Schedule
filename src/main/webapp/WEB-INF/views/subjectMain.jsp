@@ -29,24 +29,24 @@
                         </c:forEach>
                     </td>
                     <td><a href="/subject?submit=update&id=${subject.id}&name=${subject.name}" title="edit ${subject.name}">edit</a> /
-                    <a href="/subject?submit=remove&id=${subject.id}" title="delete ${subject.name}">delete</a></td>
+                        <a href="/subject?submit=remove&id=${subject.id}" title="delete ${subject.name}">delete</a></td>
                 </tr>
             </c:forEach>
         </table>
     </form>
 
     <form method="post" action="/subject">
-            <table>
-                <h2 class="form-style-2-heading">Subject adding</h2>
-                <th>name</th>
-                <th>add</th>
-                <tr>
-                    <td><input required type="text" id="name" name="name"></td>
-                    <td>
-                        <input type="submit" value="add">
-                    </td>
-                </tr>
-            </table>
+        <table>
+            <h2 class="form-style-2-heading">Subject adding</h2>
+            <th>name</th>
+            <th>add</th>
+            <tr>
+                <td><input required type="text" id="name" name="name"></td>
+                <td>
+                    <input type="submit" value="add">
+                </td>
+            </tr>
+        </table>
     </form>
 </body>
 </html>

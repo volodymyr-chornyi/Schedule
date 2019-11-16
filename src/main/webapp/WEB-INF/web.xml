@@ -90,6 +90,16 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>EventSearch</servlet-name>
+        <servlet-class>com.softserveacademy.servlet.EventSearch</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EventSearch</servlet-name>
+        <url-pattern>/search</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
         <servlet-name>teacherMain</servlet-name>
         <jsp-file>/WEB-INF/views/teacherMain.jsp</jsp-file>
     </servlet>
@@ -128,6 +138,31 @@
     <servlet-mapping>
         <servlet-name>eventMain</servlet-name>
         <url-pattern>/eventmain</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>searchEvent</servlet-name>
+        <jsp-file>/WEB-INF/views/searchEvent.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>searchEvent</servlet-name>
+        <url-pattern>/eventsearch</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>schedule</servlet-name>
+        <jsp-file>/WEB-INF/views/schedule.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>schedule</servlet-name>
+        <url-pattern>/schedule</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>teacherUpdate</servlet-name>
+        <jsp-file>/WEB-INF/views/teacherUpdate.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>teacherUpdate</servlet-name>
+        <url-pattern>/teacherupdate</url-pattern>
     </servlet-mapping>
 
 </web-app>

@@ -28,6 +28,7 @@ public class EventDAO {
     private final String REMOVE_BY_ID = "DELETE FROM events WHERE Id = ?";
     private final String FIND_BY_ID = "SELECT * FROM events WHERE Id = ?";
     private final String FIND_BY_DAY_OF_WEEK = "SELECT * FROM events WHERE day_of_week = ?";
+    private final String FIND_BY_NUMBER_EVENT = "SELECT * FROM events WHERE number_event = ?";
     private final String FIND_BY_TEACHER = "SELECT * FROM events WHERE teacher_id = ?";
     private final String FIND_BY_DAY_AND_TEACHER = "SELECT * FROM events WHERE (day_of_week = ? AND teacher_id = ?)";
     private final String FIND_BY_SUBJECT = "SELECT * FROM events WHERE subject_id = ?";
@@ -170,7 +171,31 @@ public class EventDAO {
             PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_DAY_OF_WEEK);
             preparedStatement.setInt(1, dayOfWeek.getValue());
             ResultSet resultSet = preparedStatement.executeQuery();
-            if(resultSet.next()) {
+            while (resultSet.next()) {
+                Event currentEvent = new EventCreator()
+                        .setDayOfWeek(DayOfWeek.of(resultSet.getInt("day_of_week")))
+                        .setNumberEvent(NumberEvent.of(resultSet.getInt("number_event")))
+                        .setTeacher(teacherDAO.findById(resultSet.getInt("teacher_id")))
+                        .setSubject(subjectDAO.findById(resultSet.getInt("subject_id")))
+                        .setGroup(groupDAO.findById(resultSet.getInt("group_id")))
+                        .setRoom(roomDAO.findById(resultSet.getInt("room_id")))
+                        .create();
+                currentEvent.setId(resultSet.getInt("id"));
+                events.add(currentEvent);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return events;
+    }
+
+    public Set<Event> findByNumberEvent(NumberEvent numberEvent){
+        Set<Event> events = new HashSet<>();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_NUMBER_EVENT);
+            preparedStatement.setInt(1, numberEvent.getValue());
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
                 Event currentEvent = new EventCreator()
                         .setDayOfWeek(DayOfWeek.of(resultSet.getInt("day_of_week")))
                         .setNumberEvent(NumberEvent.of(resultSet.getInt("number_event")))
@@ -194,7 +219,7 @@ public class EventDAO {
             PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_TEACHER);
             preparedStatement.setInt(1, teacher.getId());
             ResultSet resultSet = preparedStatement.executeQuery();
-            if(resultSet.next()) {
+            while (resultSet.next()) {
                 Event currentEvent = new EventCreator()
                         .setDayOfWeek(DayOfWeek.of(resultSet.getInt("day_of_week")))
                         .setNumberEvent(NumberEvent.of(resultSet.getInt("number_event")))
@@ -220,7 +245,7 @@ public class EventDAO {
             preparedStatement.setInt(1, dayOfWeek.getValue());
             preparedStatement.setInt(2, teacher.getId());
             ResultSet resultSet = preparedStatement.executeQuery();
-            if(resultSet.next()) {
+            while (resultSet.next()) {
                 Event currentEvent = new EventCreator()
                         .setDayOfWeek(dayOfWeek)
                         .setNumberEvent(NumberEvent.of(resultSet.getInt("number_event")))
@@ -245,7 +270,7 @@ public class EventDAO {
                     connection.prepareStatement(FIND_BY_SUBJECT);
             preparedStatement.setInt(1, subject.getId());
             ResultSet resultSet = preparedStatement.executeQuery();
-            if(resultSet.next()) {
+            while (resultSet.next()) {
                 Event currentEvent = new EventCreator()
                         .setDayOfWeek(DayOfWeek.of(resultSet.getInt("day_of_week")))
                         .setNumberEvent(NumberEvent.of(resultSet.getInt("number_event")))
@@ -271,7 +296,7 @@ public class EventDAO {
             preparedStatement.setInt(1, dayOfWeek.getValue());
             preparedStatement.setInt(2, subject.getId());
             ResultSet resultSet = preparedStatement.executeQuery();
-            if(resultSet.next()) {
+            while (resultSet.next()) {
                 Event currentEvent = new EventCreator()
                         .setDayOfWeek(dayOfWeek)
                         .setNumberEvent(NumberEvent.of(resultSet.getInt("number_event")))
@@ -296,7 +321,7 @@ public class EventDAO {
                     connection.prepareStatement(FIND_BY_GROUP);
             preparedStatement.setInt(1, group.getId());
             ResultSet resultSet = preparedStatement.executeQuery();
-            if(resultSet.next()) {
+            while (resultSet.next()) {
                 Event currentEvent = new EventCreator()
                         .setDayOfWeek(DayOfWeek.of(resultSet.getInt("day_of_week")))
                         .setNumberEvent(NumberEvent.of(resultSet.getInt("number_event")))
@@ -322,7 +347,7 @@ public class EventDAO {
             preparedStatement.setInt(1, dayOfWeek.getValue());
             preparedStatement.setInt(2, group.getId());
             ResultSet resultSet = preparedStatement.executeQuery();
-            if(resultSet.next()) {
+            while (resultSet.next()) {
                 Event currentEvent = new EventCreator()
                         .setDayOfWeek(dayOfWeek)
                         .setNumberEvent(NumberEvent.of(resultSet.getInt("number_event")))
@@ -346,7 +371,7 @@ public class EventDAO {
             PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_ROOM);
             preparedStatement.setInt(1, room.getId());
             ResultSet resultSet = preparedStatement.executeQuery();
-            if(resultSet.next()) {
+            while (resultSet.next()) {
                 Event currentEvent = new EventCreator()
                         .setDayOfWeek(DayOfWeek.of(resultSet.getInt("day_of_week")))
                         .setNumberEvent(NumberEvent.of(resultSet.getInt("number_event")))
@@ -372,7 +397,7 @@ public class EventDAO {
             preparedStatement.setInt(1, dayOfWeek.getValue());
             preparedStatement.setInt(2, room.getId());
             ResultSet resultSet = preparedStatement.executeQuery();
-            if(resultSet.next()) {
+            while (resultSet.next()) {
                 Event currentEvent = new EventCreator()
                         .setDayOfWeek(dayOfWeek)
                         .setNumberEvent(NumberEvent.of(resultSet.getInt("number_event")))

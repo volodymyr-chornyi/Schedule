@@ -15,9 +15,9 @@
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
             integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <link href="/css/table.css" rel="stylesheet" type="text/css">
+    <link href="/css/table_schedule.css" rel="stylesheet" type="text/css">
     <link href="/css/styles.css" rel="stylesheet" type="text/css">
-    <title>eventMain</title>
+    <title>searchEvent</title>
 </head>
 <body>
 
@@ -53,17 +53,77 @@
         <div class="tab-pane fade" id="group" role="tabpanel" aria-labelledby="group-tab">...</div>
         <div class="tab-pane fade" id="student" role="tabpanel" aria-labelledby="student-tab">...</div>
     </div>
-    <form method="get" action="/event">
+    <form method="get" action="/search">
         <table>
-            <h1 class="form-style-2-heading">Event list</h1>
+            <h1 class="form-style-2-heading">Search event</h1>
             <th>day of week</th>
             <th>event number</th>
             <th>subject</th>
             <th>teacher</th>
             <th>group</th>
             <th>room</th>
-            <th>modification</th>
-            <c:forEach var="event" items="${allEvents}">
+            <th>student</th>
+            <tr>
+                <td>
+                    <select name="day">
+                        <option></option>
+                        <c:forEach var="day" items="${allDays}">
+                            <option value="${day.value}">${day}</option>
+                        </c:forEach>
+                    </select>
+                </td>
+                <td>
+                    <select name="number">
+                        <option></option>
+                        <c:forEach var="number" items="${allNumberEvent}">
+                            <option value="${number.value}">${number}</option>
+                        </c:forEach>
+                    </select>
+                </td>
+                <td>
+                    <select name="subject">
+                        <option></option>
+                        <c:forEach var="subject" items="${allSubjects}">
+                            <option value="${subject.id}">${subject.name}</option>
+                        </c:forEach>
+                    </select>
+                </td>
+                <td>
+                    <select name="teacher">
+                        <option></option>
+                        <c:forEach var="teacher" items="${allTeachers}">
+                            <option value="${teacher.id}">${teacher.name}</option>
+                        </c:forEach>
+                    </select>
+                </td>
+                <td>
+                    <select name="group">
+                        <option></option>
+                        <c:forEach var="group" items="${allGroups}">
+                            <option value="${group.id}">${group.name}</option>
+                        </c:forEach>
+                    </select>
+                </td>
+                <td>
+                    <select name="room">
+                        <option></option>
+                        <c:forEach var="room" items="${allRooms}">
+                            <option value="${room.id}">${room.fullName}</option>
+                        </c:forEach>
+                    </select>
+                </td>
+                <td>
+                    <select name="student">
+                        <option></option>
+                        <c:forEach var="student" items="${allStudents}">
+                            <option value="${student.id}">${student.name}</option>
+                        </c:forEach>
+                    </select>
+                </td>
+                <td><input type="submit" name="search" value="search"></td>
+                <td><input type="submit" name="search" value="schedule"></td>
+            </tr>
+            <c:forEach var="event" items="${resultEvents}">
                 <tr>
                     <td>${event.dayOfWeek}</td>
                     <td>${event.numberEvent}</td>
@@ -71,71 +131,10 @@
                     <td>${event.teacher.name}</td>
                     <td>${event.group.name}</td>
                     <td>${event.room.fullName}</td>
-                    <td><a href="/event?submit=update&id=${event.id}&dayOfWeek=${event.dayOfWeek}
-                        &numberEvent=${event.numberEvent}&subject=${event.subject.id}&teacher=${event.teacher.id}
-                        &group=${event.group.id}&room=${event.room.id}" title="edit event">edit</a> /
-                    <a href="/event?submit=remove&id=${event.id}" title="delete event">delete</a></td>
+                    <td></td>
                 </tr>
             </c:forEach>
         </table>
-    </form>
-
-    <form method="post" action="/event">
-            <table>
-                <h2 class="form-style-2-heading">Event adding</h2>
-                <th>day of week</th>
-                <th>event number</th>
-                <th>subject</th>
-                <th>teacher</th>
-                <th>group</th>
-                <th>room</th>
-                <th>add</th>
-                <tr>
-                    <td>
-                        <select name="day">
-                            <c:forEach var="day" items="${allDays}">
-                                <option value="${day.value}">${day}</option>
-                            </c:forEach>
-                        </select>
-                    </td>
-                    <td>
-                        <select name="number">
-                            <c:forEach var="number" items="${allNumberEvent}">
-                                <option value="${number.value}">${number}</option>
-                            </c:forEach>
-                        </select>
-                    </td>
-                    <td>
-                        <select name="subject">
-                            <c:forEach var="subject" items="${allSubjects}">
-                                <option value="${subject.id}">${subject.name}</option>
-                            </c:forEach>
-                        </select>
-                    </td>
-                    <td>
-                        <select name="teacher">
-                            <c:forEach var="teacher" items="${allTeachers}">
-                                <option value="${teacher.id}">${teacher.name}</option>
-                            </c:forEach>
-                        </select>
-                    </td>
-                    <td>
-                        <select name="group">
-                            <c:forEach var="group" items="${allGroups}">
-                                <option value="${group.id}">${group.name}</option>
-                            </c:forEach>
-                        </select>
-                    </td>
-                    <td>
-                        <select name="room">
-                            <c:forEach var="room" items="${allRooms}">
-                                <option value="${room.id}">${room.fullName}</option>
-                            </c:forEach>
-                        </select>
-                    </td>
-                    <td><input type="submit" value="add"></td>
-                </tr>
-            </table>
     </form>
 </body>
 </html>

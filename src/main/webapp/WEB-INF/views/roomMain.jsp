@@ -40,8 +40,8 @@
                 <th>name</th>
                 <th>add</th>
                 <tr>
-                    <td><input required size="3" type="text" id="buildingNumber" name="buildingNumber"></td>
-                    <td><input required size="3" type="text" id="name" name="name"></td>
+                    <td><input required type="text" id="buildingNumber" name="buildingNumber"></td>
+                    <td><input required type="text" id="name" name="name"></td>
                     <td><input type="submit" value="add"></td>
                 </tr>
             </table>

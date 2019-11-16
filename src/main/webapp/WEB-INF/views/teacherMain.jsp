@@ -14,6 +14,7 @@
     <link href="/css/styles.css" rel="stylesheet" type="text/css">
 </head>
 <body>
+
     <form method="get" action="/teacher">
         <table>
             <h1 class="form-style-2-heading">Teacher list</h1>
@@ -29,9 +30,9 @@
                     <td>${teacher.age}</td>
                     <td>${teacher.subjects}</td>
 <%--                    <td>--%>
-<%--                        <input type="submit" name="submit" id="${teacher.id}" value="remove" title="remove ${teacher.name}">--%>
+<%--                        <input type="submit" name="submit" value="remove" title="remove ${teacher.name}">--%>
 <%--                    </td>--%>
-                    <td><a href="/teacher?submit=update&id=${teacher.id}&lastName=${teacher.lastName}
+                    <td><a href="/teacherupdate?submit=update&id=${teacher.id}&lastName=${teacher.lastName}
                         &firstName=${teacher.firstName}&age=${teacher.age}" title="edit ${teacher.name}">edit</a> /
                     <a href="/teacher?submit=remove&id=${teacher.id}" title="delete ${teacher.name}">delete</a></td>
                 </tr>
@@ -39,7 +40,7 @@
         </table>
     </form>
 
-    <form method="post" action="/teacher">
+    <form method="post" id="teacher_add" action="/teacher">
             <table>
                 <h2 class="form-style-2-heading">Teacher adding</h2>
                 <th>last name</th>
@@ -48,9 +49,9 @@
                 <th>subjects</th>
                 <th>add</th>
                 <tr>
-                    <td><input required size="3" type="text" id="lastName" name="lastName"></td>
-                    <td><input required size="3" type="text" id="firstName" name="firstName"></td>
-                    <td><input required size="1" type="text" id="age" name="age"></td>
+                    <td><input required type="text" id="teacherLastName" name="lastName"></td>
+                    <td><input required type="text" id="teacherFirstName" name="firstName"></td>
+                    <td><input required type="text" id="age" name="age"></td>
                     <td>
                         <select name="subject">
                             <c:forEach var="subject" items="${allSubjects}">
@@ -59,10 +60,26 @@
                         </select>
                     </td>
                     <td>
-                        <input type="submit" value="add">
+                        <input type="submit" id="add" style="cursor: pointer" value="add">
                     </td>
                 </tr>
             </table>
     </form>
+
+<%--<script>--%>
+<%--    document.ready (function () {--%>
+<%--        $("#add").bind("click", function () {--%>
+<%--            $.ajax ({--%>
+<%--                url: "/teacher",--%>
+<%--                type: "POST",--%>
+<%--                data: ({})--%>
+<%--            })--%>
+<%--        })--%>
+<%--    })--%>
+
+
+<%--</script>--%>
+<%--    <script src="/libs/jquery/jQuery v3.4.1.js"></script>--%>
+<%--    <script src="/js/main.js"></script>--%>
 </body>
 </html>

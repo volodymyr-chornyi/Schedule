@@ -1,5 +1,6 @@
 package com.softserveacademy.dao;
 
+import com.softserveacademy.garbage.CustomValidator;
 import com.softserveacademy.model.Subject;
 import com.softserveacademy.service.exception.IncorrectAddingException;
 import com.softserveacademy.service.exception.NoMatchesException;
@@ -71,9 +72,6 @@ public class TeacherDAO {
     public boolean update(Teacher teacher) throws NoMatchesException {
         boolean result = false;
         PreparedStatement preparedStatement;
-        if(!(contains(teacher))) {
-            throw new NoMatchesException();
-        } else {
             try {
                 preparedStatement = connection.prepareStatement(UPDATE);
                 preparedStatement.setInt(1, teacher.getAge());
@@ -85,7 +83,6 @@ public class TeacherDAO {
                 e.printStackTrace();
             }
             result = true;
-        }
         return result;
     }
 

@@ -5,6 +5,7 @@ import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class Teacher implements Comparable<Teacher>{
 
@@ -61,6 +62,13 @@ public class Teacher implements Comparable<Teacher>{
 
     public Set<Subject> getSubjects() {
         return subjects;
+    }
+
+    public String getSubjectsToString() {
+        return getSubjects().stream()
+                .map(Subject::getName)
+                .sorted()
+                .collect(Collectors.joining(", ", "", ""));
     }
 
     public void setSubjects(Set<Subject> subjects) {

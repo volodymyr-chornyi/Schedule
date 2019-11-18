@@ -11,48 +11,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <link href="/css/table_schedule.css" rel="stylesheet" type="text/css">
     <link href="/css/styles.css" rel="stylesheet" type="text/css">
+    <link href="/css/panel.css" rel="stylesheet" type="text/css">
     <title>searchEvent</title>
 </head>
 <body>
 
-    <ul class="nav nav-tabs" id="myTab" role="tablist">
-        <li class="nav-item">
-            <a class="nav-link" id="home-tab" data-toggle="tab" href="/" role="tab" aria-controls="home" aria-selected="true">Home</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link active" id="event-tab" data-toggle="tab" href="/eventlist" role="tab" aria-controls="event" aria-selected="false">Event</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" id="subject-tab" data-toggle="tab" href="/subjectlist" role="tab" aria-controls="subject" aria-selected="false">Subject</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" id="teacher-tab" data-toggle="tab" href="/teacherlist" role="tab" aria-controls="teacher" aria-selected="false">Teacher</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" id="room-tab" data-toggle="tab" href="/roomlist" role="tab" aria-controls="room" aria-selected="false">Room</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" id="group-tab" data-toggle="tab" href="/grouplist" role="tab" aria-controls="group" aria-selected="false">Group</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" id="student-tab" data-toggle="tab" href="/studentlist" role="tab" aria-controls="student" aria-selected="false">Student</a>
-        </li>
-    </ul>
-    <div class="tab-content" id="myTabContent">
-        <div class="tab-pane fade" id="home" role="tabpanel" aria-labelledby="home-tab">...</div>
-        <div class="tab-pane fade show active" id="event" role="tabpanel" aria-labelledby="event-tab">...</div>
-        <div class="tab-pane fade" id="subject" role="tabpanel" aria-labelledby="subject-tab">...</div>
-        <div class="tab-pane fade" id="teacher" role="tabpanel" aria-labelledby="teacher-tab">...</div>
-        <div class="tab-pane fade" id="room" role="tabpanel" aria-labelledby="room-tab">...</div>
-        <div class="tab-pane fade" id="group" role="tabpanel" aria-labelledby="group-tab">...</div>
-        <div class="tab-pane fade" id="student" role="tabpanel" aria-labelledby="student-tab">...</div>
-    </div>
+    <header>
+        <div class="container">
+            <%--        <div class="logo-box">--%>
+            <%--            <a href="/">--%>
+            <%--                <img src="/img/SoftServe.png">--%>
+            <%--            </a>--%>
+            <%--        </div>--%>
+            <nav>
+                <ul>
+                    <li><a href="/">home</a></li>
+                    <li><a href="/eventlist">Event</a></li>
+                    <li><a href="/subjectlist">Subject</a></li>
+                    <li><a href="/teacherlist">Teacher</a></li>
+                    <li><a href="/roomlist">Room</a></li>
+                    <li><a href="/grouplist">Group</a></li>
+                    <li><a href="/studentlist">Student</a></li>
+                    <li><a href="/search">Search</a></li>
+                    <li><a href="/search?search=schedule">Schedule</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
     <form method="get" action="/search">
         <table>
             <h1 class="form-style-2-heading">Search event</h1>

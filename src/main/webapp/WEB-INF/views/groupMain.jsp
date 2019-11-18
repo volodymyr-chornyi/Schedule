@@ -12,8 +12,33 @@
     <title>groupMain</title>
     <link href="/css/table.css" rel="stylesheet" type="text/css">
     <link href="/css/styles.css" rel="stylesheet" type="text/css">
+    <link href="/css/panel.css" rel="stylesheet" type="text/css">
 </head>
 <body>
+
+    <header>
+        <div class="container">
+            <%--        <div class="logo-box">--%>
+            <%--            <a href="/">--%>
+            <%--                <img src="/img/SoftServe.png">--%>
+            <%--            </a>--%>
+            <%--        </div>--%>
+            <nav>
+                <ul>
+                    <li><a href="/">home</a></li>
+                    <li><a href="/eventlist">Event</a></li>
+                    <li><a href="/subjectlist">Subject</a></li>
+                    <li><a href="/teacherlist">Teacher</a></li>
+                    <li><a href="/roomlist">Room</a></li>
+                    <li><a href="/grouplist">Group</a></li>
+                    <li><a href="/studentlist">Student</a></li>
+                    <li><a href="/search">Search</a></li>
+                    <li><a href="/search?search=schedule">Schedule</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
     <form method="get" action="/teacher">
         <table>
             <h1 class="form-style-2-heading">Group list</h1>
@@ -23,7 +48,7 @@
             <c:forEach var="group" items="${allGroups}">
                 <tr>
                     <td>${group.name}</td>
-                    <td>${group.students}</td>
+                    <td>${group.studentsToString}</td>
                     <td><a href="/group?submit=update&id=${group.id}&name=${group.name}" title="edit ${group.name}">edit</a> /
                     <a href="/group?submit=remove&id=${group.id}" title="delete ${group.name}">delete</a></td>
                 </tr>
@@ -33,7 +58,7 @@
 
     <form method="post" action="/group">
             <table>
-                <h2 class="form-style-2-heading">Group adding</h2>
+                <h1 class="form-style-2-heading">Group adding</h1>
                 <th>name</th>
                 <th>add</th>
                 <tr>

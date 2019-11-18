@@ -71,9 +71,6 @@ public class RoomDAO {
     public boolean update(Room room) throws NoMatchesException {
         boolean result = false;
         PreparedStatement preparedStatement;
-        if(!(contains(room))) {
-            throw new NoMatchesException();
-        } else {
             try {
                 preparedStatement = connection.prepareStatement(UPDATE);
                 preparedStatement.setString(1, room.getBuildingNumber());
@@ -83,7 +80,6 @@ public class RoomDAO {
                 e.printStackTrace();
             }
             result = true;
-        }
         return result;
     }
 

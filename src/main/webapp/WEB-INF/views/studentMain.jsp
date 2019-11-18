@@ -9,7 +9,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>teacherMain</title>
+    <title>studentMain</title>
     <link href="/css/table.css" rel="stylesheet" type="text/css">
     <link href="/css/styles.css" rel="stylesheet" type="text/css">
     <link href="/css/panel.css" rel="stylesheet" type="text/css">
@@ -39,20 +39,20 @@
         </div>
     </header>
 
-    <form method="get" action="/teacher">
-        <h1 class="form-style-2-heading">Teacher list</h1>
+<%--    <form method="get" action="/teacher">--%>
+        <h1 class="form-style-2-heading">Student list</h1>
         <table>
             <th>last name</th>
             <th>first name</th>
             <th>age</th>
-            <th>subjects</th>
+            <th>group</th>
             <th>modification</th>
-            <c:forEach var="teacher" items="${allTeachers}">
+            <c:forEach var="student" items="${allStudents}">
                 <tr>
-                    <td>${teacher.lastName}</td>
-                    <td>${teacher.firstName}</td>
-                    <td>${teacher.age}</td>
-                    <td>${teacher.subjects}</td>
+                    <td>${student.lastName}</td>
+                    <td>${student.firstName}</td>
+                    <td>${student.age}</td>
+                    <td>${student.group.name}</td>
 
 
                     <td>
@@ -67,30 +67,30 @@
 <%--                    <td><a href="/teacherupdate">edit</a> /--%>
 <%--                    <td><a href="/teacherupdate?submit=${teacher}">edit</a> /--%>
 
-                    <a href="/teacher?submit=edit&id=${teacher.id}" title="edit ${teacher.name}">edit</a> /
-                    <a href="/teacher?submit=remove&id=${teacher.id}" title="delete ${teacher.name}">delete</a></td>
+                    <a href="/student?submit=edit&id=${student.id}" title="edit ${student.name}">edit</a> /
+                    <a href="/student?submit=remove&id=${student.id}" title="delete ${student.name}">delete</a></td>
                 </tr>
             </c:forEach>
 
         </table>
-    </form>
+<%--    </form>--%>
 
-    <form method="post" id="teacher_add" action="/teacher">
+    <form method="post" id="student_add" action="/student">
             <table>
-                <h1 class="form-style-2-heading">Teacher adding</h1>
+                <h1 class="form-style-2-heading">Student adding</h1>
                 <th>last name</th>
                 <th>first name</th>
                 <th>age</th>
-                <th>subjects</th>
+                <th>group</th>
                 <th>add</th>
                 <tr>
-                    <td><input required pattern="^[a-zA-Z]{3,15}$" type="text" id="teacherLastName" name="lastName"></td>
-                    <td><input required pattern="^[a-zA-Z]{3,15}$" type="text" id="teacherFirstName" name="firstName"></td>
-                    <td><input required pattern="[1-9]{1}[0-9]{1}" type="text" id="age" name="age"></td>
+                    <td><input required type="text" id="studentLastName" name="lastName"></td>
+                    <td><input required type="text" id="studentFirstName" name="firstName"></td>
+                    <td><input required type="text" id="age" name="age"></td>
                     <td>
-                        <select name="subject">
-                            <c:forEach var="subject" items="${allSubjects}">
-                                <option>${subject.name}</option>
+                        <select name="group">
+                            <c:forEach var="group" items="${allGroups}">
+                                <option>${group.name}</option>
                             </c:forEach>
                         </select>
                     </td>
@@ -100,6 +100,23 @@
                 </tr>
             </table>
     </form>
+
+<%--<script>--%>
+<%--    document.ready (function () {--%>
+<%--        $("#add").bind("click", function () {--%>
+<%--            $.ajax ({--%>
+<%--                url: "/teacher",--%>
+<%--                type: "POST",--%>
+<%--                data: ({})--%>
+<%--            })--%>
+<%--        })--%>
+<%--    })--%>
+
+
+<%--</script>--%>
+<%--    <script src="/libs/jquery/jQuery v3.4.1.js"></script>--%>
+<%--    <script src="/js/main.js"></script>--%>
+
 
 </body>
 </html>

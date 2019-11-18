@@ -12,8 +12,33 @@
     <title>roomMain</title>
     <link href="/css/table.css" rel="stylesheet" type="text/css">
     <link href="/css/styles.css" rel="stylesheet" type="text/css">
+    <link href="/css/panel.css" rel="stylesheet" type="text/css">
 </head>
 <body>
+
+    <header>
+        <div class="container">
+            <%--        <div class="logo-box">--%>
+            <%--            <a href="/">--%>
+            <%--                <img src="/img/SoftServe.png">--%>
+            <%--            </a>--%>
+            <%--        </div>--%>
+            <nav>
+                <ul>
+                    <li><a href="/">home</a></li>
+                    <li><a href="/eventlist">Event</a></li>
+                    <li><a href="/subjectlist">Subject</a></li>
+                    <li><a href="/teacherlist">Teacher</a></li>
+                    <li><a href="/roomlist">Room</a></li>
+                    <li><a href="/grouplist">Group</a></li>
+                    <li><a href="/studentlist">Student</a></li>
+                    <li><a href="/search">Search</a></li>
+                    <li><a href="/search?search=schedule">Schedule</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
     <form method="get" action="/room">
         <table>
             <h1 class="form-style-2-heading">Room list</h1>
@@ -35,7 +60,7 @@
 
     <form method="post" action="/room">
             <table>
-                <h2 class="form-style-2-heading">Room adding</h2>
+                <h1 class="form-style-2-heading">Room adding</h1>
                 <th>buildingNumber</th>
                 <th>name</th>
                 <th>add</th>

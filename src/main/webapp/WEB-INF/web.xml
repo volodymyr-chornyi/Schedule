@@ -73,6 +73,23 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>StudentListServlet</servlet-name>
+        <servlet-class>com.softserveacademy.servlet.StudentListServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>StudentListServlet</servlet-name>
+        <url-pattern>/studentlist</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>StudentController</servlet-name>
+        <servlet-class>com.softserveacademy.servlet.StudentController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>StudentController</servlet-name>
+        <url-pattern>/student</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>RoomListServlet</servlet-name>
         <servlet-class>com.softserveacademy.servlet.RoomListServlet</servlet-class>
     </servlet>
@@ -122,6 +139,14 @@
     <servlet-mapping>
         <servlet-name>groupMain</servlet-name>
         <url-pattern>/groupmain</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>studentMain</servlet-name>
+        <jsp-file>/WEB-INF/views/studentMain.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>studentMain</servlet-name>
+        <url-pattern>/studentmain</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>roomMain</servlet-name>

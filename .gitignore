@@ -14,5 +14,7 @@ gradle/
 garbage/
 /src/main/java/com/softserveacademy/objectgenerator/
 out/
+img/
+libs/
 
 Schedule.iml

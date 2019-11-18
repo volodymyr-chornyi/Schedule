@@ -21,6 +21,7 @@ public class StudentDAO {
     private final String REMOVE_BY_ID = "DELETE FROM students WHERE Id = ?";
     private final String FIND_BY_ID = "SELECT * FROM students WHERE Id = ?";
     private Connection connection;
+    GroupDAO groupDAO = new GroupDAO();
 
     public StudentDAO() {
         this.connection = JdbcService.getConnection();
@@ -56,7 +57,7 @@ public class StudentDAO {
                 preparedStatement = connection.prepareStatement(ADD, PreparedStatement.RETURN_GENERATED_KEYS);
                 preparedStatement.setInt(1, student.getAge());
                 preparedStatement.setString(2, student.getFirstName());
-                preparedStatement.setString(3, student.getFirstName());
+                preparedStatement.setString(3, student.getLastName());
                 preparedStatement.setInt(4, student.getGroup().getId());
                 preparedStatement.executeUpdate();
                 ResultSet resultSet = preparedStatement.getGeneratedKeys();
@@ -74,9 +75,6 @@ public class StudentDAO {
     public boolean update(Student student) throws NoMatchesException {
         boolean result = false;
         PreparedStatement preparedStatement;
-        if(!(contains(student))) {
-            throw new NoMatchesException();
-        } else {
             try {
                 preparedStatement = connection.prepareStatement(UPDATE);
                 preparedStatement.setInt(1, student.getAge());
@@ -88,7 +86,6 @@ public class StudentDAO {
                 e.printStackTrace();
             }
             result = true;
-        }
         return result;
     }
 
@@ -115,7 +112,7 @@ public class StudentDAO {
                                               resultSet.getString("last_name"));
                 student.setId(resultSet.getInt("id"));
                 student.setAge(resultSet.getInt("age"));
-                student.setGroup((Group)resultSet.getObject("group_id"));
+                student.setGroup(groupDAO.findById(resultSet.getInt("group_id")));
                 students.add(student);
             }
         } catch (SQLException e) {
@@ -134,7 +131,7 @@ public class StudentDAO {
                                               resultSet.getString("last_name"));
                 student.setId(id);
                 student.setAge(resultSet.getInt("age"));
-                student.setGroup((Group)resultSet.getObject("group_id"));
+                student.setGroup(groupDAO.findById(resultSet.getInt("group_id")));
                 return student;
             }
         } catch (SQLException e) {

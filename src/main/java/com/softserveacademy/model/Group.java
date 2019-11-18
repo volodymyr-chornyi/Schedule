@@ -4,6 +4,7 @@ import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class Group implements Comparable<Group>{
 
@@ -35,6 +36,13 @@ public class Group implements Comparable<Group>{
 
     public Set<Student> getStudents() {
         return students;
+    }
+
+    public String getStudentsToString() {
+        return getStudents().stream()
+                .map(student -> student.getName())
+                .sorted()
+                .collect(Collectors.joining(", ", "", ""));
     }
 
     public int getGroupSize(){

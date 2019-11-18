@@ -2,6 +2,8 @@ package com.softserveacademy.servlet;
 
 import com.softserveacademy.dao.SubjectDAO;
 import com.softserveacademy.dao.TeacherDAO;
+import com.softserveacademy.garbage.CustomValidator;
+import com.softserveacademy.garbage.ValidationException;
 import com.softserveacademy.model.Subject;
 import com.softserveacademy.model.Teacher;
 import com.softserveacademy.service.exception.IncorrectAddingException;
@@ -19,24 +21,39 @@ public class TeacherController extends HttpServlet {
     SubjectDAO subjectDAO = new SubjectDAO();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        add(request);
-        response.sendRedirect("/teacherlist");
+        if (request.getParameter("id") == null || request.getParameter("id").isEmpty()) {
+            add(request);
+            response.sendRedirect("/teacherlist");
+        } else {
+            try {
+                update(request);
+            } catch (ValidationException e) {
+                e.printStackTrace();
+            }
+            response.sendRedirect("/teacherlist");
+
+//            edit(request, response);
+//
+//            request.getRequestDispatcher("/teacherupdate").forward(request, response);
+        }
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String submit = request.getParameter("submit");
         if ("remove".equalsIgnoreCase(submit)) {
             remove(request);
+            request.getRequestDispatcher("/teacherlist").forward(request, response);
         }
-        if ("update".equalsIgnoreCase(submit)) {
-            update(request);
+        if ("edit".equalsIgnoreCase(submit)) {
+            int teacherId = Integer.parseInt(request.getParameter("id"));
+            Teacher teacher = teacherDAO.findById(teacherId);
+            teacher.addSubjects(teacherDAO.showSubjects(teacher));
+            request.setAttribute("teacher", teacher);
+            request.getRequestDispatcher("/teacherupdate").forward(request, response);
         }
-
-        request.getRequestDispatcher("/teacherlist").forward(request,response);
     }
 
-
-    private void add(HttpServletRequest request){
+    private void add(HttpServletRequest request) {
         String firstName = request.getParameter("firstName");
         String lastName = request.getParameter("lastName");
         int age = Integer.parseInt(request.getParameter("age"));
@@ -52,8 +69,8 @@ public class TeacherController extends HttpServlet {
             subjectDAO.addSubjectTeacher(subject, teacher);
     }
 
-    private void update(HttpServletRequest request){
-        if(request.getParameter("id") != null){
+    private void update(HttpServletRequest request) throws ValidationException {
+        if (request.getParameter("id") != null) {
             String firstName = request.getParameter("firstName");
             String lastName = request.getParameter("lastName");
             int age = Integer.parseInt(request.getParameter("age"));
@@ -69,8 +86,9 @@ public class TeacherController extends HttpServlet {
         }
     }
 
-    private void remove(HttpServletRequest request){
-        if(request.getParameter("id") != null)
+    private void remove(HttpServletRequest request) {
+        if (request.getParameter("id") != null)
             teacherDAO.removeById(Integer.parseInt(request.getParameter("id")));
     }
+
 }

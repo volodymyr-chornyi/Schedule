@@ -1,5 +1,6 @@
 package com.softserveacademy.dao;
 
+import com.softserveacademy.garbage.ValidationException;
 import com.softserveacademy.service.exception.IncorrectAddingException;
 import com.softserveacademy.service.exception.NoMatchesException;
 import com.softserveacademy.service.util.JdbcService;
@@ -70,9 +71,6 @@ public class SubjectDAO {
     public boolean update(Subject subject) throws NoMatchesException {
         boolean result = false;
         PreparedStatement preparedStatement;
-        if(!(contains(subject))) {
-            throw new NoMatchesException();
-        } else {
             try {
                 preparedStatement = connection.prepareStatement(UPDATE);
                 preparedStatement.setString(1, subject.getName());
@@ -81,7 +79,6 @@ public class SubjectDAO {
                 e.printStackTrace();
             }
             result = true;
-        }
         return result;
     }
 

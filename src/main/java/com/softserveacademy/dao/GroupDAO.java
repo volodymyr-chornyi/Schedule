@@ -71,9 +71,6 @@ public class GroupDAO {
     public boolean update(Group group) throws NoMatchesException {
         boolean result = false;
         PreparedStatement preparedStatement;
-        if(!(contains(group))) {
-            throw new NoMatchesException();
-        } else {
             try {
                 preparedStatement = connection.prepareStatement(UPDATE);
                 preparedStatement.setString(1, group.getName());
@@ -82,7 +79,6 @@ public class GroupDAO {
                 e.printStackTrace();
             }
             result = true;
-        }
         return result;
     }
 

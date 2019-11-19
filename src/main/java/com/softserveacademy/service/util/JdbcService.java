@@ -3,14 +3,13 @@ package com.softserveacademy.service.util;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.ResourceBundle;
 
 public class JdbcService {
 
     private static Connection connection;
     static String URL = "jdbc:postgresql://localhost:5432/schedule";
     static String userName = "postgres";
-    static String password = "p3747281";
+    static String password = "root";
 
     public static Connection getConnection() {
 //        final JdbcSettings jdbcSettings = JdbcSettings.getInstance();

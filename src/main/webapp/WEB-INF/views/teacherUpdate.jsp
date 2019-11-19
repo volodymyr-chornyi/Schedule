@@ -1,5 +1,4 @@
-<%@ page import="com.softserveacademy.model.Teacher" %>
-<%@ page import="com.softserveacademy.dao.TeacherDAO" %><%--
+<%--
   Created by IntelliJ IDEA.
   User: Chornyi
   Date: 11.11.2019

@@ -5,7 +5,6 @@ import com.softserveacademy.dao.StudentDAO;
 import com.softserveacademy.model.Group;
 import com.softserveacademy.model.Student;
 import com.softserveacademy.service.exception.IncorrectAddingException;
-import com.softserveacademy.service.exception.NoMatchesException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;

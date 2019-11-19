@@ -1,7 +1,6 @@
 package com.softserveacademy.dao;
 
 import com.softserveacademy.service.exception.IncorrectAddingException;
-import com.softserveacademy.service.exception.NoMatchesException;
 import com.softserveacademy.service.util.JdbcService;
 import com.softserveacademy.model.Room;
 

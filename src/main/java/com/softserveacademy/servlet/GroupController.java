@@ -3,7 +3,6 @@ package com.softserveacademy.servlet;
 import com.softserveacademy.dao.GroupDAO;
 import com.softserveacademy.model.Group;
 import com.softserveacademy.service.exception.IncorrectAddingException;
-import com.softserveacademy.service.exception.NoMatchesException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;

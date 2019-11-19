@@ -2,7 +2,6 @@ package com.softserveacademy.dao;
 
 import com.softserveacademy.model.Subject;
 import com.softserveacademy.service.exception.IncorrectAddingException;
-import com.softserveacademy.service.exception.NoMatchesException;
 import com.softserveacademy.service.util.JdbcService;
 import com.softserveacademy.model.Teacher;
 import org.apache.log4j.Logger;

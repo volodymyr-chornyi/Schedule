@@ -2,11 +2,8 @@ package com.softserveacademy.servlet;
 
 import com.softserveacademy.dao.SubjectDAO;
 import com.softserveacademy.dao.TeacherDAO;
-import com.softserveacademy.garbage.ValidationException;
 import com.softserveacademy.model.Subject;
-import com.softserveacademy.model.Teacher;
 import com.softserveacademy.service.exception.IncorrectAddingException;
-import com.softserveacademy.service.exception.NoMatchesException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;

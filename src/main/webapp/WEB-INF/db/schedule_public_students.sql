@@ -1,0 +1,2 @@
+INSERT INTO public.students (id, age, first_name, last_name, group_id) VALUES (3, 30, 'Ivan', 'Petrov', 3);
+INSERT INTO public.students (id, age, first_name, last_name, group_id) VALUES (2, 25, 'Sam', 'Sam', 1);

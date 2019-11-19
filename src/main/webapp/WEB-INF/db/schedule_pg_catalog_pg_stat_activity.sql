@@ -1,0 +1,66 @@
+INSERT INTO pg_catalog.pg_stat_activity (datid, datname, pid, usesysid, usename, application_name, client_addr, client_hostname, client_port, backend_start, xact_start, query_start, state_change, wait_event_type, wait_event, state, backend_xid, backend_xmin, query, backend_type) VALUES (null, null, 1480, null, null, '', null, null, null, '2019-11-13 17:49:44.501252', null, null, null, 'Activity', 'AutoVacuumMain', null, null, null, '', 'autovacuum launcher');
+INSERT INTO pg_catalog.pg_stat_activity (datid, datname, pid, usesysid, usename, application_name, client_addr, client_hostname, client_port, backend_start, xact_start, query_start, state_change, wait_event_type, wait_event, state, backend_xid, backend_xmin, query, backend_type) VALUES (null, null, 964, 10, 'postgres', '', null, null, null, '2019-11-13 17:49:44.529870', null, null, null, 'Activity', 'LogicalLauncherMain', null, null, null, '', 'logical replication launcher');
+INSERT INTO pg_catalog.pg_stat_activity (datid, datname, pid, usesysid, usename, application_name, client_addr, client_hostname, client_port, backend_start, xact_start, query_start, state_change, wait_event_type, wait_event, state, backend_xid, backend_xmin, query, backend_type) VALUES (16401, 'schedule', 5512, 10, 'postgres', 'PostgreSQL JDBC Driver', '127.0.0.1', null, 55515, '2019-11-19 16:50:51.941894', null, '2019-11-19 16:50:53.140850', '2019-11-19 16:50:53.140884', 'Client', 'ClientRead', 'idle', null, null, 'SELECT * FROM teachers WHERE Id = $1', 'client backend');
+INSERT INTO pg_catalog.pg_stat_activity (datid, datname, pid, usesysid, usename, application_name, client_addr, client_hostname, client_port, backend_start, xact_start, query_start, state_change, wait_event_type, wait_event, state, backend_xid, backend_xmin, query, backend_type) VALUES (16401, 'schedule', 14052, 10, 'postgres', 'PostgreSQL JDBC Driver', '127.0.0.1', null, 55516, '2019-11-19 16:50:52.122362', null, '2019-11-19 16:50:53.141383', '2019-11-19 16:50:53.141414', 'Client', 'ClientRead', 'idle', null, null, 'SELECT * FROM subjects WHERE Id = $1', 'client backend');
+INSERT INTO pg_catalog.pg_stat_activity (datid, datname, pid, usesysid, usename, application_name, client_addr, client_hostname, client_port, backend_start, xact_start, query_start, state_change, wait_event_type, wait_event, state, backend_xid, backend_xmin, query, backend_type) VALUES (16401, 'schedule', 9716, 10, 'postgres', 'PostgreSQL JDBC Driver', '127.0.0.1', null, 55517, '2019-11-19 16:50:52.235080', null, '2019-11-19 16:50:53.141866', '2019-11-19 16:50:53.141895', 'Client', 'ClientRead', 'idle', null, null, 'SELECT * FROM groups WHERE Id = $1', 'client backend');
+INSERT INTO pg_catalog.pg_stat_activity (datid, datname, pid, usesysid, usename, application_name, client_addr, client_hostname, client_port, backend_start, xact_start, query_start, state_change, wait_event_type, wait_event, state, backend_xid, backend_xmin, query, backend_type) VALUES (16401, 'schedule', 12100, 10, 'postgres', 'PostgreSQL JDBC Driver', '127.0.0.1', null, 55518, '2019-11-19 16:50:52.345373', null, '2019-11-19 16:50:53.142370', '2019-11-19 16:50:53.142394', 'Client', 'ClientRead', 'idle', null, null, 'SELECT * FROM rooms WHERE Id = $1', 'client backend');
+INSERT INTO pg_catalog.pg_stat_activity (datid, datname, pid, usesysid, usename, application_name, client_addr, client_hostname, client_port, backend_start, xact_start, query_start, state_change, wait_event_type, wait_event, state, backend_xid, backend_xmin, query, backend_type) VALUES (16401, 'schedule', 2472, 10, 'postgres', 'PostgreSQL JDBC Driver', '127.0.0.1', null, 55519, '2019-11-19 16:50:52.440841', null, '2019-11-19 16:50:53.068730', '2019-11-19 16:50:53.068920', 'Client', 'ClientRead', 'idle', null, null, 'SELECT * FROM events', 'client backend');
+INSERT INTO pg_catalog.pg_stat_activity (datid, datname, pid, usesysid, usename, application_name, client_addr, client_hostname, client_port, backend_start, xact_start, query_start, state_change, wait_event_type, wait_event, state, backend_xid, backend_xmin, query, backend_type) VALUES (13012, 'postgres', 1896, 10, 'postgres', 'pgAdmin 4 - DB:postgres', '::1', null, 60438, '2019-11-19 11:27:30.928700', null, '2019-11-19 16:46:52.065606', '2019-11-19 16:46:52.329507', 'Client', 'ClientRead', 'idle', null, null, 'SELECT
+        numbackends AS "Backends",
+    xact_commit AS "Xact committed",
+    xact_rollback AS "Xact rolled back",
+    blks_read AS "Blocks read",
+    blks_hit AS "Blocks hit",
+    tup_returned AS "Tuples returned",
+    tup_fetched AS "Tuples fetched",
+    tup_inserted AS "Tuples inserted",
+    tup_updated AS "Tuples updated",
+    tup_deleted AS "Tuples deleted",
+    stats_reset AS "Last statistics reset",
+    slave.confl_tablespace AS "Tablespace conflicts",
+    slave.confl_lock AS "Lock conflicts",
+    slave.confl_snapshot AS "Snapshot conflicts",
+    slave.confl_bufferpin AS "Bufferpin conflicts",
+    slave.confl_deadlock AS "Deadlock conflicts",
+    temp_files AS "Temporary files",
+    temp_bytes AS "Size of temporary files",
+    deadlocks AS "Deadlocks",
+    blk_read_time AS "Block read time",
+    blk_write_time AS "Block write time",
+    pg_database_size(db.datid) AS "Size"
+FROM
+    pg_stat_database db
+    LEFT JOIN pg_stat_database_conflicts slave ON db.datid=slave.datid
+WHERE db.datid = 16401::O', 'client backend');
+INSERT INTO pg_catalog.pg_stat_activity (datid, datname, pid, usesysid, usename, application_name, client_addr, client_hostname, client_port, backend_start, xact_start, query_start, state_change, wait_event_type, wait_event, state, backend_xid, backend_xmin, query, backend_type) VALUES (16401, 'schedule', 10840, 10, 'postgres', 'PostgreSQL JDBC Driver', '127.0.0.1', null, 55520, '2019-11-19 16:50:52.544335', null, '2019-11-19 16:50:52.565894', '2019-11-19 16:50:52.565930', 'Client', 'ClientRead', 'idle', null, null, 'SET application_name = ''PostgreSQL JDBC Driver''', 'client backend');
+INSERT INTO pg_catalog.pg_stat_activity (datid, datname, pid, usesysid, usename, application_name, client_addr, client_hostname, client_port, backend_start, xact_start, query_start, state_change, wait_event_type, wait_event, state, backend_xid, backend_xmin, query, backend_type) VALUES (16401, 'schedule', 10696, 10, 'postgres', 'pgAdmin 4 - CONN:1700305', '::1', null, 60822, '2019-11-19 11:33:53.945536', null, '2019-11-19 11:33:53.961879', '2019-11-19 11:33:53.965228', 'Client', 'ClientRead', 'idle', null, null, '
+SELECT
+    oid as id, rolname as name, rolsuper as is_superuser,
+    rolcreaterole as can_create_role, rolcreatedb as can_create_db
+FROM
+    pg_catalog.pg_roles
+WHERE
+    rolname = current_user', 'client backend');
+INSERT INTO pg_catalog.pg_stat_activity (datid, datname, pid, usesysid, usename, application_name, client_addr, client_hostname, client_port, backend_start, xact_start, query_start, state_change, wait_event_type, wait_event, state, backend_xid, backend_xmin, query, backend_type) VALUES (16401, 'schedule', 12372, 10, 'postgres', 'pgAdmin 4 - DB:schedule', '::1', null, 60454, '2019-11-19 11:27:32.514037', null, '2019-11-19 16:58:54.737750', '2019-11-19 16:58:54.765899', 'Client', 'ClientRead', 'idle', null, null, '/*pga4dash*/
+SELECT ''session_stats'' AS chart_name, row_to_json(t) AS chart_data
+FROM (SELECT
+   (SELECT count(*) FROM pg_stat_activity WHERE datname = (SELECT datname FROM pg_database WHERE oid = 16401)) AS "Total",
+   (SELECT count(*) FROM pg_stat_activity WHERE state = ''active'' AND datname = (SELECT datname FROM pg_database WHERE oid = 16401))  AS "Active",
+   (SELECT count(*) FROM pg_stat_activity WHERE state = ''idle'' AND datname = (SELECT datname FROM pg_database WHERE oid = 16401))  AS "Idle"
+) t
+UNION ALL
+SELECT ''tps_stats'' AS chart_name, row_to_json(t) AS chart_data
+FROM (SELECT
+   (SELECT sum(xact_commit) + sum(xact_rollback) FROM pg_stat_database WHERE datname = (SELECT datname FROM pg_database WHERE oid = 16401)) AS "Transactions",
+   (SELECT sum(xact_commit) FROM pg_stat_database WHERE datname = (SELECT datname FROM pg_database WHERE oid = 16401)) AS "Commits",
+   (SELECT sum(xact_rollback) FROM pg_stat_database WHERE datname = (SELECT datname FROM pg_database WHERE oid = 16401)) AS "Rollbacks"
+) ', 'client backend');
+INSERT INTO pg_catalog.pg_stat_activity (datid, datname, pid, usesysid, usename, application_name, client_addr, client_hostname, client_port, backend_start, xact_start, query_start, state_change, wait_event_type, wait_event, state, backend_xid, backend_xmin, query, backend_type) VALUES (16401, 'schedule', 5444, 10, 'postgres', 'PostgreSQL JDBC Driver', '127.0.0.1', null, 55521, '2019-11-19 16:50:52.639341', null, '2019-11-19 16:50:52.655176', '2019-11-19 16:50:52.655204', 'Client', 'ClientRead', 'idle', null, null, 'SET application_name = ''PostgreSQL JDBC Driver''', 'client backend');
+INSERT INTO pg_catalog.pg_stat_activity (datid, datname, pid, usesysid, usename, application_name, client_addr, client_hostname, client_port, backend_start, xact_start, query_start, state_change, wait_event_type, wait_event, state, backend_xid, backend_xmin, query, backend_type) VALUES (16401, 'schedule', 12228, 10, 'postgres', 'PostgreSQL JDBC Driver', '127.0.0.1', null, 55522, '2019-11-19 16:50:52.729176', null, '2019-11-19 16:50:52.746678', '2019-11-19 16:50:52.746709', 'Client', 'ClientRead', 'idle', null, null, 'SET application_name = ''PostgreSQL JDBC Driver''', 'client backend');
+INSERT INTO pg_catalog.pg_stat_activity (datid, datname, pid, usesysid, usename, application_name, client_addr, client_hostname, client_port, backend_start, xact_start, query_start, state_change, wait_event_type, wait_event, state, backend_xid, backend_xmin, query, backend_type) VALUES (16401, 'schedule', 11104, 10, 'postgres', 'PostgreSQL JDBC Driver', '127.0.0.1', null, 55524, '2019-11-19 16:50:52.816860', null, '2019-11-19 16:50:52.837444', '2019-11-19 16:50:52.837484', 'Client', 'ClientRead', 'idle', null, null, 'SET application_name = ''PostgreSQL JDBC Driver''', 'client backend');
+INSERT INTO pg_catalog.pg_stat_activity (datid, datname, pid, usesysid, usename, application_name, client_addr, client_hostname, client_port, backend_start, xact_start, query_start, state_change, wait_event_type, wait_event, state, backend_xid, backend_xmin, query, backend_type) VALUES (16401, 'schedule', 11496, 10, 'postgres', 'PostgreSQL JDBC Driver', '127.0.0.1', null, 55525, '2019-11-19 16:50:52.917501', null, '2019-11-19 16:50:52.936439', '2019-11-19 16:50:52.936480', 'Client', 'ClientRead', 'idle', null, null, 'SET application_name = ''PostgreSQL JDBC Driver''', 'client backend');
+INSERT INTO pg_catalog.pg_stat_activity (datid, datname, pid, usesysid, usename, application_name, client_addr, client_hostname, client_port, backend_start, xact_start, query_start, state_change, wait_event_type, wait_event, state, backend_xid, backend_xmin, query, backend_type) VALUES (16401, 'schedule', 13560, 10, 'postgres', 'PostgreSQL JDBC Driver', '127.0.0.1', null, 55526, '2019-11-19 16:50:53.022985', null, '2019-11-19 16:50:53.041134', '2019-11-19 16:50:53.041166', 'Client', 'ClientRead', 'idle', null, null, 'SET application_name = ''PostgreSQL JDBC Driver''', 'client backend');
+INSERT INTO pg_catalog.pg_stat_activity (datid, datname, pid, usesysid, usename, application_name, client_addr, client_hostname, client_port, backend_start, xact_start, query_start, state_change, wait_event_type, wait_event, state, backend_xid, backend_xmin, query, backend_type) VALUES (16401, 'schedule', 5504, 10, 'postgres', 'PostgreSQL JDBC Driver', '127.0.0.1', null, 56461, '2019-11-19 16:58:54.747293', '2019-11-19 16:58:54.800825', '2019-11-19 16:58:54.809392', '2019-11-19 16:58:54.809393', null, null, 'active', null, 1331, 'SELECT t.* FROM pg_catalog.pg_stat_activity t', 'client backend');
+INSERT INTO pg_catalog.pg_stat_activity (datid, datname, pid, usesysid, usename, application_name, client_addr, client_hostname, client_port, backend_start, xact_start, query_start, state_change, wait_event_type, wait_event, state, backend_xid, backend_xmin, query, backend_type) VALUES (null, null, 3132, null, null, '', null, null, null, '2019-11-13 17:49:44.455619', null, null, null, 'Activity', 'BgWriterHibernate', null, null, null, '', 'background writer');
+INSERT INTO pg_catalog.pg_stat_activity (datid, datname, pid, usesysid, usename, application_name, client_addr, client_hostname, client_port, backend_start, xact_start, query_start, state_change, wait_event_type, wait_event, state, backend_xid, backend_xmin, query, backend_type) VALUES (null, null, 1232, null, null, '', null, null, null, '2019-11-13 17:49:44.454415', null, null, null, 'Activity', 'CheckpointerMain', null, null, null, '', 'checkpointer');
+INSERT INTO pg_catalog.pg_stat_activity (datid, datname, pid, usesysid, usename, application_name, client_addr, client_hostname, client_port, backend_start, xact_start, query_start, state_change, wait_event_type, wait_event, state, backend_xid, backend_xmin, query, backend_type) VALUES (null, null, 3232, null, null, '', null, null, null, '2019-11-13 17:49:44.500251', null, null, null, 'Activity', 'WalWriterMain', null, null, null, '', 'walwriter');

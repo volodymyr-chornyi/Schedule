@@ -1,0 +1,12 @@
+INSERT INTO pg_catalog.pg_statio_user_indexes (relid, indexrelid, schemaname, relname, indexrelname, idx_blks_read, idx_blks_hit) VALUES (17756, 17760, 'public', 'groups', 'groups_pkey', 4, 3862);
+INSERT INTO pg_catalog.pg_statio_user_indexes (relid, indexrelid, schemaname, relname, indexrelname, idx_blks_read, idx_blks_hit) VALUES (17756, 17762, 'public', 'groups', 'groups_name_key', 4, 586);
+INSERT INTO pg_catalog.pg_statio_user_indexes (relid, indexrelid, schemaname, relname, indexrelname, idx_blks_read, idx_blks_hit) VALUES (17779, 17783, 'public', 'subjects', 'subjects_pkey', 4, 4172);
+INSERT INTO pg_catalog.pg_statio_user_indexes (relid, indexrelid, schemaname, relname, indexrelname, idx_blks_read, idx_blks_hit) VALUES (17779, 17785, 'public', 'subjects', 'subjects_name_key', 4, 1530);
+INSERT INTO pg_catalog.pg_statio_user_indexes (relid, indexrelid, schemaname, relname, indexrelname, idx_blks_read, idx_blks_hit) VALUES (17789, 17793, 'public', 'teachers', 'teachers_pkey', 4, 2123);
+INSERT INTO pg_catalog.pg_statio_user_indexes (relid, indexrelid, schemaname, relname, indexrelname, idx_blks_read, idx_blks_hit) VALUES (17789, 17795, 'public', 'teachers', 'teachers_first_name_last_name_key', 4, 1958);
+INSERT INTO pg_catalog.pg_statio_user_indexes (relid, indexrelid, schemaname, relname, indexrelname, idx_blks_read, idx_blks_hit) VALUES (17799, 17803, 'public', 'teachers_subjects', 'teachers_subjects_pkey', 4, 735);
+INSERT INTO pg_catalog.pg_statio_user_indexes (relid, indexrelid, schemaname, relname, indexrelname, idx_blks_read, idx_blks_hit) VALUES (17799, 17805, 'public', 'teachers_subjects', 'teachers_subjects_teacher_id_subject_id_key', 4, 7900);
+INSERT INTO pg_catalog.pg_statio_user_indexes (relid, indexrelid, schemaname, relname, indexrelname, idx_blks_read, idx_blks_hit) VALUES (17858, 17862, 'public', 'rooms', 'rooms_pkey', 2, 3466);
+INSERT INTO pg_catalog.pg_statio_user_indexes (relid, indexrelid, schemaname, relname, indexrelname, idx_blks_read, idx_blks_hit) VALUES (17858, 17864, 'public', 'rooms', 'rooms_building_number_name_key', 2, 404);
+INSERT INTO pg_catalog.pg_statio_user_indexes (relid, indexrelid, schemaname, relname, indexrelname, idx_blks_read, idx_blks_hit) VALUES (17868, 17872, 'public', 'events', 'events_pkey', 2, 308);
+INSERT INTO pg_catalog.pg_statio_user_indexes (relid, indexrelid, schemaname, relname, indexrelname, idx_blks_read, idx_blks_hit) VALUES (17909, 17913, 'public', 'students', 'students_pkey', 2, 90);

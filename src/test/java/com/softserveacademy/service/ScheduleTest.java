@@ -1,7 +1,7 @@
 package com.softserveacademy.service;
 
 import com.softserveacademy.model.*;
-import com.softserveacademy.service.exception.IncorrectScheduleExcepttion;
+import com.softserveacademy.service.exception.IncorrectAddingException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import java.time.DayOfWeek;
@@ -15,7 +15,7 @@ public class ScheduleTest {
     Teacher teacher = new Teacher("Stepan", "Ivanov");
     Group group = new Group("102");
     Subject subject = new Subject("Phi");
-    Room room = new Room(200, "2");
+    Room room = new Room("200", "2");
     EventCreator eventCreator = new EventCreator();
     Event event = eventCreator.setDayOfWeek(DayOfWeek.MONDAY)
                             .setNumberEvent(NumberEvent.SECOND)
@@ -52,15 +52,15 @@ public class ScheduleTest {
     }
 
     @Test
-    public void addEvent() throws IncorrectScheduleExcepttion {
+    public void addEvent() throws IncorrectAddingException {
         schedule.addEvent(event);
         schedule.addEvent(event2);
         schedule.addEvent(event3);
         assertEquals(3, schedule.getEvents().size());
     }
 
-    @Test (expected = IncorrectScheduleExcepttion.class)
-    public void addEventException() throws IncorrectScheduleExcepttion {
+    @Test (expected = IncorrectAddingException.class)
+    public void addEventException() throws IncorrectAddingException {
         schedule.addEvent(event);
         schedule.addEvent(event2);
         schedule.addEvent(event3);
@@ -68,7 +68,7 @@ public class ScheduleTest {
     }
 
     @Test
-    public void getWeeklyEvents() throws IncorrectScheduleExcepttion {
+    public void getWeeklyEvents() throws IncorrectAddingException {
         schedule.addEvent(event);
         schedule.addEvent(event2);
         schedule.addEvent(event3);
@@ -76,7 +76,7 @@ public class ScheduleTest {
     }
 
     @Test
-    public void getDailyEvents() throws IncorrectScheduleExcepttion {
+    public void getDailyEvents() throws IncorrectAddingException {
         schedule.addEvent(event);
         schedule.addEvent(event2);
         schedule.addEvent(event3);

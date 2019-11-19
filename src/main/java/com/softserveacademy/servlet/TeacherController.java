@@ -2,7 +2,6 @@ package com.softserveacademy.servlet;
 
 import com.softserveacademy.dao.SubjectDAO;
 import com.softserveacademy.dao.TeacherDAO;
-import com.softserveacademy.garbage.CustomValidator;
 import com.softserveacademy.garbage.ValidationException;
 import com.softserveacademy.model.Subject;
 import com.softserveacademy.model.Teacher;
@@ -25,16 +24,8 @@ public class TeacherController extends HttpServlet {
             add(request);
             response.sendRedirect("/teacherlist");
         } else {
-            try {
-                update(request);
-            } catch (ValidationException e) {
-                e.printStackTrace();
-            }
+            update(request);
             response.sendRedirect("/teacherlist");
-
-//            edit(request, response);
-//
-//            request.getRequestDispatcher("/teacherupdate").forward(request, response);
         }
     }
 
@@ -69,7 +60,7 @@ public class TeacherController extends HttpServlet {
             subjectDAO.addSubjectTeacher(subject, teacher);
     }
 
-    private void update(HttpServletRequest request) throws ValidationException {
+    private void update(HttpServletRequest request) {
         if (request.getParameter("id") != null) {
             String firstName = request.getParameter("firstName");
             String lastName = request.getParameter("lastName");
@@ -80,7 +71,7 @@ public class TeacherController extends HttpServlet {
             teacher.setId(id);
             try {
                 teacherDAO.update(teacher);
-            } catch (NoMatchesException e) {
+            } catch (IncorrectAddingException e) {
                 e.printStackTrace();
             }
         }

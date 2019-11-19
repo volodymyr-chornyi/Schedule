@@ -51,7 +51,7 @@
             </tr>
             <tr>
                 <th>last name:</th>
-                <td><input type="text" required pattern="^[a-zA-Z]{3,15}$" name="lastName" value="${teacher.lastName}"></td>
+                <td><input type="text" required pattern="^[a-zA-Z]{2,}\'?-?" name="lastName" value="${teacher.lastName}"></td>
             </tr>
             <tr>
                 <th>age:</th>

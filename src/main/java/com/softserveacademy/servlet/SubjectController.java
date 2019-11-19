@@ -2,6 +2,7 @@ package com.softserveacademy.servlet;
 
 import com.softserveacademy.dao.SubjectDAO;
 import com.softserveacademy.dao.TeacherDAO;
+import com.softserveacademy.garbage.ValidationException;
 import com.softserveacademy.model.Subject;
 import com.softserveacademy.model.Teacher;
 import com.softserveacademy.service.exception.IncorrectAddingException;
@@ -19,22 +20,33 @@ public class SubjectController extends HttpServlet {
     SubjectDAO subjectDAO = new SubjectDAO();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        add(request);
-        response.sendRedirect("/subjectlist");
+        if (request.getParameter("id") == null || request.getParameter("id").isEmpty()) {
+            add(request);
+            response.sendRedirect("/subjectlist");
+        } else {
+            try {
+                update(request);
+            } catch (IncorrectAddingException e) {
+                e.printStackTrace();
+            }
+            response.sendRedirect("/subjectlist");
+        }
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String submit = request.getParameter("submit");
         if ("remove".equalsIgnoreCase(submit)) {
             remove(request);
+            request.getRequestDispatcher("/subjectlist").forward(request, response);
         }
-        if ("update".equalsIgnoreCase(submit)) {
-            update(request);
+        if ("edit".equalsIgnoreCase(submit)) {
+            int subjectId = Integer.parseInt(request.getParameter("id"));
+            Subject subject = subjectDAO.findById(subjectId);
+            subject.addTeachers(subjectDAO.showTeachers(subject));
+            request.setAttribute("subject", subject);
+            request.getRequestDispatcher("/subjectupdate").forward(request, response);
         }
-
-        request.getRequestDispatcher("/subjectlist").forward(request,response);
     }
-
 
     private void add(HttpServletRequest request){
         String name = request.getParameter("name");
@@ -46,17 +58,13 @@ public class SubjectController extends HttpServlet {
         }
     }
 
-    private void update(HttpServletRequest request){
+    private void update(HttpServletRequest request) throws IncorrectAddingException {
         if(request.getParameter("id") != null){
             String name = request.getParameter("name");
             int id = Integer.parseInt(request.getParameter("id"));
             Subject subject = new Subject(name);
             subject.setId(id);
-            try {
-                subjectDAO.update(subject);
-            } catch (NoMatchesException e) {
-                e.printStackTrace();
-            }
+            subjectDAO.update(subject);
         }
     }
 

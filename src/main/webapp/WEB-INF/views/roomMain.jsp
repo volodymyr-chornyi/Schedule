@@ -50,8 +50,7 @@
                 <tr>
                     <td>${room.buildingNumber}</td>
                     <td>${room.name}</td>
-                    <td><a href="/room?submit=update&id=${room.id}&buildingNumber=${room.buildingNumber}
-                        &name=${room.name}" title="edit ${room.name}">edit</a> /
+                    <td><a href="/room?submit=edit&id=${room.id}" title="edit ${room.name}">edit</a> /
                     <a href="/room?submit=remove&id=${room.id}" title="delete ${room.name}">delete</a></td>
                 </tr>
             </c:forEach>

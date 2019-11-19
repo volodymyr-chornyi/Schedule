@@ -9,7 +9,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>subjectMain</title>
+    <title>roomUpdate</title>
     <link href="/css/table.css" rel="stylesheet" type="text/css">
     <link href="/css/styles.css" rel="stylesheet" type="text/css">
     <link href="/css/panel.css" rel="stylesheet" type="text/css">
@@ -39,38 +39,28 @@
         </div>
     </header>
 
-    <form method="get" action="/subject">
+    <h1 class="form-style-2-heading"></h1>
+    <h1 class="form-style-2-heading">Сhange room data</h1>
+    <form action="/room" method="post">
         <table>
-            <h1 class="form-style-2-heading">Subject list</h1>
-            <th>name</th>
-            <th>teachers</th>
-            <th>modification</th>
-            <c:forEach var="subject" items="${allSubjects}">
-                <tr>
-                    <td>${subject.name}</td>
-                    <td>${subject.teachersToString}
-<%--                        <c:forEach var="teacher" items="${subject.teachers}">--%>
-<%--                            ${teacher.name},--%>
-<%--                        </c:forEach>--%>
-                    </td>
-                    <td>
-                        <a href="/subject?submit=edit&id=${subject.id}" title="edit ${subject.name}">edit</a> /
-                        <a href="/subject?submit=remove&id=${subject.id}" title="delete ${subject.name}">delete</a>
-                    </td>
-                </tr>
-            </c:forEach>
-        </table>
-    </form>
-
-    <form method="post" action="/subject">
-        <table>
-            <h1 class="form-style-2-heading">Subject adding</h1>
-            <th>name</th>
-            <th>add</th>
+            <tr><th></th><th>update</th></tr>
             <tr>
-                <td><input required pattern="^[a-zA-Z]{2,}\'?-?" type="text" id="name" name="name"></td>
+                <th>building number:</th>
+                <td><input type="text" required pattern="^[a-zA-Z]{1,}\,?'?-?" name="buildingNumber" value="${room.buildingNumber}"></td>
+            </tr>
+            <tr>
+                <th>name:</th>
                 <td>
-                    <input type="submit" value="add">
+                    <input type="text" required pattern="^[a-zA-Z]{1,}\'?-?" name="name" value="${room.name}">
+                    <input type="hidden" name="id" value="${room.id}">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <a href="/roomlist">Close</a>
+                </td>
+                <td>
+                    <input type="submit" style="cursor: pointer" value="   ok   ">
                 </td>
             </tr>
         </table>

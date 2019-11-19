@@ -181,6 +181,16 @@
         <url-pattern>/schedule</url-pattern>
     </servlet-mapping>
 
+
+
+    <servlet>
+        <servlet-name>eventUpdate</servlet-name>
+        <jsp-file>/WEB-INF/views/eventUpdate.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>eventUpdate</servlet-name>
+        <url-pattern>/eventupdate</url-pattern>
+    </servlet-mapping>
     <servlet>
         <servlet-name>teacherUpdate</servlet-name>
         <jsp-file>/WEB-INF/views/teacherUpdate.jsp</jsp-file>
@@ -188,6 +198,38 @@
     <servlet-mapping>
         <servlet-name>teacherUpdate</servlet-name>
         <url-pattern>/teacherupdate</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>subjectUpdate</servlet-name>
+        <jsp-file>/WEB-INF/views/subjectUpdate.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>subjectUpdate</servlet-name>
+        <url-pattern>/subjectupdate</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>studentUpdate</servlet-name>
+        <jsp-file>/WEB-INF/views/studentUpdate.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>studentUpdate</servlet-name>
+        <url-pattern>/studentupdate</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>groupUpdate</servlet-name>
+        <jsp-file>/WEB-INF/views/groupUpdate.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>groupUpdate</servlet-name>
+        <url-pattern>/groupupdate</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>roomUpdate</servlet-name>
+        <jsp-file>/WEB-INF/views/roomUpdate.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>roomUpdate</servlet-name>
+        <url-pattern>/roomupdate</url-pattern>
     </servlet-mapping>
 
 </web-app>

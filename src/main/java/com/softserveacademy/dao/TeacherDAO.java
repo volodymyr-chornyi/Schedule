@@ -1,11 +1,11 @@
 package com.softserveacademy.dao;
 
-import com.softserveacademy.garbage.CustomValidator;
 import com.softserveacademy.model.Subject;
 import com.softserveacademy.service.exception.IncorrectAddingException;
 import com.softserveacademy.service.exception.NoMatchesException;
 import com.softserveacademy.service.util.JdbcService;
 import com.softserveacademy.model.Teacher;
+import org.apache.log4j.Logger;
 
 import java.sql.*;
 import java.util.HashSet;
@@ -20,6 +20,7 @@ public class TeacherDAO {
     private final String FIND_BY_ID = "SELECT * FROM teachers WHERE Id = ?";
     private final String SHOW_SUBJECTS = "SELECT * FROM subjects LEFT JOIN teachers_subjects ON subjects.id = teachers_subjects.subject_id WHERE teacher_id = ?";
     private Connection connection;
+    private static Logger logger = Logger.getLogger(TeacherDAO.class);
 
     public TeacherDAO() {
         this.connection = JdbcService.getConnection();
@@ -49,6 +50,7 @@ public class TeacherDAO {
         boolean result = false;
         PreparedStatement preparedStatement;
         if(contains(teacher)) {
+            logger.info("attempt to add an existing teacher");
             throw new IncorrectAddingException(teacher);
         } else {
             try {
@@ -57,11 +59,13 @@ public class TeacherDAO {
                 preparedStatement.setString(2, teacher.getFirstName());
                 preparedStatement.setString(3, teacher.getLastName());
                 preparedStatement.executeUpdate();
+                logger.info("a new teacher was added");
                 ResultSet resultSet = preparedStatement.getGeneratedKeys();
                 if(resultSet.next()){
                     teacher.setId(resultSet.getInt(1));
                 }
             } catch (SQLException e) {
+                logger.error("database error while trying to add a new teacher");
                 e.printStackTrace();
             }
             result = true;
@@ -69,9 +73,9 @@ public class TeacherDAO {
         return result;
     }
 
-    public boolean update(Teacher teacher) throws NoMatchesException {
+    public boolean update(Teacher teacher) throws IncorrectAddingException {
         boolean result = false;
-        PreparedStatement preparedStatement;
+            PreparedStatement preparedStatement;
             try {
                 preparedStatement = connection.prepareStatement(UPDATE);
                 preparedStatement.setInt(1, teacher.getAge());
@@ -95,8 +99,10 @@ public class TeacherDAO {
             PreparedStatement preparedStatement = connection.prepareStatement(REMOVE_BY_ID);
             preparedStatement.setInt(1, id);
             preparedStatement.executeUpdate();
+            logger.info("removed teacher with id=" + id);
             result = true;
         } catch (SQLException e) {
+            logger.error("database error while trying to remove teacher");
             e.printStackTrace();
         }
         return result;

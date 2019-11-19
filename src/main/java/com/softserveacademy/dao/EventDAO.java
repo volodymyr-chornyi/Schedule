@@ -25,6 +25,8 @@ public class EventDAO {
     private final String CONTAINS = "SELECT * FROM events";
     private final String ADD = "INSERT INTO events (day_of_week, number_event, teacher_id, subject_id, group_id, room_id) " +
                                                                                                 "VALUES (?, ?, ?, ?, ?, ?)";
+    private final String UPDATE = "UPDATE events SET day_of_week = ?, number_event = ?, teacher_id = ?, " +
+                                                                    "subject_id = ?, group_id = ? , room_id = ? WHERE Id = ?";
     private final String REMOVE_BY_ID = "DELETE FROM events WHERE Id = ?";
     private final String FIND_BY_ID = "SELECT * FROM events WHERE Id = ?";
     private final String FIND_BY_DAY_OF_WEEK = "SELECT * FROM events WHERE day_of_week = ?";
@@ -94,6 +96,26 @@ public class EventDAO {
             }
             result = true;
         }
+        return result;
+    }
+
+    public boolean update(Event event) throws IncorrectAddingException {
+        boolean result = false;
+        PreparedStatement preparedStatement;
+            try {
+                preparedStatement = connection.prepareStatement(UPDATE);
+                preparedStatement.setInt(1, event.getDayOfWeek().getValue());
+                preparedStatement.setInt(2, event.getNumberEvent().getValue());
+                preparedStatement.setInt(3, event.getTeacher().getId());
+                preparedStatement.setInt(4, event.getSubject().getId());
+                preparedStatement.setInt(5, event.getGroup().getId());
+                preparedStatement.setInt(6, event.getRoom().getId());
+                preparedStatement.setInt(7, event.getId());
+                preparedStatement.executeUpdate();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            result = true;
         return result;
     }
 

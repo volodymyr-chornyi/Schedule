@@ -68,12 +68,13 @@ public class SubjectDAO {
         return result;
     }
 
-    public boolean update(Subject subject) throws NoMatchesException {
+    public boolean update(Subject subject) throws IncorrectAddingException {
         boolean result = false;
-        PreparedStatement preparedStatement;
+            PreparedStatement preparedStatement;
             try {
                 preparedStatement = connection.prepareStatement(UPDATE);
                 preparedStatement.setString(1, subject.getName());
+                preparedStatement.setInt(2, subject.getId());
                 preparedStatement.executeUpdate();
             } catch (SQLException e) {
                 e.printStackTrace();

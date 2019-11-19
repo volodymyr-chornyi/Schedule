@@ -49,7 +49,7 @@
                 <tr>
                     <td>${group.name}</td>
                     <td>${group.studentsToString}</td>
-                    <td><a href="/group?submit=update&id=${group.id}&name=${group.name}" title="edit ${group.name}">edit</a> /
+                    <td><a href="/group?submit=edit&id=${group.id}" title="edit ${group.name}">edit</a> /
                     <a href="/group?submit=remove&id=${group.id}" title="delete ${group.name}">delete</a></td>
                 </tr>
             </c:forEach>

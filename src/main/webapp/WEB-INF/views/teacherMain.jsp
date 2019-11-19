@@ -53,25 +53,12 @@
                     <td>${teacher.firstName}</td>
                     <td>${teacher.age}</td>
                     <td>${teacher.subjects}</td>
-
-
                     <td>
-<%--                        <input type="hidden" name="lastName" value="${teacher.lastName}">--%>
-<%--                        <input type="hidden" name="firstName" value="${teacher.firstName}">--%>
-<%--                        <input type="hidden" name="age" value="${teacher.age}">--%>
-<%--                        <input type="text" name="id" value="${teacher.id}">--%>
-<%--                        <input type="hidden" name="subjects" value="${teacher.subjects}">--%>
-
-<%--                        <input type="submit" name="submit" value="edit" title="${teacher.id}">--%>
-<%--                        <input type="submit" name="submit" value="remove" title="remove ${teacher.name}">--%>
-<%--                    <td><a href="/teacherupdate">edit</a> /--%>
-<%--                    <td><a href="/teacherupdate?submit=${teacher}">edit</a> /--%>
-
-                    <a href="/teacher?submit=edit&id=${teacher.id}" title="edit ${teacher.name}">edit</a> /
-                    <a href="/teacher?submit=remove&id=${teacher.id}" title="delete ${teacher.name}">delete</a></td>
+                        <a href="/teacher?submit=edit&id=${teacher.id}" title="edit ${teacher.name}">edit</a> /
+                        <a href="/teacher?submit=remove&id=${teacher.id}" title="delete ${teacher.name}">delete</a>
+                    </td>
                 </tr>
             </c:forEach>
-
         </table>
     </form>
 
@@ -84,8 +71,8 @@
                 <th>subjects</th>
                 <th>add</th>
                 <tr>
-                    <td><input required pattern="^[a-zA-Z]{3,15}$" type="text" id="teacherLastName" name="lastName"></td>
-                    <td><input required pattern="^[a-zA-Z]{3,15}$" type="text" id="teacherFirstName" name="firstName"></td>
+                    <td><input required pattern="^[a-zA-Z]{2,}\'?-?" type="text" id="teacherLastName" name="lastName"></td>
+                    <td><input required pattern="^[a-zA-Z]{2,}\'?-?" type="text" id="teacherFirstName" name="firstName"></td>
                     <td><input required pattern="[1-9]{1}[0-9]{1}" type="text" id="age" name="age"></td>
                     <td>
                         <select name="subject">

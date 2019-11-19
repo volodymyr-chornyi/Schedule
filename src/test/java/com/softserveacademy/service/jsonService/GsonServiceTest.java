@@ -2,8 +2,8 @@ package com.softserveacademy.service.jsonService;
 
 import com.softserveacademy.model.*;
 import com.softserveacademy.service.EventCreator;
-import com.softserveacademy.service.exception.IncorrectScheduleExcepttion;
 import com.softserveacademy.service.Schedule;
+import com.softserveacademy.service.exception.IncorrectAddingException;
 import org.junit.Test;
 
 import java.io.File;
@@ -19,7 +19,7 @@ public class GsonServiceTest {
     Teacher teacher = new Teacher("Stepan", "Ivanov");
     Group group = new Group("102");
     Subject subject = new Subject("Phi");
-    Room room = new Room(100, "2");
+    Room room = new Room("100", "2");
     EventCreator eventCreator = new EventCreator();
     Event event = eventCreator.setDayOfWeek(DayOfWeek.MONDAY)
                               .setNumberEvent(NumberEvent.SECOND)
@@ -46,7 +46,7 @@ public class GsonServiceTest {
     }
 
     @Test
-    public void writeEventListToFile() throws IOException, IncorrectScheduleExcepttion {
+    public void writeEventListToFile() throws IOException, IncorrectAddingException {
         File emptyFile = this.emptyFile;
         if(emptyFile.exists())
             emptyFile.delete();
@@ -67,7 +67,7 @@ public class GsonServiceTest {
     }
 
     @Test
-    public void addEventsFromFileToEventList() {
+    public void addEventsFromFileToEventList() throws IncorrectAddingException {
         File testFile = this.testFile;
         int startSize = schedule.getEvents().size();
         gsonService.addEventsFromFileToEventList(testFile, schedule);

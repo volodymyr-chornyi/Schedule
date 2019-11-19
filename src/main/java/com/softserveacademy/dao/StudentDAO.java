@@ -72,15 +72,16 @@ public class StudentDAO {
         return result;
     }
 
-    public boolean update(Student student) throws NoMatchesException {
+    public boolean update(Student student) throws IncorrectAddingException {
         boolean result = false;
-        PreparedStatement preparedStatement;
+            PreparedStatement preparedStatement;
             try {
                 preparedStatement = connection.prepareStatement(UPDATE);
                 preparedStatement.setInt(1, student.getAge());
                 preparedStatement.setString(2, student.getFirstName());
                 preparedStatement.setString(3, student.getLastName());
                 preparedStatement.setInt(4, student.getGroup().getId());
+                preparedStatement.setInt(5, student.getId());
                 preparedStatement.executeUpdate();
             } catch (SQLException e) {
                 e.printStackTrace();

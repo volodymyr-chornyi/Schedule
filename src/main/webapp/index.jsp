@@ -41,5 +41,120 @@
       </div>
   </header>
 
+
+  <table>
+      <h1 class="form-style-2-heading">Schedule</h1>
+      <th></th>
+      <th>S</th>
+      <th>C</th>
+      <th>H</th>
+      <th>E</th>
+      <th>D</th>
+      <th>U</th>
+      <th>L</th>
+      <th>E</th>
+
+
+      <%--                                                --%>
+      <%--                MONDAY                         --%>
+      <%--                                                --%>
+      <tr>
+          <th>MONDAY</th>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+      </tr>
+      <%--                                                --%>
+      <%--                TUESDAY                         --%>
+      <%--                                                --%>
+      <tr>
+          <th>TUESDAY</th>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+      </tr>
+      <%--                                                  --%>
+      <%--                WEDNESDAY                         --%>
+      <%--                                                  --%>
+      <tr>
+          <th>WEDNESDAY</th>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+      </tr>
+      <%--                                                --%>
+      <%--                THURSDAY                        --%>
+      <%--                                                --%>
+      <tr>
+          <th>THURSDAY</th>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+      </tr>
+      <%--                                               --%>
+      <%--                FRIDAY                         --%>
+      <%--                                               --%>
+      <tr>
+          <th>FRIDAY</th>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+      </tr>
+      <%--                                                --%>
+      <%--                SATURDAY                        --%>
+      <%--                                                --%>
+      <tr>
+          <th>SATURDAY</th>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+      </tr>
+      <%--                                               --%>
+      <%--                SUNDAY                         --%>
+      <%--                                               --%>
+      <tr>
+          <th>SUNDAY</th>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+      </tr>
+
+  </table>
+
   </body>
 </html>

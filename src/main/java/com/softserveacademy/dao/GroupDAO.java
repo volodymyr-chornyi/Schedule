@@ -2,7 +2,6 @@ package com.softserveacademy.dao;
 
 import com.softserveacademy.model.Student;
 import com.softserveacademy.service.exception.IncorrectAddingException;
-import com.softserveacademy.service.exception.NoMatchesException;
 import com.softserveacademy.service.util.JdbcService;
 import com.softserveacademy.model.Group;
 
@@ -20,6 +19,7 @@ public class GroupDAO {
     private final String UPDATE = "UPDATE groups SET name = ? WHERE Id = ?";
     private final String REMOVE_BY_ID = "DELETE FROM groups WHERE Id = ?";
     private final String FIND_BY_ID = "SELECT * FROM groups WHERE Id = ?";
+    private final String FIND_BY_NAME = "SELECT * FROM groups WHERE name = ?";
     private final String SHOW_STUDENTS = "SELECT * FROM students WHERE group_id = ?";
     private Connection connection;
 
@@ -68,12 +68,13 @@ public class GroupDAO {
         return result;
     }
 
-    public boolean update(Group group) throws NoMatchesException {
+    public boolean update(Group group) throws IncorrectAddingException {
         boolean result = false;
-        PreparedStatement preparedStatement;
+            PreparedStatement preparedStatement;
             try {
                 preparedStatement = connection.prepareStatement(UPDATE);
                 preparedStatement.setString(1, group.getName());
+                preparedStatement.setInt(2, group.getId());
                 preparedStatement.executeUpdate();
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -125,6 +126,22 @@ public class GroupDAO {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public Group findByName(String name){
+        Group group = null;
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_NAME);
+            preparedStatement.setString(1, name);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if(resultSet.next()) {
+                group = new Group(resultSet.getString("name"));
+                group.setId(resultSet.getInt("id"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return group;
     }
 
     public Set<Student> showStudents(Group group){

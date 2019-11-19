@@ -68,13 +68,14 @@ public class RoomDAO {
         return result;
     }
 
-    public boolean update(Room room) throws NoMatchesException {
+    public boolean update(Room room) throws IncorrectAddingException {
         boolean result = false;
-        PreparedStatement preparedStatement;
+            PreparedStatement preparedStatement;
             try {
                 preparedStatement = connection.prepareStatement(UPDATE);
                 preparedStatement.setString(1, room.getBuildingNumber());
                 preparedStatement.setString(2, room.getName());
+                preparedStatement.setInt(3, room.getId());
                 preparedStatement.executeUpdate();
             } catch (SQLException e) {
                 e.printStackTrace();

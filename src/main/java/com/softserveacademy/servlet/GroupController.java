@@ -1,9 +1,7 @@
 package com.softserveacademy.servlet;
 
 import com.softserveacademy.dao.GroupDAO;
-import com.softserveacademy.dao.StudentDAO;
 import com.softserveacademy.model.Group;
-import com.softserveacademy.model.Student;
 import com.softserveacademy.service.exception.IncorrectAddingException;
 import com.softserveacademy.service.exception.NoMatchesException;
 
@@ -18,24 +16,31 @@ public class GroupController extends HttpServlet {
     GroupDAO groupDAO = new GroupDAO();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        add(request);
-        response.sendRedirect("/grouplist");
+        if (request.getParameter("id") == null || request.getParameter("id").isEmpty()) {
+            add(request);
+            response.sendRedirect("/grouplist");
+        } else {
+            update(request);
+            response.sendRedirect("/grouplist");
+        }
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String submit = request.getParameter("submit");
         if ("remove".equalsIgnoreCase(submit)) {
             remove(request);
+            request.getRequestDispatcher("/grouplist").forward(request, response);
         }
-        if ("update".equalsIgnoreCase(submit)) {
-            update(request);
+        if ("edit".equalsIgnoreCase(submit)) {
+            int groupId = Integer.parseInt(request.getParameter("id"));
+            Group group = groupDAO.findById(groupId);
+            group.addStudent(groupDAO.showStudents(group));
+            request.setAttribute("group", group);
+            request.getRequestDispatcher("/groupupdate").forward(request, response);
         }
-
-        request.getRequestDispatcher("/grouplist").forward(request,response);
     }
 
-
-    private void add(HttpServletRequest request){
+    private void add(HttpServletRequest request) {
         String name = request.getParameter("name");
         Group group = new Group(name);
         try {
@@ -45,28 +50,23 @@ public class GroupController extends HttpServlet {
         }
     }
 
-    private void update(HttpServletRequest request){
-        if(request.getParameter("id") != null){
+    private void update(HttpServletRequest request) {
+        if (request.getParameter("id") != null) {
             String name = request.getParameter("name");
             int id = Integer.parseInt(request.getParameter("id"));
             Group group = new Group(name);
             group.setId(id);
             try {
                 groupDAO.update(group);
-            } catch (NoMatchesException e) {
+            } catch (IncorrectAddingException e) {
                 e.printStackTrace();
             }
         }
     }
 
-    private void remove(HttpServletRequest request){
-        if(request.getParameter("id") != null) {
-            int id = Integer.parseInt(request.getParameter("id"));
-            Group group = groupDAO.findById(id);
-            for (Student student: group.getStudents()) {
-                student.setGroup(null);
-            }
+    private void remove(HttpServletRequest request) {
+        if (request.getParameter("id") != null)
             groupDAO.removeById(Integer.parseInt(request.getParameter("id")));
-        }
     }
+
 }

@@ -58,13 +58,20 @@
 
     <form method="post" action="${pageContext.request.contextPath}/subject">
         <table>
+            <h1 class="form-style-2-heading"></h1>
             <h1 class="form-style-2-heading">Subject adding</h1>
-            <th>name</th>
-            <th>add</th>
             <tr>
+                <th></th>
+                <td><h3>New subject:</h3></td>
+            </tr>
+            <tr>
+                <th>name</th>
                 <td><input required pattern="^[a-zA-Z]{2,}\'?-?" type="text" id="name" name="name"></td>
+            </tr>
+            <tr>
+                <th></th>
                 <td>
-                    <input type="submit" value="add">
+                    <input type="submit" style="cursor: pointer" value=" add ">
                 </td>
             </tr>
         </table>

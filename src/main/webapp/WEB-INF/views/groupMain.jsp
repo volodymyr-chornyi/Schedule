@@ -52,12 +52,19 @@
 
     <form method="post" action="${pageContext.request.contextPath}/group">
             <table>
+                <h1 class="form-style-2-heading"></h1>
                 <h1 class="form-style-2-heading">Group adding</h1>
-                <th>name</th>
-                <th>add</th>
                 <tr>
-                    <td><input required type="text" id="name" name="name"></td>
-                    <td><input type="submit" value="add"></td>
+                    <th></th>
+                    <td><h3>New group:</h3></td>
+                </tr>
+                <tr>
+                    <th>name</th>
+                    <td><input required pattern="^[a-zA-Z0-9]{2,}\'?-?" type="text" id="name" name="name"></td>
+                </tr>
+                <tr>
+                    <th></th>
+                    <td><input type="submit" style="cursor: pointer" value=" add "></td>
                 </tr>
             </table>
     </form>

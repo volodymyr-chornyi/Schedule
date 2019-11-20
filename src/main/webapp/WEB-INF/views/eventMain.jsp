@@ -62,6 +62,7 @@
 
     <form method="post" action="${pageContext.request.contextPath}/event">
             <table>
+                <h1 class="form-style-2-heading"></h1>
                 <h1 class="form-style-2-heading">Event adding</h1>
                 <th>day of week</th>
                 <th>event number</th>

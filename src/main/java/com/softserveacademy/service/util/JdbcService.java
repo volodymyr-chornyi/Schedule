@@ -17,13 +17,13 @@ public class JdbcService {
     public static Connection getConnection() {
 //        final JdbcSettings jdbcSettings = JdbcSettings.getInstance();
         try {
-//            Class.forName("org.postgresql.Driver");
-//
+            Class.forName("org.postgresql.Driver");
+
 //            connection = DriverManager.getConnection(jdbcSettings.value("jdbc.url"),
 //                                                    jdbcSettings.value("jdbc.username"),
 //                                                    jdbcSettings.value("jdbc.password"));
             connection = DriverManager.getConnection(URL, userName, password);
-        } catch (SQLException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             logger.error(e.getMessage(), e);
         }
         return connection;

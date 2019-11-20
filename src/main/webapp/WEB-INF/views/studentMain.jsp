@@ -32,7 +32,6 @@
         </div>
     </header>
 
-<%--    <form method="get" action="/teacher">--%>
         <h1 class="form-style-2-heading">Student list</h1>
         <table>
             <th>last name</th>
@@ -57,16 +56,26 @@
 
     <form method="post" id="student_add" action="${pageContext.request.contextPath}/student">
             <table>
+                <h1 class="form-style-2-heading"></h1>
                 <h1 class="form-style-2-heading">Student adding</h1>
-                <th>last name</th>
-                <th>first name</th>
-                <th>age</th>
-                <th>group</th>
-                <th>add</th>
                 <tr>
-                    <td><input required type="text" id="studentLastName" name="lastName"></td>
-                    <td><input required type="text" id="studentFirstName" name="firstName"></td>
-                    <td><input required type="text" id="age" name="age"></td>
+                    <th></th>
+                    <td><h3>New student:</h3></td>
+                </tr>
+                <tr>
+                    <th>last name</th>
+                    <td><input required type="text" pattern="^[a-zA-Z]{2,}\'?-?" id="studentLastName" name="lastName"></td>
+                </tr>
+                <tr>
+                    <th>first name</th>
+                    <td><input required type="text" pattern="^[a-zA-Z]{2,}\'?-?" id="studentFirstName" name="firstName"></td>
+                </tr>
+                <tr>
+                    <th>age</th>
+                    <td><input required pattern="[1-9]{1}[0-9]{1}" type="text" id="age" name="age"></td>
+                </tr>
+                <tr>
+                    <th>group</th>
                     <td>
                         <select name="group">
                             <jsp:useBean id="allGroups" scope="request" type="java.util.List"/>
@@ -75,8 +84,11 @@
                             </c:forEach>
                         </select>
                     </td>
+                </tr>
+                <tr>
+                    <th></th>
                     <td>
-                        <input type="submit" name="add" style="cursor: pointer" value="add" title="add">
+                        <input type="submit" name="add" style="cursor: pointer" value=" add " title="add">
                     </td>
                 </tr>
             </table>

@@ -6,7 +6,7 @@
     <title>eventUpdate</title>
     <link href="${pageContext.request.contextPath}/css/table.css" rel="stylesheet" type="text/css">
     <link href="${pageContext.request.contextPath}/css/styles.css" rel="stylesheet" type="text/css">
-    <link href="${pageContext.request.contextPath}/css/panel.css" rel="stylesheet" type="text/css">
+    <link href="${pageContext.request.contextPath}css/panel.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 
@@ -45,7 +45,7 @@
                     <p>
                         <input type="hidden" name="id" value="${event.id}">
                         <select name="day">
-                            <option selected disabled>${event.dayOfWeek}</option>
+                            <option selected value="${event.dayOfWeek.value}">${event.dayOfWeek}</option>
                             <jsp:useBean id="allDays" scope="request" type="java.util.List"/>
                             <c:forEach var="day" items="${allDays}">
                                 <option value="${day.value}">${day}</option>
@@ -61,7 +61,7 @@
                     <p>Current number: ${event.numberEvent}</p>
                     <p>
                         <select name="number">
-                            <option selected disabled>${event.numberEvent}</option>
+                            <option selected value="${event.numberEvent.value}">${event.numberEvent}</option>
                             <jsp:useBean id="allNumberEvent" scope="request" type="java.util.List"/>
                             <c:forEach var="number" items="${allNumberEvent}">
                                 <option value="${number.value}">${number}</option>
@@ -77,7 +77,7 @@
                     <p>Current subject: ${event.subject.name}</p>
                     <p>
                         <select name="subject">
-                            <option selected disabled>${event.subject.name}</option>
+                            <option selected value="${event.subject.id}">${event.subject.name}</option>
                             <jsp:useBean id="allSubjects" scope="request" type="java.util.List"/>
                             <c:forEach var="subject" items="${allSubjects}">
                                 <option value="${subject.id}">${subject.name}</option>
@@ -93,7 +93,7 @@
                     <p>Current teacher: ${event.teacher.name}</p>
                     <p>
                         <select name="teacher">
-                            <option selected disabled>${event.teacher.name}</option>
+                            <option selected value="${event.teacher.id}">${event.teacher.name}</option>
                             <jsp:useBean id="allTeachers" scope="request" type="java.util.List"/>
                             <c:forEach var="teacher" items="${allTeachers}">
                                 <option value="${teacher.id}">${teacher.name}</option>
@@ -109,7 +109,7 @@
                     <p>Current group: ${event.group.name}</p>
                     <p>
                         <select name="group">
-                            <option selected disabled>${event.group.name}</option>
+                            <option selected value="${event.group.id}">${event.group.name}</option>
                             <jsp:useBean id="allGroups" scope="request" type="java.util.List"/>
                             <c:forEach var="group" items="${allGroups}">
                                 <option value="${group.id}">${group.name}</option>
@@ -125,7 +125,7 @@
                     <p>Current room: ${event.room.name}</p>
                     <p>
                         <select name="room">
-                            <option selected disabled>${event.room.fullName}</option>
+                            <option selected value="${event.room.id}">${event.room.fullName}</option>
                             <jsp:useBean id="allRooms" scope="request" type="java.util.List"/>
                             <c:forEach var="room" items="${allRooms}">
                                 <option value="${room.id}">${room.fullName}</option>

@@ -55,11 +55,11 @@ public class GsonServiceTest {
         schedule.addEvent(event);
         schedule.addEvent(event2);
         gsonService.writeEventListToFile(emptyFile, schedule.getEvents());
-        assertFalse(emptyFile.length() == 0);
+        assertNotEquals(0, emptyFile.length());
     }
 
     @Test
-    public void readEventsFromFile() throws IOException {
+    public void readEventsFromFile() {
         File testFile = this.testFile;
         Set<Event> set;
         set = gsonService.readEventsFromFile(testFile);

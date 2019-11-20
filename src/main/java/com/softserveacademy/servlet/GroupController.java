@@ -3,6 +3,8 @@ package com.softserveacademy.servlet;
 import com.softserveacademy.dao.GroupDAO;
 import com.softserveacademy.model.Group;
 import com.softserveacademy.service.exception.IncorrectAddingException;
+import com.softserveacademy.service.exception.RemoveException;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -13,6 +15,7 @@ import java.io.IOException;
 public class GroupController extends HttpServlet {
 
     GroupDAO groupDAO = new GroupDAO();
+    private static Logger logger = Logger.getLogger(GroupController.class);
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (request.getParameter("id") == null || request.getParameter("id").isEmpty()) {
@@ -27,7 +30,11 @@ public class GroupController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String submit = request.getParameter("submit");
         if ("remove".equalsIgnoreCase(submit)) {
-            remove(request);
+            try {
+                remove(request);
+            } catch (RemoveException e) {
+                logger.error(e.getMessage(), e);
+            }
             request.getRequestDispatcher("/grouplist").forward(request, response);
         }
         if ("edit".equalsIgnoreCase(submit)) {
@@ -45,7 +52,7 @@ public class GroupController extends HttpServlet {
         try {
             groupDAO.add(group);
         } catch (IncorrectAddingException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
         }
     }
 
@@ -55,15 +62,11 @@ public class GroupController extends HttpServlet {
             int id = Integer.parseInt(request.getParameter("id"));
             Group group = new Group(name);
             group.setId(id);
-            try {
-                groupDAO.update(group);
-            } catch (IncorrectAddingException e) {
-                e.printStackTrace();
-            }
+            groupDAO.update(group);
         }
     }
 
-    private void remove(HttpServletRequest request) {
+    private void remove(HttpServletRequest request) throws RemoveException {
         if (request.getParameter("id") != null)
             groupDAO.removeById(Integer.parseInt(request.getParameter("id")));
     }

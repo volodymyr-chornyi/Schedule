@@ -3,6 +3,8 @@ package com.softserveacademy.servlet;
 import com.softserveacademy.dao.RoomDAO;
 import com.softserveacademy.model.Room;
 import com.softserveacademy.service.exception.IncorrectAddingException;
+import com.softserveacademy.service.exception.RemoveException;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -13,6 +15,7 @@ import java.io.IOException;
 public class RoomController extends HttpServlet {
 
     RoomDAO roomDAO = new RoomDAO();
+    private static Logger logger = Logger.getLogger(RoomController.class);
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (request.getParameter("id") == null || request.getParameter("id").isEmpty()) {
@@ -27,7 +30,11 @@ public class RoomController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String submit = request.getParameter("submit");
         if ("remove".equalsIgnoreCase(submit)) {
-            remove(request);
+            try {
+                remove(request);
+            } catch (RemoveException e) {
+                logger.error(e.getMessage(), e);
+            }
             request.getRequestDispatcher("/roomlist").forward(request, response);
         }
         if ("edit".equalsIgnoreCase(submit)) {
@@ -45,7 +52,7 @@ public class RoomController extends HttpServlet {
         try {
             roomDAO.add(room);
         } catch (IncorrectAddingException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
         }
     }
 
@@ -56,15 +63,11 @@ public class RoomController extends HttpServlet {
             int id = Integer.parseInt(request.getParameter("id"));
             Room room = new Room(buildingNumber, name);
             room.setId(id);
-            try {
-                roomDAO.update(room);
-            } catch (IncorrectAddingException e) {
-                e.printStackTrace();
-            }
+            roomDAO.update(room);
         }
     }
 
-    private void remove(HttpServletRequest request) {
+    private void remove(HttpServletRequest request) throws RemoveException {
         if (request.getParameter("id") != null)
             roomDAO.removeById(Integer.parseInt(request.getParameter("id")));
     }

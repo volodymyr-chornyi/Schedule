@@ -4,6 +4,7 @@ import com.softserveacademy.dao.*;
 import com.softserveacademy.model.*;
 import com.softserveacademy.service.EventCreator;
 import com.softserveacademy.service.exception.IncorrectAddingException;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -23,20 +24,21 @@ public class EventController extends HttpServlet {
     GroupDAO groupDAO = new GroupDAO();
     RoomDAO roomDAO = new RoomDAO();
     EventCreator eventCreator;
+    private static Logger logger = Logger.getLogger(EventController.class);
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (request.getParameter("id") == null || request.getParameter("id").isEmpty()) {
             try {
                 add(request);
             } catch (IncorrectAddingException e) {
-                e.printStackTrace();
+                logger.error(e.getMessage(), e);
             }
             response.sendRedirect("/eventlist");
         } else {
             try {
                 update(request);
             } catch (IncorrectAddingException e) {
-                e.printStackTrace();
+                logger.error(e.getMessage(), e);
             }
             response.sendRedirect("/eventlist");
         }
@@ -93,7 +95,7 @@ public class EventController extends HttpServlet {
             try {
                 eventDAO.add(event);
             } catch (IncorrectAddingException e) {
-                e.printStackTrace();
+                logger.error(e.getMessage(), e);
             }
         } else throw new IncorrectAddingException(teacher, subject);
     }
@@ -122,7 +124,7 @@ public class EventController extends HttpServlet {
                 try {
                     eventDAO.update(event);
                 } catch (IncorrectAddingException e) {
-                    e.printStackTrace();
+                    logger.error(e.getMessage(), e);
                 }
             } else throw new IncorrectAddingException(teacher, subject);
         }

@@ -1,18 +1,12 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Chornyi
-  Date: 11.11.2019
-  Time: 22:52
-  To change this template use File | Settings | File Templates.
---%>
+<jsp:useBean id="student" scope="request" type="com.softserveacademy.model.Student"/>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <title>studentUpdate</title>
-    <link href="/css/table.css" rel="stylesheet" type="text/css">
-    <link href="/css/styles.css" rel="stylesheet" type="text/css">
-    <link href="/css/panel.css" rel="stylesheet" type="text/css">
+    <link href="${pageContext.request.contextPath}/css/table.css" rel="stylesheet" type="text/css">
+    <link href="${pageContext.request.contextPath}/css/styles.css" rel="stylesheet" type="text/css">
+    <link href="${pageContext.request.contextPath}/css/panel.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 
@@ -25,15 +19,15 @@
             <%--        </div>--%>
             <nav>
                 <ul>
-                    <li><a href="/">home</a></li>
-                    <li><a href="/eventlist">Event</a></li>
-                    <li><a href="/subjectlist">Subject</a></li>
-                    <li><a href="/teacherlist">Teacher</a></li>
-                    <li><a href="/roomlist">Room</a></li>
-                    <li><a href="/grouplist">Group</a></li>
-                    <li><a href="/studentlist">Student</a></li>
-                    <li><a href="/search">Search</a></li>
-                    <li><a href="/search?search=schedule">Schedule</a></li>
+                    <li><a href="${pageContext.request.contextPath}/">home</a></li>
+                    <li><a href="${pageContext.request.contextPath}/eventlist">Event</a></li>
+                    <li><a href="${pageContext.request.contextPath}/subjectlist">Subject</a></li>
+                    <li><a href="${pageContext.request.contextPath}/teacherlist">Teacher</a></li>
+                    <li><a href="${pageContext.request.contextPath}/roomlist">Room</a></li>
+                    <li><a href="${pageContext.request.contextPath}/grouplist">Group</a></li>
+                    <li><a href="${pageContext.request.contextPath}/studentlist">Student</a></li>
+                    <li><a href="${pageContext.request.contextPath}/search">Search</a></li>
+                    <li><a href="${pageContext.request.contextPath}/search?search=schedule">Schedule</a></li>
                 </ul>
             </nav>
         </div>
@@ -41,7 +35,7 @@
 
     <h1 class="form-style-2-heading"></h1>
     <h1 class="form-style-2-heading">Сhange student data</h1>
-    <form action="/student" method="post">
+    <form action="${pageContext.request.contextPath}/student" method="post">
         <table>
             <tr><th></th><th>update</th></tr>
             <tr>
@@ -65,6 +59,7 @@
                     <p>Current group: ${student.group.name}</p>
                     <p>
                         <select name="group">
+                            <jsp:useBean id="allGroups" scope="request" type="java.util.List"/>
                             <c:forEach var="group" items="${allGroups}">
                                 <option>${group.name}</option>
                             </c:forEach>
@@ -74,7 +69,7 @@
             </tr>
             <tr>
                 <td>
-                    <a href="/studentlist">Close</a>
+                    <a href="${pageContext.request.contextPath}/studentlist">Close</a>
                 </td>
                 <td>
                     <input type="submit" style="cursor: pointer" value="   ok   ">

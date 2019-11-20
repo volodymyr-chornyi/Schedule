@@ -21,10 +21,6 @@ public class TeacherListServlet extends HttpServlet {
     List<Teacher> sortTeachers;
     List<Subject> sortSubjects;
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-    }
-
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Set<Teacher> teachers = teacherDAO.findAll();
         Set<Subject> subjects = subjectDAO.findAll();

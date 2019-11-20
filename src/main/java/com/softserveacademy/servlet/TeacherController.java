@@ -5,6 +5,8 @@ import com.softserveacademy.dao.TeacherDAO;
 import com.softserveacademy.model.Subject;
 import com.softserveacademy.model.Teacher;
 import com.softserveacademy.service.exception.IncorrectAddingException;
+import com.softserveacademy.service.exception.RemoveException;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -16,6 +18,7 @@ public class TeacherController extends HttpServlet {
 
     TeacherDAO teacherDAO = new TeacherDAO();
     SubjectDAO subjectDAO = new SubjectDAO();
+    private static Logger logger = Logger.getLogger(TeacherController.class);
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (request.getParameter("id") == null || request.getParameter("id").isEmpty()) {
@@ -30,7 +33,11 @@ public class TeacherController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String submit = request.getParameter("submit");
         if ("remove".equalsIgnoreCase(submit)) {
-            remove(request);
+            try {
+                remove(request);
+            } catch (RemoveException e) {
+                logger.error(e.getMessage(), e);
+            }
             request.getRequestDispatcher("/teacherlist").forward(request, response);
         }
         if ("edit".equalsIgnoreCase(submit)) {
@@ -52,7 +59,7 @@ public class TeacherController extends HttpServlet {
         try {
             teacherDAO.add(teacher);
         } catch (IncorrectAddingException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
         }
         if (subject != null)
             subjectDAO.addSubjectTeacher(subject, teacher);
@@ -70,12 +77,12 @@ public class TeacherController extends HttpServlet {
             try {
                 teacherDAO.update(teacher);
             } catch (IncorrectAddingException e) {
-                e.printStackTrace();
+                logger.error(e.getMessage(), e);
             }
         }
     }
 
-    private void remove(HttpServletRequest request) {
+    private void remove(HttpServletRequest request) throws RemoveException {
         if (request.getParameter("id") != null)
             teacherDAO.removeById(Integer.parseInt(request.getParameter("id")));
     }

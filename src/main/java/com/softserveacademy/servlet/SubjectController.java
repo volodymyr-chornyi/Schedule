@@ -1,9 +1,10 @@
 package com.softserveacademy.servlet;
 
 import com.softserveacademy.dao.SubjectDAO;
-import com.softserveacademy.dao.TeacherDAO;
 import com.softserveacademy.model.Subject;
 import com.softserveacademy.service.exception.IncorrectAddingException;
+import com.softserveacademy.service.exception.RemoveException;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -13,10 +14,10 @@ import java.io.IOException;
 
 public class SubjectController extends HttpServlet {
 
-    TeacherDAO teacherDAO = new TeacherDAO();
     SubjectDAO subjectDAO = new SubjectDAO();
+    private static Logger logger = Logger.getLogger(SubjectController.class);
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         if (request.getParameter("id") == null || request.getParameter("id").isEmpty()) {
             add(request);
             response.sendRedirect("/subjectlist");
@@ -24,7 +25,7 @@ public class SubjectController extends HttpServlet {
             try {
                 update(request);
             } catch (IncorrectAddingException e) {
-                e.printStackTrace();
+                logger.error(e.getMessage(), e);
             }
             response.sendRedirect("/subjectlist");
         }
@@ -33,7 +34,11 @@ public class SubjectController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String submit = request.getParameter("submit");
         if ("remove".equalsIgnoreCase(submit)) {
-            remove(request);
+            try {
+                remove(request);
+            } catch (RemoveException e) {
+                logger.error(e.getMessage(), e);
+            }
             request.getRequestDispatcher("/subjectlist").forward(request, response);
         }
         if ("edit".equalsIgnoreCase(submit)) {
@@ -51,7 +56,7 @@ public class SubjectController extends HttpServlet {
         try {
             subjectDAO.add(subject);
         } catch (IncorrectAddingException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
         }
     }
 
@@ -65,7 +70,7 @@ public class SubjectController extends HttpServlet {
         }
     }
 
-    private void remove(HttpServletRequest request){
+    private void remove(HttpServletRequest request) throws RemoveException {
         if(request.getParameter("id") != null)
             subjectDAO.removeById(Integer.parseInt(request.getParameter("id")));
     }

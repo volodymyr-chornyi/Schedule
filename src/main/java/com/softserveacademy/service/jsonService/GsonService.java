@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.softserveacademy.model.Event;
 import com.softserveacademy.service.Schedule;
 import com.softserveacademy.service.exception.IncorrectAddingException;
+import org.apache.log4j.Logger;
 
 import java.io.File;
 import java.io.FileReader;
@@ -15,13 +16,15 @@ import java.util.Set;
 
 public class GsonService {
 
+    private static Logger logger = Logger.getLogger(GsonService.class);
+
     public Gson gson = new Gson();
 
     public void writeEventListToFile (File file, Set<Event> eventList) {
         try(FileWriter fileWriter = new FileWriter(file);) {
             gson.toJson(eventList, fileWriter);
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
         }
     }
 
@@ -33,7 +36,7 @@ public class GsonService {
                 set = new HashSet<>(Arrays.asList(eventsArray));
             }
         }catch (IOException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
         }
         return set;
     }

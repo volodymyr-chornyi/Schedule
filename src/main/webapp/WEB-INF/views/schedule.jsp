@@ -1,18 +1,11 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Chornyi
-  Date: 11.11.2019
-  Time: 22:52
-  To change this template use File | Settings | File Templates.
---%>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <title>schedule</title>
-    <link href="/css/table_schedule.css" rel="stylesheet" type="text/css">
-    <link href="/css/styles.css" rel="stylesheet" type="text/css">
-    <link href="/css/panel.css" rel="stylesheet" type="text/css">
+    <link href="${pageContext.request.contextPath}/css/table_schedule.css" rel="stylesheet" type="text/css">
+    <link href="${pageContext.request.contextPath}/css/styles.css" rel="stylesheet" type="text/css">
+    <link href="${pageContext.request.contextPath}/css/panel.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 
@@ -25,15 +18,15 @@
             <%--        </div>--%>
             <nav>
                 <ul>
-                    <li><a href="/">home</a></li>
-                    <li><a href="/eventlist">Event</a></li>
-                    <li><a href="/subjectlist">Subject</a></li>
-                    <li><a href="/teacherlist">Teacher</a></li>
-                    <li><a href="/roomlist">Room</a></li>
-                    <li><a href="/grouplist">Group</a></li>
-                    <li><a href="/studentlist">Student</a></li>
-                    <li><a href="/search">Search</a></li>
-                    <li><a href="/search?search=schedule">Schedule</a></li>
+                    <li><a href="${pageContext.request.contextPath}/">home</a></li>
+                    <li><a href="${pageContext.request.contextPath}/eventlist">Event</a></li>
+                    <li><a href="${pageContext.request.contextPath}/subjectlist">Subject</a></li>
+                    <li><a href="${pageContext.request.contextPath}/teacherlist">Teacher</a></li>
+                    <li><a href="${pageContext.request.contextPath}/roomlist">Room</a></li>
+                    <li><a href="${pageContext.request.contextPath}/grouplist">Group</a></li>
+                    <li><a href="${pageContext.request.contextPath}/studentlist">Student</a></li>
+                    <li><a href="${pageContext.request.contextPath}/search">Search</a></li>
+                    <li><a href="${pageContext.request.contextPath}/search?search=schedule">Schedule</a></li>
                 </ul>
             </nav>
         </div>
@@ -59,6 +52,7 @@
             <tr>
                 <th>MONDAY</th>
                     <td>
+                        <jsp:useBean id="mondayEvent" scope="request" type="java.util.List"/>
                         <c:forEach var="event" items="${mondayEvent}">
                             <c:if test="${event.numberEvent.value==1}">
                                 <p>----------</p><p>${event.schedule}</p><p>----------</p>
@@ -127,6 +121,7 @@
             <tr>
                 <th>TUESDAY</th>
                 <td>
+                    <jsp:useBean id="tuesdayEvent" scope="request" type="java.util.List"/>
                     <c:forEach var="event" items="${tuesdayEvent}">
                         <c:if test="${event.numberEvent.value==1}">
                             <p>----------</p><p>${event.schedule}</p><p>----------</p>
@@ -189,6 +184,7 @@
             <tr>
                 <th>WEDNESDAY</th>
                 <td>
+                    <jsp:useBean id="wednesdayEvent" scope="request" type="java.util.List"/>
                     <c:forEach var="event" items="${wednesdayEvent}">
                         <c:if test="${event.numberEvent.value==1}">
                             <p>----------</p><p>${event.schedule}</p><p>----------</p>
@@ -251,6 +247,7 @@
             <tr>
                 <th>THURSDAY</th>
                 <td>
+                    <jsp:useBean id="thursdayEvent" scope="request" type="java.util.List"/>
                     <c:forEach var="event" items="${thursdayEvent}">
                         <c:if test="${event.numberEvent.value==1}">
                             <p>----------</p><p>${event.schedule}</p><p>----------</p>
@@ -313,6 +310,7 @@
             <tr>
                 <th>FRIDAY</th>
                 <td>
+                    <jsp:useBean id="fridayEvent" scope="request" type="java.util.List"/>
                     <c:forEach var="event" items="${fridayEvent}">
                         <c:if test="${event.numberEvent.value==1}">
                             <p>----------</p><p>${event.schedule}</p><p>----------</p>
@@ -375,6 +373,7 @@
             <tr>
                 <th>SATURDAY</th>
                 <td>
+                    <jsp:useBean id="saturdayEvent" scope="request" type="java.util.List"/>
                     <c:forEach var="event" items="${saturdayEvent}">
                         <c:if test="${event.numberEvent.value==1}">
                             <p>----------</p><p>${event.schedule}</p><p>----------</p>
@@ -437,6 +436,7 @@
             <tr>
                 <th>SUNDAY</th>
                 <td>
+                    <jsp:useBean id="sundayEvent" scope="request" type="java.util.List"/>
                     <c:forEach var="event" items="${sundayEvent}">
                         <c:if test="${event.numberEvent.value==1}">
                             <p>----------</p><p>${event.schedule}</p><p>----------</p>

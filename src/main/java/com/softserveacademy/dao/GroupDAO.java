@@ -1,9 +1,12 @@
 package com.softserveacademy.dao;
 
+import com.softserveacademy.model.Event;
 import com.softserveacademy.model.Student;
 import com.softserveacademy.service.exception.IncorrectAddingException;
+import com.softserveacademy.service.exception.RemoveException;
 import com.softserveacademy.service.util.JdbcService;
 import com.softserveacademy.model.Group;
+import org.apache.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -22,6 +25,7 @@ public class GroupDAO {
     private final String FIND_BY_NAME = "SELECT * FROM groups WHERE name = ?";
     private final String SHOW_STUDENTS = "SELECT * FROM students WHERE group_id = ?";
     private Connection connection;
+    private static Logger logger = Logger.getLogger(GroupDAO.class);
 
     public GroupDAO() {
         this.connection = JdbcService.getConnection();
@@ -41,7 +45,7 @@ public class GroupDAO {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
         }
         return result;
     }
@@ -56,19 +60,20 @@ public class GroupDAO {
                 preparedStatement = connection.prepareStatement(ADD, PreparedStatement.RETURN_GENERATED_KEYS);
                 preparedStatement.setString(1, group.getName());
                 preparedStatement.executeUpdate();
+                logger.info("a new group was added");
                 ResultSet resultSet = preparedStatement.getGeneratedKeys();
                 if(resultSet.next()){
                     group.setId(resultSet.getInt(1));
                 }
             } catch (SQLException e) {
-                e.printStackTrace();
+                logger.error(e.getMessage(), e);
             }
             result = true;
         }
         return result;
     }
 
-    public boolean update(Group group) throws IncorrectAddingException {
+    public boolean update(Group group){
         boolean result = false;
             PreparedStatement preparedStatement;
             try {
@@ -76,22 +81,34 @@ public class GroupDAO {
                 preparedStatement.setString(1, group.getName());
                 preparedStatement.setInt(2, group.getId());
                 preparedStatement.executeUpdate();
+                logger.info("group (id=" + group.getId() + ") data has been changed");
             } catch (SQLException e) {
-                e.printStackTrace();
+                logger.error(e.getMessage(), e);
             }
             result = true;
         return result;
     }
 
-    public boolean removeById(int id) {
+    public boolean removeById(int id) throws RemoveException {
         boolean result = false;
-        try {
-            PreparedStatement preparedStatement = connection.prepareStatement(REMOVE_BY_ID);
-            preparedStatement.setInt(1, id);
-            preparedStatement.executeUpdate();
-            result = true;
-        } catch (SQLException e) {
-            e.printStackTrace();
+        EventDAO eventDAO = new EventDAO();
+        StudentDAO studentDAO = new StudentDAO();
+        Set<Event> events = eventDAO.findByGroup(findById(id));
+        Set<Student> students = studentDAO.findByGroup(findById(id));
+        if(events.size() != 0) {
+            throw new RemoveException("there are planned events for this group");
+        } else if(students.size() != 0){
+            throw new RemoveException("there are students in this group");
+        } else {
+            try {
+                PreparedStatement preparedStatement = connection.prepareStatement(REMOVE_BY_ID);
+                preparedStatement.setInt(1, id);
+                preparedStatement.executeUpdate();
+                logger.info("removed group with id=" + id);
+                result = true;
+            } catch (SQLException e) {
+                logger.error(e.getMessage(), e);
+            }
         }
         return result;
     }
@@ -107,7 +124,7 @@ public class GroupDAO {
                 groups.add(group);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
         }
         return groups;
     }
@@ -123,7 +140,7 @@ public class GroupDAO {
                 return group;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
         }
         return null;
     }
@@ -139,15 +156,15 @@ public class GroupDAO {
                 group.setId(resultSet.getInt("id"));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
         }
         return group;
     }
 
     public Set<Student> showStudents(Group group){
         PreparedStatement preparedStatement;
+        Set<Student> students = new HashSet<>();
         try {
-            Set<Student> students = new HashSet<>();
             preparedStatement = connection.prepareStatement(SHOW_STUDENTS);
             preparedStatement.setInt(1, group.getId());
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -158,10 +175,9 @@ public class GroupDAO {
                 student.setAge(resultSet.getInt("age"));
                 students.add(student);
             }
-            return students;
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
         }
-        return null;
+        return students;
     }
 }

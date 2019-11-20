@@ -1,18 +1,11 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Chornyi
-  Date: 11.11.2019
-  Time: 22:52
-  To change this template use File | Settings | File Templates.
---%>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <title>subjectMain</title>
-    <link href="/css/table.css" rel="stylesheet" type="text/css">
-    <link href="/css/styles.css" rel="stylesheet" type="text/css">
-    <link href="/css/panel.css" rel="stylesheet" type="text/css">
+    <link href="${pageContext.request.contextPath}/css/table.css" rel="stylesheet" type="text/css">
+    <link href="${pageContext.request.contextPath}/css/styles.css" rel="stylesheet" type="text/css">
+    <link href="${pageContext.request.contextPath}/css/panel.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 
@@ -25,26 +18,27 @@
             <%--        </div>--%>
             <nav>
                 <ul>
-                    <li><a href="/">home</a></li>
-                    <li><a href="/eventlist">Event</a></li>
-                    <li><a href="/subjectlist">Subject</a></li>
-                    <li><a href="/teacherlist">Teacher</a></li>
-                    <li><a href="/roomlist">Room</a></li>
-                    <li><a href="/grouplist">Group</a></li>
-                    <li><a href="/studentlist">Student</a></li>
-                    <li><a href="/search">Search</a></li>
-                    <li><a href="/search?search=schedule">Schedule</a></li>
+                    <li><a href="${pageContext.request.contextPath}/">home</a></li>
+                    <li><a href="${pageContext.request.contextPath}/eventlist">Event</a></li>
+                    <li><a href="${pageContext.request.contextPath}/subjectlist">Subject</a></li>
+                    <li><a href="${pageContext.request.contextPath}/teacherlist">Teacher</a></li>
+                    <li><a href="${pageContext.request.contextPath}/roomlist">Room</a></li>
+                    <li><a href="${pageContext.request.contextPath}/grouplist">Group</a></li>
+                    <li><a href="${pageContext.request.contextPath}/studentlist">Student</a></li>
+                    <li><a href="${pageContext.request.contextPath}/search">Search</a></li>
+                    <li><a href="${pageContext.request.contextPath}/search?search=schedule">Schedule</a></li>
                 </ul>
             </nav>
         </div>
     </header>
 
-    <form method="get" action="/subject">
+    <form method="get" action="${pageContext.request.contextPath}/subject">
         <table>
             <h1 class="form-style-2-heading">Subject list</h1>
             <th>name</th>
             <th>teachers</th>
             <th>modification</th>
+            <jsp:useBean id="allSubjects" scope="request" type="java.util.List"/>
             <c:forEach var="subject" items="${allSubjects}">
                 <tr>
                     <td>${subject.name}</td>
@@ -54,15 +48,15 @@
 <%--                        </c:forEach>--%>
                     </td>
                     <td>
-                        <a href="/subject?submit=edit&id=${subject.id}" title="edit ${subject.name}">edit</a> /
-                        <a href="/subject?submit=remove&id=${subject.id}" title="delete ${subject.name}">delete</a>
+                        <a href="${pageContext.request.contextPath}/subject?submit=edit&id=${subject.id}" title="edit ${subject.name}">edit</a> /
+                        <a href="${pageContext.request.contextPath}/subject?submit=remove&id=${subject.id}" title="delete ${subject.name}">delete</a>
                     </td>
                 </tr>
             </c:forEach>
         </table>
     </form>
 
-    <form method="post" action="/subject">
+    <form method="post" action="${pageContext.request.contextPath}/subject">
         <table>
             <h1 class="form-style-2-heading">Subject adding</h1>
             <th>name</th>

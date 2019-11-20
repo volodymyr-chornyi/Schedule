@@ -1,7 +1,9 @@
 package com.softserveacademy.dao;
 
+import com.softserveacademy.model.Event;
 import com.softserveacademy.model.Subject;
 import com.softserveacademy.service.exception.IncorrectAddingException;
+import com.softserveacademy.service.exception.RemoveException;
 import com.softserveacademy.service.util.JdbcService;
 import com.softserveacademy.model.Teacher;
 import org.apache.log4j.Logger;
@@ -40,7 +42,7 @@ public class TeacherDAO {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
         }
         return result;
     }
@@ -49,7 +51,6 @@ public class TeacherDAO {
         boolean result = false;
         PreparedStatement preparedStatement;
         if(contains(teacher)) {
-            logger.info("attempt to add an existing teacher");
             throw new IncorrectAddingException(teacher);
         } else {
             try {
@@ -64,8 +65,7 @@ public class TeacherDAO {
                     teacher.setId(resultSet.getInt(1));
                 }
             } catch (SQLException e) {
-                logger.error("database error while trying to add a new teacher");
-                e.printStackTrace();
+                logger.error(e.getMessage(), e);
             }
             result = true;
         }
@@ -82,27 +82,34 @@ public class TeacherDAO {
                 preparedStatement.setString(3, teacher.getLastName());
                 preparedStatement.setInt(4, teacher.getId());
                 preparedStatement.executeUpdate();
+                logger.info("teacher (id=" + teacher.getId() + ") data has been changed");
             } catch (SQLException e) {
-                e.printStackTrace();
+                logger.error(e.getMessage(), e);
             }
             result = true;
         return result;
     }
 
-    public boolean removeById(int id){
+    public boolean removeById(int id) throws RemoveException {
         boolean result = false;
-        try {
-            PreparedStatement ps = connection.prepareStatement("DELETE FROM teachers_subjects WHERE teacher_id = ?");
-            ps.setInt(1, id);
-            ps.executeUpdate();
-            PreparedStatement preparedStatement = connection.prepareStatement(REMOVE_BY_ID);
-            preparedStatement.setInt(1, id);
-            preparedStatement.executeUpdate();
-            logger.info("removed teacher with id=" + id);
-            result = true;
-        } catch (SQLException e) {
-            logger.error("database error while trying to remove teacher");
-            e.printStackTrace();
+        EventDAO eventDAO = new EventDAO();
+        Set<Event> events = eventDAO.findByTeacher(findById(id));
+        if(events.size() != 0){
+            throw new RemoveException("there are planned events for this teacher");
+        } else {
+            try {
+                PreparedStatement ps = connection.prepareStatement("DELETE FROM teachers_subjects WHERE teacher_id = ?");
+                ps.setInt(1, id);
+                ps.executeUpdate();
+                PreparedStatement preparedStatement = connection.prepareStatement(REMOVE_BY_ID);
+                preparedStatement.setInt(1, id);
+                preparedStatement.executeUpdate();
+                result = true;
+                logger.info("removed teacher with id=" + id);
+            } catch (SQLException e) {
+                logger.error(e.getMessage(), e);
+                e.printStackTrace();
+            }
         }
         return result;
     }
@@ -120,7 +127,7 @@ public class TeacherDAO {
                 teachers.add(teacher);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
         }
         return teachers;
     }
@@ -138,7 +145,7 @@ public class TeacherDAO {
                 return teacher;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
         }
         return null;
     }
@@ -156,7 +163,7 @@ public class TeacherDAO {
                 subjects.add(subject);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
         }
         return subjects;
     }

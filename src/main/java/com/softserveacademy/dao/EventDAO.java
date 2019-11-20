@@ -4,6 +4,7 @@ import com.softserveacademy.model.*;
 import com.softserveacademy.service.EventCreator;
 import com.softserveacademy.service.exception.IncorrectAddingException;
 import com.softserveacademy.service.util.JdbcService;
+import org.apache.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -21,6 +22,7 @@ public class EventDAO {
     private GroupDAO groupDAO = new GroupDAO();
     private RoomDAO roomDAO = new RoomDAO();
     private Event matchingEvent;
+    private static Logger logger = Logger.getLogger(EventDAO.class);
 
     private final String CONTAINS = "SELECT * FROM events";
     private final String ADD = "INSERT INTO events (day_of_week, number_event, teacher_id, subject_id, group_id, room_id) " +
@@ -66,7 +68,7 @@ public class EventDAO {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
         }
         return result;
     }
@@ -86,13 +88,14 @@ public class EventDAO {
                 preparedStatement.setInt(5, event.getGroup().getId());
                 preparedStatement.setInt(6, event.getRoom().getId());
                 preparedStatement.executeUpdate();
+                logger.info("a new event was added");
                 subjectDAO.addSubjectTeacher(event.getSubject(), event.getTeacher());
                 ResultSet resultSet = preparedStatement.getGeneratedKeys();
                 if(resultSet.next()){
                     event.setId(resultSet.getInt(1));
                 }
             } catch (SQLException e) {
-                e.printStackTrace();
+                logger.error(e.getMessage(), e);
             }
             result = true;
         }
@@ -112,8 +115,9 @@ public class EventDAO {
                 preparedStatement.setInt(6, event.getRoom().getId());
                 preparedStatement.setInt(7, event.getId());
                 preparedStatement.executeUpdate();
+                logger.info("event (id=" + event.getId() + ") data has been changed");
             } catch (SQLException e) {
-                e.printStackTrace();
+                logger.error(e.getMessage(), e);
             }
             result = true;
         return result;
@@ -126,17 +130,9 @@ public class EventDAO {
             preparedStatement.setInt(1, id);
             preparedStatement.executeUpdate();
             result = true;
+            logger.info("removed event with id=" + id);
         } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return result;
-    }
-
-    public boolean removeSeveral(Set<Event> events){
-        boolean result = false;
-        for (Event event: events) {
-            removeById(event.getId());
-            result = true;
+            logger.error(e.getMessage(), e);
         }
         return result;
     }
@@ -159,7 +155,7 @@ public class EventDAO {
                 events.add(event);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
         }
         return events;
     }
@@ -182,7 +178,7 @@ public class EventDAO {
                 event.setId(id);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
         }
         return event;
     }
@@ -206,7 +202,7 @@ public class EventDAO {
                 events.add(currentEvent);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
         }
         return events;
     }
@@ -230,7 +226,7 @@ public class EventDAO {
                 events.add(currentEvent);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
         }
         return events;
     }
@@ -254,7 +250,7 @@ public class EventDAO {
                 events.add(currentEvent);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
         }
         return events;
     }
@@ -280,7 +276,7 @@ public class EventDAO {
                 events.add(currentEvent);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
         }
         return events;
     }
@@ -305,7 +301,7 @@ public class EventDAO {
                 events.add(currentEvent);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
         }
         return events;
     }
@@ -331,7 +327,7 @@ public class EventDAO {
                 events.add(currentEvent);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
         }
         return events;
     }
@@ -356,7 +352,7 @@ public class EventDAO {
                 events.add(currentEvent);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
         }
         return events;
     }
@@ -382,7 +378,7 @@ public class EventDAO {
                 events.add(currentEvent);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
         }
         return events;
     }
@@ -406,7 +402,7 @@ public class EventDAO {
                 events.add(currentEvent);
             }
         } catch (SQLException e) {
-            e.printStackTrace();;
+            logger.error(e.getMessage(), e);
         }
         return events;
     }
@@ -432,7 +428,7 @@ public class EventDAO {
                 events.add(currentEvent);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
         }
         return events;
     }

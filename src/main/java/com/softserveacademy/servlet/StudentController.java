@@ -5,6 +5,7 @@ import com.softserveacademy.dao.StudentDAO;
 import com.softserveacademy.model.Group;
 import com.softserveacademy.model.Student;
 import com.softserveacademy.service.exception.IncorrectAddingException;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -19,6 +20,7 @@ public class StudentController extends HttpServlet {
 
     StudentDAO studentDAO = new StudentDAO();
     GroupDAO groupDAO = new GroupDAO();
+    private static Logger logger = Logger.getLogger(StudentController.class);
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (request.getParameter("id") == null || request.getParameter("id").isEmpty()) {
@@ -60,7 +62,7 @@ public class StudentController extends HttpServlet {
         try {
             studentDAO.add(student);
         } catch (IncorrectAddingException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
         }
     }
 
@@ -75,11 +77,7 @@ public class StudentController extends HttpServlet {
             student.setAge(age);
             student.setId(id);
             student.setGroup(group);
-            try {
-                studentDAO.update(student);
-            } catch (IncorrectAddingException e) {
-                e.printStackTrace();
-            }
+            studentDAO.update(student);
         }
     }
 

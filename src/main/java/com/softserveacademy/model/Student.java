@@ -38,7 +38,7 @@ public class Student implements Comparable<Student>{
     }
 
     public String getName() {
-        return firstName + " " + lastName;
+        return lastName + " " + firstName;
     }
 
     public String getFirstName() {

@@ -95,5 +95,43 @@
                     </tr>
                 </table>
         </form>
+
+<%--        <form method="get" action="${pageContext.request.contextPath}/teacher">--%>
+<%--            <table>--%>
+<%--                <h1 class="form-style-2-heading"></h1>--%>
+<%--                <h1 class="form-style-2-heading">Add subject to teacher</h1>--%>
+<%--                <tr>--%>
+<%--                    <th></th>--%>
+<%--                    <td><h3>Add subject to teacher:</h3></td>--%>
+<%--                </tr>--%>
+<%--                <tr>--%>
+<%--                    <th>teacher</th>--%>
+<%--                    <td>--%>
+<%--                        <select name="teacher">--%>
+<%--                            <c:forEach var="teacher" items="${allTeachers}">--%>
+<%--                                <option value="${teacher.id}">${teacher.name}</option>--%>
+<%--                            </c:forEach>--%>
+<%--                        </select>--%>
+<%--                    </td>--%>
+<%--                </tr>--%>
+<%--                <tr>--%>
+<%--                    <th>subject</th>--%>
+<%--                    <td>--%>
+<%--                        <select name="subject">--%>
+<%--                            <c:forEach var="subject" items="${allSubjects}">--%>
+<%--                                <option value="${subject.id}">${subject.name}</option>--%>
+<%--                            </c:forEach>--%>
+<%--                        </select>--%>
+<%--                    </td>--%>
+<%--                </tr>--%>
+<%--                <tr>--%>
+<%--                    <th></th>--%>
+<%--                    <td>--%>
+<%--                        <a href="${pageContext.request.contextPath}/teacher?submit=addsubject&id=${teacher.id}">teach</a>--%>
+<%--                    </td>--%>
+<%--                </tr>--%>
+<%--            </table>--%>
+<%--        </form>--%>
+
     </body>
 </html>

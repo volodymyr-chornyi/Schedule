@@ -121,6 +121,8 @@ public class GroupDAO {
             while (resultSet.next()) {
                 Group group = new Group(resultSet.getString("name"));
                 group.setId(resultSet.getInt("id"));
+                StudentDAO studentDAO = new StudentDAO();
+                group.addStudent(studentDAO.findByGroup(group));
                 groups.add(group);
             }
         } catch (SQLException e) {

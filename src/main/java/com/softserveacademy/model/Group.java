@@ -40,7 +40,7 @@ public class Group implements Comparable<Group>{
 
     public String getStudentsToString() {
         return getStudents().stream()
-                .map(student -> student.getName())
+                .map(Student::getName)
                 .sorted()
                 .collect(Collectors.joining(", ", "", ""));
     }

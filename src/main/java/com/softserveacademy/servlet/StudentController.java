@@ -25,10 +25,10 @@ public class StudentController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (request.getParameter("id") == null || request.getParameter("id").isEmpty()) {
             add(request);
-            response.sendRedirect("/studentlist");
+            response.sendRedirect("studentlist");
         } else {
             update(request);
-            response.sendRedirect("/studentlist");
+            response.sendRedirect("studentlist");
         }
     }
 
@@ -62,7 +62,7 @@ public class StudentController extends HttpServlet {
         try {
             studentDAO.add(student);
         } catch (IncorrectAddingException e) {
-            logger.error(e.getMessage(), e);
+            logger.error(e);
         }
     }
 

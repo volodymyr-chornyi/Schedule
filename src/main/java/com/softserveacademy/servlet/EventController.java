@@ -18,12 +18,12 @@ import java.util.stream.Collectors;
 
 public class EventController extends HttpServlet {
 
-    EventDAO eventDAO = new EventDAO();
-    TeacherDAO teacherDAO = new TeacherDAO();
-    SubjectDAO subjectDAO = new SubjectDAO();
-    GroupDAO groupDAO = new GroupDAO();
-    RoomDAO roomDAO = new RoomDAO();
-    EventCreator eventCreator;
+    final EventDAO eventDAO = new EventDAO();
+    final TeacherDAO teacherDAO = new TeacherDAO();
+    final SubjectDAO subjectDAO = new SubjectDAO();
+    final GroupDAO groupDAO = new GroupDAO();
+    final RoomDAO roomDAO = new RoomDAO();
+    private EventCreator eventCreator;
     private static Logger logger = Logger.getLogger(EventController.class);
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -31,16 +31,16 @@ public class EventController extends HttpServlet {
             try {
                 add(request);
             } catch (IncorrectAddingException e) {
-                logger.error(e.getMessage(), e);
+                logger.error(e);
             }
-            response.sendRedirect("/eventlist");
+            response.sendRedirect("eventlist");
         } else {
             try {
                 update(request);
             } catch (IncorrectAddingException e) {
-                logger.error(e.getMessage(), e);
+                logger.error(e);
             }
-            response.sendRedirect("/eventlist");
+            response.sendRedirect("eventlist");
         }
     }
 
@@ -95,7 +95,7 @@ public class EventController extends HttpServlet {
             try {
                 eventDAO.add(event);
             } catch (IncorrectAddingException e) {
-                logger.error(e.getMessage(), e);
+                logger.error(e);
             }
         } else throw new IncorrectAddingException(teacher, subject);
     }
@@ -121,11 +121,7 @@ public class EventController extends HttpServlet {
                         .setRoom(roomDAO.findById(roomId))
                         .create();
                 event.setId(id);
-                try {
-                    eventDAO.update(event);
-                } catch (IncorrectAddingException e) {
-                    logger.error(e.getMessage(), e);
-                }
+                eventDAO.update(event);
             } else throw new IncorrectAddingException(teacher, subject);
         }
     }

@@ -33,16 +33,16 @@ public class GroupController extends HttpServlet {
             try {
                 remove(request);
             } catch (RemoveException e) {
-                logger.error(e.getMessage(), e);
+                logger.error(e);
             }
-            request.getRequestDispatcher("/grouplist").forward(request, response);
+            request.getRequestDispatcher("grouplist").forward(request, response);
         }
         if ("edit".equalsIgnoreCase(submit)) {
             int groupId = Integer.parseInt(request.getParameter("id"));
             Group group = groupDAO.findById(groupId);
             group.addStudent(groupDAO.showStudents(group));
             request.setAttribute("group", group);
-            request.getRequestDispatcher("/groupupdate").forward(request, response);
+            request.getRequestDispatcher("groupupdate").forward(request, response);
         }
     }
 
@@ -52,7 +52,7 @@ public class GroupController extends HttpServlet {
         try {
             groupDAO.add(group);
         } catch (IncorrectAddingException e) {
-            logger.error(e.getMessage(), e);
+            logger.error(e);
         }
     }
 

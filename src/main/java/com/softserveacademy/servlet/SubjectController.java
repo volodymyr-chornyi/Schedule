@@ -20,14 +20,14 @@ public class SubjectController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         if (request.getParameter("id") == null || request.getParameter("id").isEmpty()) {
             add(request);
-            response.sendRedirect("/subjectlist");
+            response.sendRedirect("subjectlist");
         } else {
             try {
                 update(request);
             } catch (IncorrectAddingException e) {
-                logger.error(e.getMessage(), e);
+                logger.error(e);
             }
-            response.sendRedirect("/subjectlist");
+            response.sendRedirect("subjectlist");
         }
     }
 
@@ -37,7 +37,7 @@ public class SubjectController extends HttpServlet {
             try {
                 remove(request);
             } catch (RemoveException e) {
-                logger.error(e.getMessage(), e);
+                logger.error(e);
             }
             request.getRequestDispatcher("/subjectlist").forward(request, response);
         }
@@ -56,7 +56,7 @@ public class SubjectController extends HttpServlet {
         try {
             subjectDAO.add(subject);
         } catch (IncorrectAddingException e) {
-            logger.error(e.getMessage(), e);
+            logger.error(e);
         }
     }
 

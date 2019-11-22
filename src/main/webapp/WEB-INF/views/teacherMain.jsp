@@ -96,7 +96,7 @@
                 </table>
         </form>
 
-<%--        <form method="get" action="${pageContext.request.contextPath}/teacher">--%>
+<%--        <form method="post" action="${pageContext.request.contextPath}/teacher">--%>
 <%--            <table>--%>
 <%--                <h1 class="form-style-2-heading"></h1>--%>
 <%--                <h1 class="form-style-2-heading">Add subject to teacher</h1>--%>
@@ -109,7 +109,7 @@
 <%--                    <td>--%>
 <%--                        <select name="teacher">--%>
 <%--                            <c:forEach var="teacher" items="${allTeachers}">--%>
-<%--                                <option value="${teacher.id}">${teacher.name}</option>--%>
+<%--                                <option>${teacher.lastName} ${teacher.firstName}</option>--%>
 <%--                            </c:forEach>--%>
 <%--                        </select>--%>
 <%--                    </td>--%>
@@ -119,7 +119,7 @@
 <%--                    <td>--%>
 <%--                        <select name="subject">--%>
 <%--                            <c:forEach var="subject" items="${allSubjects}">--%>
-<%--                                <option value="${subject.id}">${subject.name}</option>--%>
+<%--                                <option>${subject.name}</option>--%>
 <%--                            </c:forEach>--%>
 <%--                        </select>--%>
 <%--                    </td>--%>
@@ -127,7 +127,8 @@
 <%--                <tr>--%>
 <%--                    <th></th>--%>
 <%--                    <td>--%>
-<%--                        <a href="${pageContext.request.contextPath}/teacher?submit=addsubject&id=${teacher.id}">teach</a>--%>
+<%--                        <input type="submit" name="teach" style="cursor: pointer" value=" teach " title="add">--%>
+<%--                    &lt;%&ndash;                        <a href="${pageContext.request.contextPath}/teacher?submit=addsubject&id=${teacher.id}">teach</a>&ndash;%&gt;--%>
 <%--                    </td>--%>
 <%--                </tr>--%>
 <%--            </table>--%>

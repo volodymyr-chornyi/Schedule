@@ -12,9 +12,12 @@ gradlew
 build/
 gradle/
 garbage/
-/src/main/java/com/softserveacademy/objectgenerator/
 out/
 img/
 libs/
 
 Schedule.iml
+
+HibernateUtil.java
+SessionUtil.java
+hibernate.cfg.xml

@@ -45,7 +45,7 @@ public class GroupDAO {
                 }
             }
         } catch (SQLException e) {
-            logger.error(e.getMessage(), e);
+            logger.error(e);
         }
         return result;
     }
@@ -66,7 +66,7 @@ public class GroupDAO {
                     group.setId(resultSet.getInt(1));
                 }
             } catch (SQLException e) {
-                logger.error(e.getMessage(), e);
+                logger.error(e);
             }
             result = true;
         }
@@ -83,7 +83,7 @@ public class GroupDAO {
                 preparedStatement.executeUpdate();
                 logger.info("group (id=" + group.getId() + ") data has been changed");
             } catch (SQLException e) {
-                logger.error(e.getMessage(), e);
+                logger.error(e);
             }
             result = true;
         return result;
@@ -107,7 +107,7 @@ public class GroupDAO {
                 logger.info("removed group with id=" + id);
                 result = true;
             } catch (SQLException e) {
-                logger.error(e.getMessage(), e);
+                logger.error(e);
             }
         }
         return result;
@@ -126,7 +126,7 @@ public class GroupDAO {
                 groups.add(group);
             }
         } catch (SQLException e) {
-            logger.error(e.getMessage(), e);
+            logger.error(e);
         }
         return groups;
     }
@@ -142,7 +142,7 @@ public class GroupDAO {
                 return group;
             }
         } catch (SQLException e) {
-            logger.error(e.getMessage(), e);
+            logger.error(e);
         }
         return null;
     }
@@ -158,7 +158,7 @@ public class GroupDAO {
                 group.setId(resultSet.getInt("id"));
             }
         } catch (SQLException e) {
-            logger.error(e.getMessage(), e);
+            logger.error(e);
         }
         return group;
     }
@@ -178,7 +178,7 @@ public class GroupDAO {
                 students.add(student);
             }
         } catch (SQLException e) {
-            logger.error(e.getMessage(), e);
+            logger.error(e);
         }
         return students;
     }

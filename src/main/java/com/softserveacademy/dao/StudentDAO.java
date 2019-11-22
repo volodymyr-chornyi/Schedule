@@ -45,7 +45,7 @@ public class StudentDAO {
                 }
             }
         } catch (SQLException e) {
-            logger.error(e.getMessage(), e);
+            logger.error(e);
         }
         return result;
     }
@@ -69,7 +69,7 @@ public class StudentDAO {
                     student.setId(resultSet.getInt(1));
                 }
             } catch (SQLException e) {
-                logger.error(e.getMessage(), e);
+                logger.error(e);
             }
             result = true;
         }
@@ -89,7 +89,7 @@ public class StudentDAO {
                 preparedStatement.executeUpdate();
                 logger.info("student (id=" + student.getId() + ") data has been changed");
             } catch (SQLException e) {
-                logger.error(e.getMessage(), e);
+                logger.error(e);
             }
             result = true;
         return result;
@@ -104,7 +104,7 @@ public class StudentDAO {
             logger.info("removed student with id=" + id);
             result = true;
         } catch (SQLException e) {
-            logger.error(e.getMessage(), e);
+            logger.error(e);
         }
         return result;
     }
@@ -123,7 +123,7 @@ public class StudentDAO {
                 students.add(student);
             }
         } catch (SQLException e) {
-            logger.error(e.getMessage(), e);
+            logger.error(e);
         }
         return students;
     }
@@ -143,7 +143,7 @@ public class StudentDAO {
                 students.add(student);
             }
         } catch (SQLException e) {
-            logger.error(e.getMessage(), e);
+            logger.error(e);
         }
         return students;
     }
@@ -162,7 +162,7 @@ public class StudentDAO {
                 return student;
             }
         } catch (SQLException e) {
-            logger.error(e.getMessage(), e);
+            logger.error(e);
         }
         return null;
     }

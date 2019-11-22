@@ -68,7 +68,7 @@ public class EventDAO {
                 }
             }
         } catch (SQLException e) {
-            logger.error(e.getMessage(), e);
+            logger.error(e);
         }
         return result;
     }
@@ -95,14 +95,14 @@ public class EventDAO {
                     event.setId(resultSet.getInt(1));
                 }
             } catch (SQLException e) {
-                logger.error(e.getMessage(), e);
+                logger.error(e);
             }
             result = true;
         }
         return result;
     }
 
-    public boolean update(Event event) throws IncorrectAddingException {
+    public boolean update(Event event) {
         boolean result = false;
         PreparedStatement preparedStatement;
             try {
@@ -117,7 +117,7 @@ public class EventDAO {
                 preparedStatement.executeUpdate();
                 logger.info("event (id=" + event.getId() + ") data has been changed");
             } catch (SQLException e) {
-                logger.error(e.getMessage(), e);
+                logger.error(e);
             }
             result = true;
         return result;
@@ -132,7 +132,7 @@ public class EventDAO {
             result = true;
             logger.info("removed event with id=" + id);
         } catch (SQLException e) {
-            logger.error(e.getMessage(), e);
+            logger.error(e);
         }
         return result;
     }
@@ -155,7 +155,7 @@ public class EventDAO {
                 events.add(event);
             }
         } catch (SQLException e) {
-            logger.error(e.getMessage(), e);
+            logger.error(e);
         }
         return events;
     }
@@ -178,7 +178,7 @@ public class EventDAO {
                 event.setId(id);
             }
         } catch (SQLException e) {
-            logger.error(e.getMessage(), e);
+            logger.error(e);
         }
         return event;
     }
@@ -202,7 +202,7 @@ public class EventDAO {
                 events.add(currentEvent);
             }
         } catch (SQLException e) {
-            logger.error(e.getMessage(), e);
+            logger.error(e);
         }
         return events;
     }
@@ -226,7 +226,7 @@ public class EventDAO {
                 events.add(currentEvent);
             }
         } catch (SQLException e) {
-            logger.error(e.getMessage(), e);
+            logger.error(e);
         }
         return events;
     }
@@ -250,7 +250,7 @@ public class EventDAO {
                 events.add(currentEvent);
             }
         } catch (SQLException e) {
-            logger.error(e.getMessage(), e);
+            logger.error(e);
         }
         return events;
     }
@@ -276,7 +276,7 @@ public class EventDAO {
                 events.add(currentEvent);
             }
         } catch (SQLException e) {
-            logger.error(e.getMessage(), e);
+            logger.error(e);
         }
         return events;
     }
@@ -301,7 +301,7 @@ public class EventDAO {
                 events.add(currentEvent);
             }
         } catch (SQLException e) {
-            logger.error(e.getMessage(), e);
+            logger.error(e);
         }
         return events;
     }
@@ -327,7 +327,7 @@ public class EventDAO {
                 events.add(currentEvent);
             }
         } catch (SQLException e) {
-            logger.error(e.getMessage(), e);
+            logger.error(e);
         }
         return events;
     }
@@ -352,7 +352,7 @@ public class EventDAO {
                 events.add(currentEvent);
             }
         } catch (SQLException e) {
-            logger.error(e.getMessage(), e);
+            logger.error(e);
         }
         return events;
     }
@@ -378,7 +378,7 @@ public class EventDAO {
                 events.add(currentEvent);
             }
         } catch (SQLException e) {
-            logger.error(e.getMessage(), e);
+            logger.error(e);
         }
         return events;
     }
@@ -402,7 +402,7 @@ public class EventDAO {
                 events.add(currentEvent);
             }
         } catch (SQLException e) {
-            logger.error(e.getMessage(), e);
+            logger.error(e);
         }
         return events;
     }
@@ -428,7 +428,7 @@ public class EventDAO {
                 events.add(currentEvent);
             }
         } catch (SQLException e) {
-            logger.error(e.getMessage(), e);
+            logger.error(e);
         }
         return events;
     }

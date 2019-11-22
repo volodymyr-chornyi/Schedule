@@ -1,27 +1,53 @@
 package com.softserveacademy.model;
 
+import javax.persistence.*;
+import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+@Entity
+@Table(name = "teacher")
 public class Teacher implements Comparable<Teacher>{
 
-    @NotNull
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "id")
     private int id;
+
     @Min(value = 20)
+    @Max(value = 99)
+    @Column(name = "age")
     private int age;
+
     @NotNull
+    @Pattern(regexp = "^[a-zA-Z]{2,}'?-?")
+    @Column(name = "firstName")
     private String firstName;
+
     @NotNull
+    @Pattern(regexp = "^[a-zA-Z]{2,}'?-?")
+    @Column(name = "lastName")
     private String lastName;
+
+    @ManyToMany(cascade = { CascadeType.ALL })
+    @JoinTable(
+            name = "teacher_subject",
+            joinColumns = { @JoinColumn(name = "teacher_id") },
+            inverseJoinColumns = { @JoinColumn(name = "subject_id") }
+            )
     private Set <Subject> subjects = new HashSet<>();
 
     public Teacher(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
+    }
+
+    public Teacher() {
     }
 
     public int getId() {

@@ -1,17 +1,36 @@
 package com.softserveacademy.model;
 
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.util.Objects;
 
+@Entity
+@Table(name = "room")
 public class Room implements Comparable<Room>{
 
-    @NotNull private int id;
-    @NotNull private String buildingNumber;
-    @NotNull private String name;
+    @NotNull
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "id")
+    private int id;
+
+    @NotNull
+    @Pattern(regexp = "^[a-zA-Z]{2,},?'?-?")
+    @Column(name = "buildingNumber")
+    private String buildingNumber;
+
+    @NotNull
+    @Pattern(regexp = "^[a-zA-Z]{2,}'?-?")
+    @Column(name = "name")
+    private String name;
 
     public Room(String buildingNumber, String name) {
         this.buildingNumber = buildingNumber;
         this.name = name;
+    }
+
+    public Room() {
     }
 
     public int getId() {

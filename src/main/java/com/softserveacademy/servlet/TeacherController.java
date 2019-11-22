@@ -23,10 +23,10 @@ public class TeacherController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (request.getParameter("id") == null || request.getParameter("id").isEmpty()) {
             add(request);
-            response.sendRedirect("/teacherlist");
+            response.sendRedirect("teacherlist");
         } else {
             update(request);
-            response.sendRedirect("/teacherlist");
+            response.sendRedirect("teacherlist");
         }
     }
 
@@ -36,7 +36,7 @@ public class TeacherController extends HttpServlet {
             try {
                 remove(request);
             } catch (RemoveException e) {
-                logger.error(e.getMessage(), e);
+                logger.error(e);
             }
             request.getRequestDispatcher("/teacherlist").forward(request, response);
         }
@@ -59,7 +59,7 @@ public class TeacherController extends HttpServlet {
         try {
             teacherDAO.add(teacher);
         } catch (IncorrectAddingException e) {
-            logger.error(e.getMessage(), e);
+            logger.error(e);
         }
         if (subject != null)
             subjectDAO.addSubjectTeacher(subject, teacher);
@@ -74,11 +74,7 @@ public class TeacherController extends HttpServlet {
             Teacher teacher = new Teacher(firstName, lastName);
             teacher.setAge(age);
             teacher.setId(id);
-            try {
-                teacherDAO.update(teacher);
-            } catch (IncorrectAddingException e) {
-                logger.error(e.getMessage(), e);
-            }
+            teacherDAO.update(teacher);
         }
     }
 

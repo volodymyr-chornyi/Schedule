@@ -1,19 +1,35 @@
 package com.softserveacademy.model;
 
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+@Entity
+@Table(name = "subject")
 public class Subject implements Comparable<Subject>{
 
-    @NotNull private int id;
-    @NotNull private String name;
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "id")
+    private int id;
+
+    @NotNull
+    @Pattern(regexp = "^[a-zA-Z]{2,}'?-?")
+    @Column(name = "name")
+    private String name;
+
+    @ManyToMany(mappedBy = "subjects")
     private Set<Teacher> teachers = new HashSet<>();
 
     public Subject(String name) {
         this.name = name;
+    }
+
+    public Subject() {
     }
 
     public int getId() {

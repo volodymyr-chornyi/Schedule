@@ -20,7 +20,7 @@ public class TableEditor {
             Statement statement = connection.createStatement();
             statement.executeUpdate(sql);
         } catch (SQLException e) {
-            logger.error(e.getMessage(), e);
+            logger.error(e);
         }
     }
 }

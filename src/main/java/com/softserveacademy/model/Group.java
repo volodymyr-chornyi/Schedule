@@ -1,21 +1,36 @@
 package com.softserveacademy.model;
 
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+@Entity
+@Table(name = "groups")
 public class Group implements Comparable<Group>{
 
     @NotNull
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "id")
     private int id;
+
     @NotNull
+    @Pattern(regexp = "^[a-zA-Z]{2,}'?-?")
+    @Column(name = "name")
     private String name;
+
+    @OneToMany(mappedBy = "group")
     private transient Set<Student> students = new HashSet<>();
 
     public Group(String name) {
         this.name = name;
+    }
+
+    public Group() {
     }
 
     public int getId() {

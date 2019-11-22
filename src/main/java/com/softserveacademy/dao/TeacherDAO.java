@@ -42,7 +42,7 @@ public class TeacherDAO {
                 }
             }
         } catch (SQLException e) {
-            logger.error(e.getMessage(), e);
+            logger.error(e);
         }
         return result;
     }
@@ -65,14 +65,14 @@ public class TeacherDAO {
                     teacher.setId(resultSet.getInt(1));
                 }
             } catch (SQLException e) {
-                logger.error(e.getMessage(), e);
+                logger.error(e);
             }
             result = true;
         }
         return result;
     }
 
-    public boolean update(Teacher teacher) throws IncorrectAddingException {
+    public boolean update(Teacher teacher) {
         boolean result = false;
             PreparedStatement preparedStatement;
             try {
@@ -84,7 +84,7 @@ public class TeacherDAO {
                 preparedStatement.executeUpdate();
                 logger.info("teacher (id=" + teacher.getId() + ") data has been changed");
             } catch (SQLException e) {
-                logger.error(e.getMessage(), e);
+                logger.error(e);
             }
             result = true;
         return result;
@@ -107,8 +107,7 @@ public class TeacherDAO {
                 result = true;
                 logger.info("removed teacher with id=" + id);
             } catch (SQLException e) {
-                logger.error(e.getMessage(), e);
-                e.printStackTrace();
+                logger.error(e);
             }
         }
         return result;
@@ -127,7 +126,7 @@ public class TeacherDAO {
                 teachers.add(teacher);
             }
         } catch (SQLException e) {
-            logger.error(e.getMessage(), e);
+            logger.error(e);
         }
         return teachers;
     }
@@ -145,7 +144,7 @@ public class TeacherDAO {
                 return teacher;
             }
         } catch (SQLException e) {
-            logger.error(e.getMessage(), e);
+            logger.error(e);
         }
         return null;
     }
@@ -163,7 +162,7 @@ public class TeacherDAO {
                 subjects.add(subject);
             }
         } catch (SQLException e) {
-            logger.error(e.getMessage(), e);
+            logger.error(e);
         }
         return subjects;
     }

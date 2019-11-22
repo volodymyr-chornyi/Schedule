@@ -20,10 +20,10 @@ public class RoomController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (request.getParameter("id") == null || request.getParameter("id").isEmpty()) {
             add(request);
-            response.sendRedirect("/roomlist");
+            response.sendRedirect("roomlist");
         } else {
             update(request);
-            response.sendRedirect("/roomlist");
+            response.sendRedirect("roomlist");
         }
     }
 
@@ -33,7 +33,7 @@ public class RoomController extends HttpServlet {
             try {
                 remove(request);
             } catch (RemoveException e) {
-                logger.error(e.getMessage(), e);
+                logger.error(e);
             }
             request.getRequestDispatcher("/roomlist").forward(request, response);
         }
@@ -52,7 +52,7 @@ public class RoomController extends HttpServlet {
         try {
             roomDAO.add(room);
         } catch (IncorrectAddingException e) {
-            logger.error(e.getMessage(), e);
+            logger.error(e);
         }
     }
 

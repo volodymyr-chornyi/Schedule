@@ -1,24 +1,46 @@
 package com.softserveacademy.model;
 
+import javax.persistence.*;
+import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.util.Objects;
 
+@Entity
+@Table(name = "student")
 public class Student implements Comparable<Student>{
 
-    @NotNull
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "id")
     private int id;
-    @Min(value = 16)
+
+    @Min(value = 20)
+    @Max(value = 99)
+    @Column(name = "age")
     private int age;
+
     @NotNull
+    @Pattern(regexp = "^[a-zA-Z]{2,}'?-?")
+    @Column(name = "firstName")
     private String firstName;
+
     @NotNull
+    @Pattern(regexp = "^[a-zA-Z]{2,}'?-?")
+    @Column(name = "lastName")
     private String lastName;
+
+    @ManyToOne
+    @JoinColumn(name="group_id", nullable=false)
     private Group group;
 
     public Student(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
+    }
+
+    public Student() {
     }
 
     public int getId() {

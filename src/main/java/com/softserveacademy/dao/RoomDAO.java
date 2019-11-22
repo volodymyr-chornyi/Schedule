@@ -43,7 +43,7 @@ public class RoomDAO {
                 }
             }
         } catch (SQLException e) {
-            logger.error(e.getMessage(), e);
+            logger.error(e);
         }
         return result;
     }
@@ -65,7 +65,7 @@ public class RoomDAO {
                     room.setId(resultSet.getInt(1));
                 }
             } catch (SQLException e) {
-                logger.error(e.getMessage(), e);
+                logger.error(e);
             }
             result = true;
         }
@@ -83,7 +83,7 @@ public class RoomDAO {
                 preparedStatement.executeUpdate();
                 logger.info("room (id=" + room.getId() + ") data has been changed");
             } catch (SQLException e) {
-                logger.error(e.getMessage(), e);
+                logger.error(e);
             }
             result = true;
         return result;
@@ -103,7 +103,7 @@ public class RoomDAO {
                 result = true;
                 logger.info("removed room with id=" + id);
             } catch (SQLException e) {
-                logger.error(e.getMessage(), e);
+                logger.error(e);
             }
         }
         return result;
@@ -121,7 +121,7 @@ public class RoomDAO {
                 rooms.add(room);
             }
         } catch (SQLException e) {
-            logger.error(e.getMessage(), e);
+            logger.error(e);
         }
         return rooms;
     }
@@ -138,7 +138,7 @@ public class RoomDAO {
                 return room;
             }
         } catch (SQLException e) {
-            logger.error(e.getMessage(), e);
+            logger.error(e);
         }
         return null;
     }

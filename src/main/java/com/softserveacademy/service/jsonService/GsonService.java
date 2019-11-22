@@ -24,7 +24,7 @@ public class GsonService {
         try(FileWriter fileWriter = new FileWriter(file);) {
             gson.toJson(eventList, fileWriter);
         } catch (IOException e) {
-            logger.error(e.getMessage(), e);
+            logger.error(e);
         }
     }
 

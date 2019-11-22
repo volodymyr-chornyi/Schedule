@@ -1,18 +1,43 @@
 package com.softserveacademy.model;
 
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.DayOfWeek;
 import java.util.Objects;
 
+@Entity
+@Table(name = "event")
 public class Event implements Comparable<Event>{
 
-    @NotNull private int id;
-    @NotNull private DayOfWeek dayOfWeek;
-    @NotNull private NumberEvent numberEvent;
-    @NotNull private Teacher teacher;
-    @NotNull private Group group;
-    @NotNull private Subject subject;
-    @NotNull private Room room;
+    @NotNull
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "id")
+    private int id;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "dayOfWeek")
+    private DayOfWeek dayOfWeek;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "numberEvent")
+    private NumberEvent numberEvent;
+
+    @ManyToOne
+    @JoinColumn(name="teacher_id", nullable=false)
+    private Teacher teacher;
+
+    @ManyToOne
+    @JoinColumn(name="group_id", nullable=false)
+    private Group group;
+
+    @ManyToOne
+    @JoinColumn(name="subject_id", nullable=false)
+    private Subject subject;
+
+    @ManyToOne
+    @JoinColumn(name="room_id", nullable=false)
+    private Room room;
 
     public int getId() {
         return id;

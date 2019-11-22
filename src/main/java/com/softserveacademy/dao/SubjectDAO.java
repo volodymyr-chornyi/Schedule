@@ -43,7 +43,7 @@ public class SubjectDAO {
                 }
             }
         } catch (SQLException e) {
-            logger.error(e.getMessage(), e);
+            logger.error(e);
         }
         return result;
     }
@@ -64,7 +64,7 @@ public class SubjectDAO {
                     subject.setId(resultSet.getInt(1));
                 }
             } catch (SQLException e) {
-                logger.error(e.getMessage(), e);
+                logger.error(e);
             }
             result = true;
         }
@@ -81,7 +81,7 @@ public class SubjectDAO {
                 preparedStatement.executeUpdate();
                 logger.info("subject (id=" + subject.getId() + ") data has been changed");
             } catch (SQLException e) {
-                logger.error(e.getMessage(), e);
+                logger.error(e);
             }
             result = true;
         return result;
@@ -104,7 +104,7 @@ public class SubjectDAO {
                 result = true;
                 logger.info("removed subject with id=" + id);
             } catch (SQLException e) {
-                logger.error(e.getMessage(), e);
+                logger.error(e);
             }
         }
         return result;
@@ -121,7 +121,7 @@ public class SubjectDAO {
                 subjects.add(subject);
             }
         } catch (SQLException e) {
-            logger.error(e.getMessage(), e);
+            logger.error(e);
         }
         return subjects;
     }
@@ -137,7 +137,7 @@ public class SubjectDAO {
                 return subject;
             }
         } catch (SQLException e) {
-            logger.error(e.getMessage(), e);
+            logger.error(e);
         }
         return null;
     }
@@ -153,7 +153,7 @@ public class SubjectDAO {
                 subject.setId(resultSet.getInt("id"));
             }
         } catch (SQLException e) {
-            logger.error(e.getMessage(), e);
+            logger.error(e);
         }
         return subject;
     }
@@ -174,7 +174,7 @@ public class SubjectDAO {
             }
             return teachers;
         } catch (SQLException e) {
-            logger.error(e.getMessage(), e);
+            logger.error(e);
         }
         return null;
     }
@@ -190,7 +190,7 @@ public class SubjectDAO {
                 preparedStatement.executeUpdate();
                 result = true;
             } catch (SQLException e) {
-                logger.error(e.getMessage(), e);
+                logger.error(e);
             }
         }
         return result;
